@@ -53,6 +53,7 @@
     <Compile Include="ObjectTransformation\ObjectListTransformation.cs" />
     <Compile Include="ObjectTransformation\ObjectTransformation.cs" />
     <Compile Include="ObjectTransformation\SetPropertyException.cs" />
+    <Compile Include="Okoa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleTypeTransformations\BooleanTransformation.cs" />
     <Compile Include="SimpleTypeTransformations\DateTimeTransformation.cs" />

@@ -6,16 +6,18 @@ namespace CherrySeed.EntitySettings
 {
     public class PrimaryKeySetting
     {
-        public PrimaryKeySetting(Expression<Func<object, object>> primaryKeyMember)
-        {
-            PrimaryKeyName = ReflectionUtil.GetMemberName(primaryKeyMember);
-        }
+        public string PrimaryKeyName { get; set; }
 
         public PrimaryKeySetting(string primaryKeyName)
         {
             PrimaryKeyName = primaryKeyName;
         }
+    }
 
-        public string PrimaryKeyName { get; set; }
+    public class PrimaryKeySetting<T> : PrimaryKeySetting
+    {
+        public PrimaryKeySetting(Expression<Func<T, object>> primaryKeyMember)
+            : base(ReflectionUtil.GetMemberName(primaryKeyMember))
+        { }
     }
 }

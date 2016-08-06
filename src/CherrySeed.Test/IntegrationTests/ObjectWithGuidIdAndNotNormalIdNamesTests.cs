@@ -102,8 +102,8 @@ namespace CherrySeed.Test.IntegrationTests
                 cfg.ForEntity(typeof (Address3));
                     
                 cfg.ForEntity(typeof(Person3))
-                    .WithPrimaryKey(e => ((Person3)e).PersonId)
-                    .WithReference(p => ((Person3)p).AddressId, typeof(Address3));
+                    .WithPrimaryKey<Person3>(e => e.PersonId)
+                    .WithReference<Person3>(p => p.AddressId, typeof(Address3));
             });
             
             okoa.StartSeeding();

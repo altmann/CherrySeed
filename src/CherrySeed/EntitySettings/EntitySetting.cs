@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using CherrySeed.Repositories;
@@ -32,16 +33,16 @@ namespace CherrySeed.EntitySettings
             };
         }
 
-        public EntitySettingBuilder WithPrimaryKey(Expression<Func<object, object>> primaryKeyExpression)
+        public EntitySettingBuilder WithPrimaryKey<T>(Expression<Func<T, object>> primaryKeyExpression)
         {
-            _obj.PrimaryKey = new PrimaryKeySetting(primaryKeyExpression);
+            _obj.PrimaryKey = new PrimaryKeySetting<T>(primaryKeyExpression);
             return this;
         }
 
-        public EntitySettingBuilder WithReference(Expression<Func<object, object>> referenceExpression,
+        public EntitySettingBuilder WithReference<T>(Expression<Func<T, object>> referenceExpression,
             Type referenceEntity)
         {
-            _obj.References.Add(new ReferenceSetting(referenceExpression, referenceEntity));
+            _obj.References.Add(new ReferenceSetting<T>(referenceExpression, referenceEntity));
             return this;
         }
 

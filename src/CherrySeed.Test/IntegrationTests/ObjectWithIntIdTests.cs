@@ -73,7 +73,7 @@ namespace CherrySeed.Test.IntegrationTests
         [TestMethod]
         public void ObjectWithIntId()
         {
-            var okoa = new CherrySeed.CherrySeeder();
+            var okoa = new CherrySeeder();
 
             var objectDefinitions = new List<EntityDefinition>
             {
@@ -120,7 +120,7 @@ namespace CherrySeed.Test.IntegrationTests
                 cfg.ForEntity(typeof (Address));
 
                 cfg.ForEntity(typeof (Person))
-                    .WithReference(p => ((Person) p).AddressId, typeof (Address));
+                    .WithReference<Person>(p => p.AddressId, typeof (Address));
             });
 
             okoa.StartSeeding();

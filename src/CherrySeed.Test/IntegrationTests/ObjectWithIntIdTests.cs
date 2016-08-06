@@ -108,11 +108,10 @@ namespace CherrySeed.Test.IntegrationTests
             };
 
             var testTarget = new TestCreateEntityRepository();
-            var efTarget = new EfRepository(() => new ApplicationDbContext());
 
             okoa.EntityDefinitionProvider = new DefaultEntityDefinitionProvider(objectDefinitions);
-            okoa.DefaultCreateRepository = efTarget;// testTarget;
-            okoa.DefaultRemoveEntitiesRepository = efTarget;// testTarget;
+            okoa.DefaultCreateRepository = testTarget;
+            okoa.DefaultRemoveEntitiesRepository = testTarget;
 
             okoa.AfterTransformation = (oDict, o) => { };
 

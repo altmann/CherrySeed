@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using CherrySeed.EntityDefinitions;
-using CherrySeed.EntityTargets;
+using CherrySeed.Repositories;
 using CherrySeed.Repositories.Ef;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,7 +36,7 @@ namespace CherrySeed.Test.IntegrationTests
         public string Street { get; set; }
     }
 
-    public class TestCreateEntityEntitiesTarget : ICreateEntityTarget, IRemoveEntitiesTarget
+    public class TestCreateEntityRepository : ICreateRepository, IRemoveRepository
     {
         public void SaveEntity(object obj)
         {
@@ -73,7 +73,7 @@ namespace CherrySeed.Test.IntegrationTests
         [TestMethod]
         public void ObjectWithIntId()
         {
-            var okoa = new CherrySeed.Okoa();
+            var okoa = new CherrySeed.CherrySeeder();
 
             var objectDefinitions = new List<EntityDefinition>
             {
@@ -107,12 +107,12 @@ namespace CherrySeed.Test.IntegrationTests
                 },
             };
 
-            var testTarget = new TestCreateEntityEntitiesTarget();
+            var testTarget = new TestCreateEntityRepository();
             var efTarget = new EfRepository(() => new ApplicationDbContext());
 
             okoa.EntityDefinitionProvider = new DefaultEntityDefinitionProvider(objectDefinitions);
-            okoa.DefaultCreateEntityTarget = efTarget;// testTarget;
-            okoa.DefaultRemoveEntitiesEntitiesTarget = efTarget;// testTarget;
+            okoa.DefaultCreateRepository = efTarget;// testTarget;
+            okoa.DefaultRemoveEntitiesRepository = efTarget;// testTarget;
 
             okoa.AfterTransformation = (oDict, o) => { };
 

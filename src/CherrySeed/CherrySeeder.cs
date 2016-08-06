@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CherrySeed.EntityDefinitions;
 using CherrySeed.EntitySettings;
-using CherrySeed.EntityTargets;
+using CherrySeed.Repositories;
 using CherrySeed.IdMappings;
 using CherrySeed.ObjectTransformation;
 using CherrySeed.SimpleTypeTransformations;
@@ -20,7 +20,7 @@ namespace CherrySeed
         public EntitySetting EntitySetting { get; set; }
     }
 
-    public class Okoa
+    public class CherrySeeder
     {
         // Configuration
         public IEntityDefinitionProvider EntityDefinitionProvider { get; set; }
@@ -33,16 +33,16 @@ namespace CherrySeed
             set { _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyName = value; }
         }
 
-        public ICreateEntityTarget DefaultCreateEntityTarget
+        public ICreateRepository DefaultCreateRepository
         {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultCreateEntityTarget; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultCreateEntityTarget = value; }
+            get { return _defaultCompositeEntitySettingBuilder.DefaultCreateRepository; }
+            set { _defaultCompositeEntitySettingBuilder.DefaultCreateRepository = value; }
         }
 
-        public IRemoveEntitiesTarget DefaultRemoveEntitiesEntitiesTarget
+        public IRemoveRepository DefaultRemoveEntitiesRepository
         {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultRemoveEntitiesTarget; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultRemoveEntitiesTarget = value; }
+            get { return _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository; }
+            set { _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository = value; }
         }
 
         private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
@@ -65,11 +65,11 @@ namespace CherrySeed
 
         private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
 
-        public Okoa()
+        public CherrySeeder()
         {
             _defaultCompositeEntitySettingBuilder = new CompositeEntitySettingBuilder();
 
-            DefaultCreateEntityTarget = new EmptyTarget();
+            DefaultCreateRepository = new EmptyTarget();
             IsRemoveEntitiesEnabled = true;
             SimpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>();
 
@@ -109,7 +109,7 @@ namespace CherrySeed
                 foreach (var entityMetadataPair in _entityMetadataDict.OrderByDescending(em => em.Value.EntitySetting.Order))
                 {
                     var entityMetadata = entityMetadataPair.Value;
-                    var removeEntitiesTarget = entityMetadata.EntitySetting.RemoveEntitiesTarget;
+                    var removeEntitiesTarget = entityMetadata.EntitySetting.RemoveRepository;
 
                     removeEntitiesTarget.RemoveEntities(entityMetadata.EntityType);
                 }
@@ -126,7 +126,7 @@ namespace CherrySeed
                     objectDefinitions.First(od => od.EntityName == entityMetadata.EntityName).Objects;
 
                 var entitySetting = entityMetadata.EntitySetting;
-                var createEntityTarget = entitySetting.CreateEntityTarget;
+                var createEntityTarget = entitySetting.CreateRepository;
 
                 entityMetadata.Objects = Transform(entityMetadata.EntityType, entityMetadata.ObjectsAsDict,
                     objectListTransformation, entitySetting);

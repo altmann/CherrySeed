@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CherrySeed.EntityTargets
+namespace CherrySeed.Repositories
 {
-    public class EmptyTarget : ICreateEntityTarget, IRemoveEntitiesTarget
+    public class EmptyTarget : ICreateRepository, IRemoveRepository
     {
         public void SaveEntity(object obj)
         {

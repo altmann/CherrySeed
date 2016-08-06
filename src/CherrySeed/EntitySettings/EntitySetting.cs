@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CherrySeed.EntityTargets;
+using CherrySeed.Repositories;
 
 namespace CherrySeed.EntitySettings
 {
@@ -10,8 +10,8 @@ namespace CherrySeed.EntitySettings
         public Type EntityType { get; set; }
         public PrimaryKeySetting PrimaryKey { get; set; }
         public List<ReferenceSetting> References { get; set; }
-        public ICreateEntityTarget CreateEntityTarget { get; set; }
-        public IRemoveEntitiesTarget RemoveEntitiesTarget { get; set; }
+        public ICreateRepository CreateRepository { get; set; }
+        public IRemoveRepository RemoveRepository { get; set; }
         public int Order { get; set; }
     }
 
@@ -19,13 +19,13 @@ namespace CherrySeed.EntitySettings
     {
         private readonly EntitySetting _obj;
 
-        public EntitySettingBuilder(Type entityType, string defaultPrimaryKeyName, ICreateEntityTarget defaultCreateEntityTarget, IRemoveEntitiesTarget defaultRemoveEntitiesTarget, int order)
+        public EntitySettingBuilder(Type entityType, string defaultPrimaryKeyName, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
         {
             _obj = new EntitySetting
             {
                 EntityType = entityType,
-                CreateEntityTarget = defaultCreateEntityTarget,
-                RemoveEntitiesTarget = defaultRemoveEntitiesTarget,
+                CreateRepository = defaultCreateRepository,
+                RemoveRepository = defaultRemoveRepository,
                 PrimaryKey = new PrimaryKeySetting(defaultPrimaryKeyName),
                 References = new List<ReferenceSetting>(),
                 Order = order
@@ -45,15 +45,15 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public EntitySettingBuilder WithCreateEntityTarget(ICreateEntityTarget createEntityTarget)
+        public EntitySettingBuilder WithCreateEntityTarget(ICreateRepository createRepository)
         {
-            _obj.CreateEntityTarget = createEntityTarget;
+            _obj.CreateRepository = createRepository;
             return this;
         }
 
-        public EntitySettingBuilder WithRemoveEntitiesTarget(IRemoveEntitiesTarget removeEntitiesTarget)
+        public EntitySettingBuilder WithRemoveEntitiesTarget(IRemoveRepository removeRepository)
         {
-            _obj.RemoveEntitiesTarget = removeEntitiesTarget;
+            _obj.RemoveRepository = removeRepository;
             return this;
         }
 
@@ -67,8 +67,8 @@ namespace CherrySeed.EntitySettings
     {
         public List<EntitySettingBuilder> ObjectDescriptionBuilders { get; }
         public string DefaultPrimaryKeyName { get; set; }
-        public ICreateEntityTarget DefaultCreateEntityTarget { get; set; }
-        public IRemoveEntitiesTarget DefaultRemoveEntitiesTarget { get; set; }
+        public ICreateRepository DefaultCreateRepository { get; set; }
+        public IRemoveRepository DefaultRemoveRepository { get; set; }
 
         private int _order = 1;
 
@@ -79,13 +79,13 @@ namespace CherrySeed.EntitySettings
             var emptyTarget = new EmptyTarget();
 
             DefaultPrimaryKeyName = "Id";
-            DefaultCreateEntityTarget = emptyTarget;
-            DefaultRemoveEntitiesTarget = emptyTarget;
+            DefaultCreateRepository = emptyTarget;
+            DefaultRemoveRepository = emptyTarget;
         }
 
         public EntitySettingBuilder ForEntity(Type entityType)
         {
-            var newObjectDescriptionBuilder = new EntitySettingBuilder(entityType, DefaultPrimaryKeyName, DefaultCreateEntityTarget, DefaultRemoveEntitiesTarget, _order++);
+            var newObjectDescriptionBuilder = new EntitySettingBuilder(entityType, DefaultPrimaryKeyName, DefaultCreateRepository, DefaultRemoveRepository, _order++);
             ObjectDescriptionBuilders.Add(newObjectDescriptionBuilder);
             return newObjectDescriptionBuilder;
         }

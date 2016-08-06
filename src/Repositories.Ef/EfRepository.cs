@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
-using CherrySeed.EntityTargets;
+using CherrySeed.Repositories;
 
 namespace CherrySeed.Repositories.Ef
 {
-    public class EfRepository : ICreateEntityTarget, IRemoveEntitiesTarget
+    public class EfRepository : ICreateRepository, IRemoveRepository
     {
         private readonly Func<DbContext> _createDbContextFunc;
 

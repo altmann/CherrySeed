@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CherrySeed.EntityDefinitions;
-using CherrySeed.EntityTargets;
+using CherrySeed.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CherrySeed.Test.IntegrationTests
@@ -21,7 +21,7 @@ namespace CherrySeed.Test.IntegrationTests
         public string Street { get; set; }
     }
 
-    public class TestCreateEntityTarget2 : ICreateEntityTarget, IRemoveEntitiesTarget
+    public class TestCreateEntityTarget2 : ICreateRepository, IRemoveRepository
     {
         public void SaveEntity(object obj)
         {
@@ -57,7 +57,7 @@ namespace CherrySeed.Test.IntegrationTests
         [TestMethod]
         public void ObjectWithGuidId()
         {
-            var okoa = new CherrySeed.Okoa();
+            var okoa = new CherrySeed.CherrySeeder();
 
             var objectDefinitions = new List<EntityDefinition>
             {
@@ -93,8 +93,8 @@ namespace CherrySeed.Test.IntegrationTests
             var testTarget = new TestCreateEntityTarget2();
 
             okoa.EntityDefinitionProvider = new DefaultEntityDefinitionProvider(objectDefinitions);
-            okoa.DefaultCreateEntityTarget = testTarget;
-            okoa.DefaultRemoveEntitiesEntitiesTarget = testTarget;
+            okoa.DefaultCreateRepository = testTarget;
+            okoa.DefaultRemoveEntitiesRepository = testTarget;
 
             okoa.InitEntitySettings(cfg =>
             {

@@ -40,7 +40,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityDefinitions\DefaultEntityDefinitionProvider.cs" />
+    <Compile Include="EntityDefinitions\EntityDefinition.cs" />
+    <Compile Include="EntityDefinitions\IEntityDefinitionProvider.cs" />
+    <Compile Include="EntitySettings\EntitySetting.cs" />
+    <Compile Include="EntitySettings\PrimaryKeySetting.cs" />
+    <Compile Include="EntitySettings\ReferenceSetting.cs" />
+    <Compile Include="EntityTargets\EmptyTarget.cs" />
+    <Compile Include="EntityTargets\ICreateEntityTarget.cs" />
+    <Compile Include="EntityTargets\IRemoveEntitiesTarget.cs" />
+    <Compile Include="IdMappings\IdMappingProvider.cs" />
+    <Compile Include="ObjectTransformation\ObjectListTransformation.cs" />
+    <Compile Include="ObjectTransformation\ObjectTransformation.cs" />
+    <Compile Include="ObjectTransformation\SetPropertyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleTypeTransformations\BooleanTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\DateTimeTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\EnumTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\GuidTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\IntegerTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\ISimpleTypeTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\SimpleTypeTransformationProvider.cs" />
+    <Compile Include="SimpleTypeTransformations\StringTransformation.cs" />
+    <Compile Include="Utils\ReflectionUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

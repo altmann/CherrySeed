@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CherrySeed")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CherrySeed helps you to define test data and seed it into repositories.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Michael Altmann")]
 [assembly: AssemblyProduct("CherrySeed")]

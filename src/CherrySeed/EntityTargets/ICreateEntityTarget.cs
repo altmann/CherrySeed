@@ -2,6 +2,6 @@
 {
     public interface ICreateEntityTarget
     {
-        void Save(object obj);
+        void SaveEntity(object obj);
     }
 }

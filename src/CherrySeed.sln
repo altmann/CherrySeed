@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CherrySeed", "CherrySeed\CherrySeed.csproj", "{F40A4D24-2E1D-4C23-9C06-E22C11C43A3C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Ef", "Repositories.Ef\Repositories.Ef.csproj", "{BB9996EC-F815-4AA3-B83A-17BAFA66D690}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{F40A4D24-2E1D-4C23-9C06-E22C11C43A3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F40A4D24-2E1D-4C23-9C06-E22C11C43A3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F40A4D24-2E1D-4C23-9C06-E22C11C43A3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB9996EC-F815-4AA3-B83A-17BAFA66D690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB9996EC-F815-4AA3-B83A-17BAFA66D690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB9996EC-F815-4AA3-B83A-17BAFA66D690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB9996EC-F815-4AA3-B83A-17BAFA66D690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB9996EC-F815-4AA3-B83A-17BAFA66D690} = {5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}
 	EndGlobalSection
 EndGlobal

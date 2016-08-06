@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using CherrySeed.Repositories;
 
 namespace CherrySeed.Repositories.Ef
 {

@@ -9,7 +9,7 @@
 <licenseUrl></licenseUrl> 
 <projectUrl></projectUrl> 
 <iconUrl></iconUrl> 
-<requireLicenseAcceptance></requireLicenseAcceptance> 
+<requireLicenseAcceptance>false</requireLicenseAcceptance> 
 <description>$description$</description> 
 <releaseNotes></releaseNotes>
 <copyright></copyright> 

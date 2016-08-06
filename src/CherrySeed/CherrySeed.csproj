@@ -43,10 +43,14 @@
     <Compile Include="EntityDefinitions\DefaultEntityDefinitionProvider.cs" />
     <Compile Include="EntityDefinitions\EntityDefinition.cs" />
     <Compile Include="EntityDefinitions\IEntityDefinitionProvider.cs" />
+    <Compile Include="EntityMetadata.cs" />
+    <Compile Include="EntitySettings\CompositeEntitySettingBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />
+    <Compile Include="EntitySettings\EntitySettingBuilder.cs" />
     <Compile Include="EntitySettings\PrimaryKeySetting.cs" />
     <Compile Include="EntitySettings\ReferenceSetting.cs" />
-    <Compile Include="Repositories\EmptyTarget.cs" />
+    <Compile Include="IdMappings\IdMappingDescription.cs" />
+    <Compile Include="Repositories\EmptyRepository.cs" />
     <Compile Include="Repositories\ICreateRepository.cs" />
     <Compile Include="Repositories\IRemoveRepository.cs" />
     <Compile Include="IdMappings\IdMappingProvider.cs" />

@@ -11,15 +11,6 @@ using CherrySeed.Utils;
 
 namespace CherrySeed
 {
-    public class EntityMetadata
-    {
-        public string EntityName { get; set; }
-        public Type EntityType { get; set; }
-        public List<Dictionary<string, string>> ObjectsAsDict { get; set; }
-        public List<object> Objects { get; set; }
-        public EntitySetting EntitySetting { get; set; }
-    }
-
     public class CherrySeeder
     {
         // Configuration
@@ -69,7 +60,7 @@ namespace CherrySeed
         {
             _defaultCompositeEntitySettingBuilder = new CompositeEntitySettingBuilder();
 
-            DefaultCreateRepository = new EmptyTarget();
+            DefaultCreateRepository = new EmptyRepository();
             IsRemoveEntitiesEnabled = true;
             SimpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>();
 
@@ -136,20 +127,19 @@ namespace CherrySeed
                     var obj = entityMetadata.Objects[i];
                     var objDict = entityMetadata.ObjectsAsDict[i];
 
-                    if (AfterTransformation != null)
-                        AfterTransformation(objDict, obj);
+                    AfterTransformation?.Invoke(objDict, obj);
 
                     createEntityTarget.SaveEntity(obj);
                     var targetId = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
                         entitySetting.PrimaryKey.PrimaryKeyName);
 
-                    var definitionId = GetDefinitionIdOfObject(objDict, entityMetadata.EntityType, obj, entitySetting);
+                    var definitionId = GetDefinitionIdOfObject(objDict, entitySetting);
                     idMappingProvider.SetIdMapping(entityMetadata.EntityType, definitionId, targetId);
                 }
             }
         }
 
-        private string GetDefinitionIdOfObject(Dictionary<string, string> objectDict, Type type, object obj, EntitySetting entitySetting)
+        private string GetDefinitionIdOfObject(Dictionary<string, string> objectDict, EntitySetting entitySetting)
         {
             var primaryKeyName = entitySetting.PrimaryKey.PrimaryKeyName;
             var definitionId = objectDict[primaryKeyName];

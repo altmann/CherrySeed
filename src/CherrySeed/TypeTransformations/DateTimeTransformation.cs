@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CherrySeed.SimpleTypeTransformations
+namespace CherrySeed.TypeTransformations
 {
     public class DateTimeTransformation : ITypeTransformation
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
-using CherrySeed.SimpleTypeTransformations;
+using CherrySeed.TypeTransformations;
 
 namespace CherrySeed.ObjectTransformation
 {

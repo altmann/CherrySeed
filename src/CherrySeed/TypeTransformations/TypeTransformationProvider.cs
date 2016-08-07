@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CherrySeed.SimpleTypeTransformations
+namespace CherrySeed.TypeTransformations
 {
     public class TypeTransformationProvider
     {

@@ -58,14 +58,14 @@
     <Compile Include="ObjectTransformation\SetPropertyException.cs" />
     <Compile Include="CherrySeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleTypeTransformations\BooleanTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\DateTimeTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\EnumTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\GuidTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\IntegerTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\ITypeTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\TypeTransformationProvider.cs" />
-    <Compile Include="SimpleTypeTransformations\StringTransformation.cs" />
+    <Compile Include="TypeTransformations\BooleanTransformation.cs" />
+    <Compile Include="TypeTransformations\DateTimeTransformation.cs" />
+    <Compile Include="TypeTransformations\EnumTransformation.cs" />
+    <Compile Include="TypeTransformations\GuidTransformation.cs" />
+    <Compile Include="TypeTransformations\IntegerTransformation.cs" />
+    <Compile Include="TypeTransformations\ITypeTransformation.cs" />
+    <Compile Include="TypeTransformations\TypeTransformationProvider.cs" />
+    <Compile Include="TypeTransformations\StringTransformation.cs" />
     <Compile Include="Utils\ReflectionUtil.cs" />
   </ItemGroup>
   <ItemGroup>

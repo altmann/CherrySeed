@@ -6,7 +6,7 @@ using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
 using CherrySeed.IdMappings;
 using CherrySeed.ObjectTransformation;
-using CherrySeed.SimpleTypeTransformations;
+using CherrySeed.TypeTransformations;
 using CherrySeed.Utils;
 
 namespace CherrySeed

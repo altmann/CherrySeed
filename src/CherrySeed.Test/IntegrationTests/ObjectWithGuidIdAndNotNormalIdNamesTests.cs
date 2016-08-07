@@ -95,7 +95,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             okoa.EntityDefinitionProvider = new DefaultEntityDefinitionProvider(objectDefinitions);
             okoa.DefaultCreateRepository = testTarget;
-            okoa.DefaultRemoveEntitiesRepository = testTarget;
+            okoa.DefaultRemoveRepository = testTarget;
 
             okoa.InitEntitySettings(cfg =>
             {

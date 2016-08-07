@@ -30,7 +30,7 @@ namespace CherrySeed
             set { _defaultCompositeEntitySettingBuilder.DefaultCreateRepository = value; }
         }
 
-        public IRemoveRepository DefaultRemoveEntitiesRepository
+        public IRemoveRepository DefaultRemoveRepository
         {
             get { return _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository; }
             set { _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository = value; }
@@ -38,7 +38,7 @@ namespace CherrySeed
 
         private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
 
-        public bool IsRemoveEntitiesEnabled { get; set; }
+        public bool IsClearBeforeSeedingEnabled { get; set; }
         public Action<Dictionary<string, string>, object> AfterTransformation { get; set; }
 
         public void InitEntitySettings(Action<CompositeEntitySettingBuilder> objectDescriptionExpression)
@@ -61,7 +61,7 @@ namespace CherrySeed
             _defaultCompositeEntitySettingBuilder = new CompositeEntitySettingBuilder();
 
             DefaultCreateRepository = new EmptyRepository();
-            IsRemoveEntitiesEnabled = true;
+            IsClearBeforeSeedingEnabled = true;
             SimpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>();
 
             _entitySettings = new Dictionary<Type, EntitySetting>();
@@ -95,7 +95,7 @@ namespace CherrySeed
                 });
             }
 
-            if (IsRemoveEntitiesEnabled)
+            if (IsClearBeforeSeedingEnabled)
             {
                 foreach (var entityMetadataPair in _entityMetadataDict.OrderByDescending(em => em.Value.EntitySetting.Order))
                 {

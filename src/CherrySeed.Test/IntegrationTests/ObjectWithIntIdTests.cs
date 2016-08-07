@@ -73,7 +73,7 @@ namespace CherrySeed.Test.IntegrationTests
         [TestMethod]
         public void ObjectWithIntId()
         {
-            var okoa = new CherrySeeder();
+            var cherrySeeder = new CherrySeeder();
 
             var objectDefinitions = new List<EntityDefinition>
             {
@@ -109,13 +109,13 @@ namespace CherrySeed.Test.IntegrationTests
 
             var testTarget = new TestCreateEntityRepository();
 
-            okoa.EntityDefinitionProvider = new DictionaryDataProvider(objectDefinitions);
-            okoa.DefaultCreateRepository = testTarget;
-            okoa.DefaultRemoveRepository = testTarget;
+            cherrySeeder.EntityDefinitionProvider = new DictionaryDataProvider(objectDefinitions);
+            cherrySeeder.DefaultCreateRepository = testTarget;
+            cherrySeeder.DefaultRemoveRepository = testTarget;
 
-            okoa.AfterTransformation = (oDict, o) => { };
+            cherrySeeder.AfterTransformation = (oDict, o) => { };
 
-            okoa.InitEntitySettings(cfg =>
+            cherrySeeder.InitEntitySettings(cfg =>
             {
                 cfg.ForEntity<Address>();
 
@@ -123,7 +123,7 @@ namespace CherrySeed.Test.IntegrationTests
                     .WithReference(p => p.AddressId, typeof (Address));
             });
 
-            okoa.Seed();
+            cherrySeeder.Seed();
         }
     }
 }

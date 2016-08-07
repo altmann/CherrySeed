@@ -7,11 +7,11 @@ namespace CherrySeed.EntitySettings
 {
     public class EntitySettingBuilder
     {
-        private readonly EntitySetting _obj;
+        protected readonly EntitySetting Obj;
 
         public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
         {
-            _obj = new EntitySetting
+            Obj = new EntitySetting
             {
                 EntityType = entityType,
                 CreateRepository = defaultCreateRepository,
@@ -22,34 +22,41 @@ namespace CherrySeed.EntitySettings
             };
         }
 
-        public EntitySettingBuilder WithPrimaryKey<T>(Expression<Func<T, object>> primaryKeyExpression)
-        {
-            _obj.PrimaryKey = new PrimaryKeySetting<T>(primaryKeyExpression);
-            return this;
-        }
-
-        public EntitySettingBuilder WithReference<T>(Expression<Func<T, object>> referenceExpression,
-            Type referenceEntity)
-        {
-            _obj.References.Add(new ReferenceSetting<T>(referenceExpression, referenceEntity));
-            return this;
-        }
-
-        public EntitySettingBuilder WithCreateEntityTarget(ICreateRepository createRepository)
-        {
-            _obj.CreateRepository = createRepository;
-            return this;
-        }
-
-        public EntitySettingBuilder WithRemoveEntitiesTarget(IRemoveRepository removeRepository)
-        {
-            _obj.RemoveRepository = removeRepository;
-            return this;
-        }
-
         public EntitySetting Build()
         {
-            return _obj;
+            return Obj;
+        }
+    }
+
+    public class EntitySettingBuilder<T> : EntitySettingBuilder
+    {
+        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
+            : base(entityType, defaultPrimaryKeyNames, defaultCreateRepository, defaultRemoveRepository, order)
+        { }
+
+        public EntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression)
+        {
+            Obj.PrimaryKey = new PrimaryKeySetting<T>(primaryKeyExpression);
+            return this;
+        }
+
+        public EntitySettingBuilder<T> WithReference(Expression<Func<T, object>> referenceExpression,
+            Type referenceEntity)
+        {
+            Obj.References.Add(new ReferenceSetting<T>(referenceExpression, referenceEntity));
+            return this;
+        }
+
+        public EntitySettingBuilder<T> WithCreateEntityTarget(ICreateRepository createRepository)
+        {
+            Obj.CreateRepository = createRepository;
+            return this;
+        }
+
+        public EntitySettingBuilder<T> WithRemoveEntitiesTarget(IRemoveRepository removeRepository)
+        {
+            Obj.RemoveRepository = removeRepository;
+            return this;
         }
     }
 }

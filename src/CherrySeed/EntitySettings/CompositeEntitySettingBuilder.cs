@@ -25,9 +25,10 @@ namespace CherrySeed.EntitySettings
             DefaultRemoveRepository = emptyTarget;
         }
 
-        public EntitySettingBuilder ForEntity(Type entityType)
+        public EntitySettingBuilder<T> ForEntity<T>()
         {
-            var newObjectDescriptionBuilder = new EntitySettingBuilder(entityType, DefaultPrimaryKeyNames, DefaultCreateRepository, DefaultRemoveRepository, _order++);
+            var entityType = typeof (T);
+            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, DefaultPrimaryKeyNames, DefaultCreateRepository, DefaultRemoveRepository, _order++);
             ObjectDescriptionBuilders.Add(newObjectDescriptionBuilder);
             return newObjectDescriptionBuilder;
         }

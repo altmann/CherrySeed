@@ -99,11 +99,11 @@ namespace CherrySeed.Test.IntegrationTests
 
             cherrySeeder.InitEntitySettings(cfg =>
             {
-                cfg.ForEntity(typeof (Address3));
+                cfg.ForEntity<Address3>();
                     
-                cfg.ForEntity(typeof(Person3))
-                    .WithPrimaryKey<Person3>(e => e.PersonId)
-                    .WithReference<Person3>(p => p.AddressId, typeof(Address3));
+                cfg.ForEntity<Person3>()
+                    .WithPrimaryKey(e => e.PersonId)
+                    .WithReference(p => p.AddressId, typeof(Address3));
             });
             
             cherrySeeder.Seed();

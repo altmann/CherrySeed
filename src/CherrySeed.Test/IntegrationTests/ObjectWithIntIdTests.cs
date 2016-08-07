@@ -117,10 +117,10 @@ namespace CherrySeed.Test.IntegrationTests
 
             okoa.InitEntitySettings(cfg =>
             {
-                cfg.ForEntity(typeof (Address));
+                cfg.ForEntity<Address>();
 
-                cfg.ForEntity(typeof (Person))
-                    .WithReference<Person>(p => p.AddressId, typeof (Address));
+                cfg.ForEntity<Person>()
+                    .WithReference(p => p.AddressId, typeof (Address));
             });
 
             okoa.Seed();

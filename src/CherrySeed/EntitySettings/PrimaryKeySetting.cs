@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using CherrySeed.Utils;
 
@@ -6,11 +7,17 @@ namespace CherrySeed.EntitySettings
 {
     public class PrimaryKeySetting
     {
-        public string PrimaryKeyName { get; set; }
+        public List<string> PrimaryKeyNames { get; set; }
+        public string FinalPrimaryKeyName { get; set; }
+
+        public PrimaryKeySetting(List<string> primaryKeyNames)
+        {
+            PrimaryKeyNames = primaryKeyNames;
+        }
 
         public PrimaryKeySetting(string primaryKeyName)
         {
-            PrimaryKeyName = primaryKeyName;
+            PrimaryKeyNames = new List<string> {primaryKeyName};
         }
     }
 

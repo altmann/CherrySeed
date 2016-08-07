@@ -9,14 +9,14 @@ namespace CherrySeed.EntitySettings
     {
         private readonly EntitySetting _obj;
 
-        public EntitySettingBuilder(Type entityType, string defaultPrimaryKeyName, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
+        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
         {
             _obj = new EntitySetting
             {
                 EntityType = entityType,
                 CreateRepository = defaultCreateRepository,
                 RemoveRepository = defaultRemoveRepository,
-                PrimaryKey = new PrimaryKeySetting(defaultPrimaryKeyName),
+                PrimaryKey = new PrimaryKeySetting(defaultPrimaryKeyNames),
                 References = new List<ReferenceSetting>(),
                 Order = order
             };

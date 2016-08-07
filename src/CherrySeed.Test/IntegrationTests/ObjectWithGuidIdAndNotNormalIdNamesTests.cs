@@ -17,7 +17,7 @@ namespace CherrySeed.Test.IntegrationTests
 
     public class Address3
     {
-        public Guid Id { get; set; }
+        public Guid Address3Id { get; set; }
         public string Street { get; set; }
     }
 
@@ -41,7 +41,7 @@ namespace CherrySeed.Test.IntegrationTests
                 var address = (Address3)obj;
 
                 Assert.AreEqual("Street 1", address.Street);
-                address.Id = new Guid(1, 2, 3, 4, 5, 6, 1, 1, 1, 1, 1);
+                address.Address3Id = new Guid(1, 2, 3, 4, 5, 6, 1, 1, 1, 1, 1);
             }
         }
 
@@ -69,7 +69,7 @@ namespace CherrySeed.Test.IntegrationTests
                     {
                         new Dictionary<string, string>
                         {
-                            { "Id", "1" },
+                            { "Address3Id", "1" },
                             { "Street", "Street 1" },
                         }
                     }

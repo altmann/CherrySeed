@@ -10,6 +10,11 @@ namespace CherrySeed.Utils
             return type.GetProperty(propertyName).GetValue(obj);
         }
 
+        public static bool ExistProperty(Type type, string propertyName)
+        {
+            return type.GetProperty(propertyName) != null;
+        }
+
         public static string GetMemberName(LambdaExpression memberSelector)
         {
             var currentExpression = memberSelector.Body;

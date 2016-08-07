@@ -18,10 +18,10 @@ namespace CherrySeed
         public Dictionary<Type, ISimpleTypeTransformation> SimpleTypeTransformations { get; }
         private readonly Dictionary<Type, EntitySetting> _entitySettings;
 
-        public string DefaultPrimaryKeyName
+        public List<string> DefaultPrimaryKeyNames
         {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyName; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyName = value; }
+            get { return _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames; }
+            set { _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames = value; }
         }
 
         public ICreateRepository DefaultCreateRepository
@@ -87,6 +87,8 @@ namespace CherrySeed
                 var entityType = entitySettingPair.Key;
                 var entitySetting = entitySettingPair.Value;
 
+                entitySetting.PrimaryKey.FinalPrimaryKeyName = GetFinalPrimaryKeyName(entityType, entitySetting.PrimaryKey.PrimaryKeyNames);
+
                 _entityMetadataDict.Add(entityType, new EntityMetadata
                 {
                     EntityName = entityType.FullName,
@@ -130,18 +132,33 @@ namespace CherrySeed
                     AfterTransformation?.Invoke(objDict, obj);
 
                     createEntityTarget.SaveEntity(obj);
-                    var targetId = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
-                        entitySetting.PrimaryKey.PrimaryKeyName);
 
-                    var definitionId = GetDefinitionIdOfObject(objDict, entitySetting);
-                    idMappingProvider.SetIdMapping(entityMetadata.EntityType, definitionId, targetId);
+                    var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
+                        entitySetting.PrimaryKey.FinalPrimaryKeyName);
+
+                    var entityIdInDefinition = GetDefinitionIdOfObject(objDict, entitySetting.PrimaryKey.FinalPrimaryKeyName);
+                    idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInDefinition, entityIdInRepo);
                 }
             }
         }
 
-        private string GetDefinitionIdOfObject(Dictionary<string, string> objectDict, EntitySetting entitySetting)
+        private string GetFinalPrimaryKeyName(Type type, List<string> availablePropertyNames)
         {
-            var primaryKeyName = entitySetting.PrimaryKey.PrimaryKeyName;
+            foreach (var propertyName in availablePropertyNames)
+            {
+                var propertyNameWithoutTokens = propertyName.Replace("{ClassName}", type.Name);
+
+                if (ReflectionUtil.ExistProperty(type, propertyNameWithoutTokens))
+                {
+                    return propertyNameWithoutTokens;
+                }
+            }
+
+            throw new InvalidOperationException("Property not found");
+        }
+
+        private string GetDefinitionIdOfObject(Dictionary<string, string> objectDict, string primaryKeyName)
+        {
             var definitionId = objectDict[primaryKeyName];
             return definitionId;
         }

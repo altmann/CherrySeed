@@ -25,7 +25,7 @@ namespace CherrySeed.ObjectTransformation
         {
             var outputObject = Activator.CreateInstance(outputType);
 
-            var primaryKeyName = entitySetting.PrimaryKey.PrimaryKeyName;
+            var primaryKeyName = entitySetting.PrimaryKey.FinalPrimaryKeyName;
             var referenceDescriptions = entitySetting.References; 
 
             foreach (var inputKeyValuePair in inputDictionary)
@@ -35,6 +35,7 @@ namespace CherrySeed.ObjectTransformation
 
                 if (propertyName != primaryKeyName)
                 {
+                    //property is not a primary key
                     SetProperty(outputObject, propertyName, propertyValue, referenceDescriptions);
                 }
             }

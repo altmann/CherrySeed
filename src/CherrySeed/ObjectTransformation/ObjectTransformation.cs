@@ -60,7 +60,7 @@ namespace CherrySeed.ObjectTransformation
                     {
                         //property is a foreign key
                         var foreignKeyType = referenceDescriptions.First(rd => rd.ReferenceName == propertyName).ReferenceType;
-                        targetPropertyValue = _idMappingProvider.GetTargetId(foreignKeyType, (string)propertyValue);
+                        targetPropertyValue = _idMappingProvider.GetRepositoryId(foreignKeyType, (string)propertyValue);
                     }
                     else
                     {

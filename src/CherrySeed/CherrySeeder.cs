@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CherrySeed.EntityDefinitions;
+using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
 using CherrySeed.IdMappings;
@@ -14,15 +14,11 @@ namespace CherrySeed
     public class CherrySeeder
     {
         // Configuration
-        public IEntityDefinitionProvider EntityDefinitionProvider { get; set; }
+        public IEntityDataProvider EntityDataProvider { get; set; }
         public Dictionary<Type, ISimpleTypeTransformation> SimpleTypeTransformations { get; }
         private readonly Dictionary<Type, EntitySetting> _entitySettings;
 
-        public List<string> DefaultPrimaryKeyNames
-        {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames = value; }
-        }
+        public List<string> DefaultPrimaryKeyNames => _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames;
 
         public ICreateRepository DefaultCreateRepository
         {
@@ -70,9 +66,9 @@ namespace CherrySeed
 
         public void Seed()
         {
-            if (EntityDefinitionProvider == null)
+            if (EntityDataProvider == null)
             {
-                throw new InvalidOperationException("EntityDefinitionProvider is not set");
+                throw new InvalidOperationException("EntityDataProvider is not set");
             }
 
             var idMappingProvider = new IdMappingProvider();
@@ -108,7 +104,7 @@ namespace CherrySeed
                 }
             }
 
-            var objectDefinitions = EntityDefinitionProvider.GetEntityDefinitions();
+            var entityData = EntityDataProvider.GetEntityData();
 
             foreach (var objectMetadataPair in _entityMetadataDict.OrderBy(em => em.Value.EntitySetting.Order))
             {
@@ -116,7 +112,7 @@ namespace CherrySeed
                 var entityMetadata = objectMetadataPair.Value;
 
                 entityMetadata.ObjectsAsDict =
-                    objectDefinitions.First(od => od.EntityName == entityMetadata.EntityName).Objects;
+                    entityData.First(od => od.EntityName == entityMetadata.EntityName).Objects;
 
                 var entitySetting = entityMetadata.EntitySetting;
                 var createEntityTarget = entitySetting.CreateRepository;
@@ -136,8 +132,8 @@ namespace CherrySeed
                     var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
                         entitySetting.PrimaryKey.FinalPrimaryKeyName);
 
-                    var entityIdInDefinition = GetDefinitionIdOfObject(objDict, entitySetting.PrimaryKey.FinalPrimaryKeyName);
-                    idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInDefinition, entityIdInRepo);
+                    var entityIdInProvider = GetProviderIdOfObject(objDict, entitySetting.PrimaryKey.FinalPrimaryKeyName);
+                    idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInProvider, entityIdInRepo);
                 }
             }
         }
@@ -157,10 +153,10 @@ namespace CherrySeed
             throw new InvalidOperationException("Property not found");
         }
 
-        private string GetDefinitionIdOfObject(Dictionary<string, string> objectDict, string primaryKeyName)
+        private string GetProviderIdOfObject(Dictionary<string, string> objectDict, string primaryKeyName)
         {
-            var definitionId = objectDict[primaryKeyName];
-            return definitionId;
+            var providerId = objectDict[primaryKeyName];
+            return providerId;
         }
 
         public List<object> Transform(Type type, List<Dictionary<string, string>> inputObjectDictionary,

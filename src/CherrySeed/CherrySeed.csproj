@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityDefinitions\DictionaryDataProvider.cs" />
-    <Compile Include="EntityDefinitions\EntityDefinition.cs" />
-    <Compile Include="EntityDefinitions\IEntityDefinitionProvider.cs" />
+    <Compile Include="EntityDataProvider\DictionaryDataProvider.cs" />
+    <Compile Include="EntityDataProvider\EntityData.cs" />
+    <Compile Include="EntityDataProvider\IEntityDataProvider.cs" />
     <Compile Include="EntityMetadata.cs" />
     <Compile Include="EntitySettings\CompositeEntitySettingBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />

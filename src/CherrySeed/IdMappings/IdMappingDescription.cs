@@ -2,7 +2,7 @@ namespace CherrySeed.IdMappings
 {
     public class IdMappingDescription
     {
-        public string DefinitionId { get; set; }
-        public object TargetId { get; set; }
+        public string ProviderId { get; set; }
+        public object RepositoryId { get; set; }
     }
 }

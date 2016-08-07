@@ -13,9 +13,9 @@ namespace CherrySeed.IdMappings
             _idMappingDict = new Dictionary<Type, List<IdMappingDescription>>();
         }
 
-        public void SetIdMapping(Type objectType, string definitionId, object targetId)
+        public void SetIdMapping(Type objectType, string providerId, object repositoryId)
         {
-            var idMapping = new IdMappingDescription {DefinitionId = definitionId, TargetId = targetId};
+            var idMapping = new IdMappingDescription {ProviderId = providerId, RepositoryId = repositoryId};
 
             if (_idMappingDict.ContainsKey(objectType))
             {
@@ -30,9 +30,9 @@ namespace CherrySeed.IdMappings
             } 
         }
 
-        public object GetTargetId(Type objectType, string definitionId)
+        public object GetRepositoryId(Type objectType, string providerId)
         {
-            return _idMappingDict[objectType].Where(idMapping => idMapping.DefinitionId == definitionId).Select(idMapping => idMapping.TargetId).First();
+            return _idMappingDict[objectType].Where(idMapping => idMapping.ProviderId == providerId).Select(idMapping => idMapping.RepositoryId).First();
         }
     }
 }

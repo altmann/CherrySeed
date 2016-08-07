@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using CherrySeed.EntityDefinitions;
+using CherrySeed.EntityDataProvider;
 using CherrySeed.Repositories;
-using CherrySeed.Repositories.Ef;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CherrySeed.Test.IntegrationTests
@@ -75,9 +74,9 @@ namespace CherrySeed.Test.IntegrationTests
         {
             var cherrySeeder = new CherrySeeder();
 
-            var objectDefinitions = new List<EntityDefinition>
+            var entityData = new List<EntityData>
             {
-                new EntityDefinition
+                new EntityDataProvider.EntityData
                 {
                     EntityName = "CherrySeed.Test.IntegrationTests.Address",
                     Objects = new List<Dictionary<string, string>>
@@ -89,7 +88,7 @@ namespace CherrySeed.Test.IntegrationTests
                         }
                     }
                 },
-                new EntityDefinition
+                new EntityDataProvider.EntityData
                 {
                     EntityName = "CherrySeed.Test.IntegrationTests.Person",
                     Objects = new List<Dictionary<string, string>>
@@ -109,12 +108,12 @@ namespace CherrySeed.Test.IntegrationTests
 
             var testTarget = new TestCreateEntityRepository();
 
-            cherrySeeder.EntityDefinitionProvider = new DictionaryDataProvider(objectDefinitions);
+            cherrySeeder.EntityDataProvider = new DictionaryDataProvider(entityData);
             cherrySeeder.DefaultCreateRepository = testTarget;
             cherrySeeder.DefaultRemoveRepository = testTarget;
 
             cherrySeeder.AfterTransformation = (oDict, o) => { };
-
+            
             cherrySeeder.InitEntitySettings(cfg =>
             {
                 cfg.ForEntity<Address>();

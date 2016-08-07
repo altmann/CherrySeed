@@ -68,7 +68,7 @@ namespace CherrySeed
             _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
         }
 
-        public void StartSeeding()
+        public void Seed()
         {
             if (EntityDefinitionProvider == null)
             {

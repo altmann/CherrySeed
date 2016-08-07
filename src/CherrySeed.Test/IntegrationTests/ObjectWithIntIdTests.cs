@@ -109,7 +109,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             var testTarget = new TestCreateEntityRepository();
 
-            okoa.EntityDefinitionProvider = new DefaultEntityDefinitionProvider(objectDefinitions);
+            okoa.EntityDefinitionProvider = new DictionaryDataProvider(objectDefinitions);
             okoa.DefaultCreateRepository = testTarget;
             okoa.DefaultRemoveRepository = testTarget;
 
@@ -123,7 +123,7 @@ namespace CherrySeed.Test.IntegrationTests
                     .WithReference<Person>(p => p.AddressId, typeof (Address));
             });
 
-            okoa.StartSeeding();
+            okoa.Seed();
         }
     }
 }

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityDefinitions\DefaultEntityDefinitionProvider.cs" />
+    <Compile Include="EntityDefinitions\DictionaryDataProvider.cs" />
     <Compile Include="EntityDefinitions\EntityDefinition.cs" />
     <Compile Include="EntityDefinitions\IEntityDefinitionProvider.cs" />
     <Compile Include="EntityMetadata.cs" />

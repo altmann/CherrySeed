@@ -3,6 +3,16 @@ using System.Data.Entity;
 
 namespace CherrySeed.Repositories.Ef
 {
+    public static class CherrySeederExtension
+    {
+        public static void UseEfRepository(this CherrySeeder cherrySeeder, Func<DbContext> createDbContextFunc)
+        {
+            var efRepository = new EfRepository(createDbContextFunc);
+            cherrySeeder.DefaultCreateRepository = efRepository;
+            cherrySeeder.DefaultRemoveRepository = efRepository;
+        }
+    }
+
     public class EfRepository : ICreateRepository, IRemoveRepository
     {
         private readonly Func<DbContext> _createDbContextFunc;

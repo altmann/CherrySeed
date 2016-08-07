@@ -21,7 +21,7 @@ namespace CherrySeed.Test.IntegrationTests
         public string Street { get; set; }
     }
 
-    public class TestCreateEntityTarget2 : ICreateRepository, IRemoveRepository
+    public class TestEntityTarget2 : IRepository, IRemoveRepository
     {
         public void SaveEntity(object obj)
         {
@@ -90,11 +90,10 @@ namespace CherrySeed.Test.IntegrationTests
                 },
             };
 
-            var testTarget = new TestCreateEntityTarget2();
+            var testTarget = new TestEntityTarget2();
 
             cherrySeeder.EntityDataProvider = new DictionaryDataProvider(entityData);
-            cherrySeeder.DefaultCreateRepository = testTarget;
-            cherrySeeder.DefaultRemoveRepository = testTarget;
+            cherrySeeder.DefaultRepository = testTarget;
 
             cherrySeeder.InitEntitySettings(cfg =>
             {

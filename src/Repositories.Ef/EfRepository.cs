@@ -8,12 +8,11 @@ namespace CherrySeed.Repositories.Ef
         public static void UseEfRepository(this CherrySeeder cherrySeeder, Func<DbContext> createDbContextFunc)
         {
             var efRepository = new EfRepository(createDbContextFunc);
-            cherrySeeder.DefaultCreateRepository = efRepository;
-            cherrySeeder.DefaultRemoveRepository = efRepository;
+            cherrySeeder.DefaultRepository = efRepository;
         }
     }
 
-    public class EfRepository : ICreateRepository, IRemoveRepository
+    public class EfRepository : IRepository
     {
         private readonly Func<DbContext> _createDbContextFunc;
 

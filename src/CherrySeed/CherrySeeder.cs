@@ -20,16 +20,10 @@ namespace CherrySeed
 
         public List<string> DefaultPrimaryKeyNames => _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames;
 
-        public ICreateRepository DefaultCreateRepository
+        public IRepository DefaultRepository
         {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultCreateRepository; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultCreateRepository = value; }
-        }
-
-        public IRemoveRepository DefaultRemoveRepository
-        {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultRemoveRepository = value; }
+            get { return _defaultCompositeEntitySettingBuilder.DefaultRepository; }
+            set { _defaultCompositeEntitySettingBuilder.DefaultRepository = value; }
         }
 
         private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
@@ -56,7 +50,7 @@ namespace CherrySeed
         {
             _defaultCompositeEntitySettingBuilder = new CompositeEntitySettingBuilder();
 
-            DefaultCreateRepository = new EmptyRepository();
+            DefaultRepository = new EmptyRepository();
             IsClearBeforeSeedingEnabled = true;
             SimpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>();
 
@@ -98,9 +92,9 @@ namespace CherrySeed
                 foreach (var entityMetadataPair in _entityMetadataDict.OrderByDescending(em => em.Value.EntitySetting.Order))
                 {
                     var entityMetadata = entityMetadataPair.Value;
-                    var removeEntitiesTarget = entityMetadata.EntitySetting.RemoveRepository;
+                    var repository = entityMetadata.EntitySetting.Repository;
 
-                    removeEntitiesTarget.RemoveEntities(entityMetadata.EntityType);
+                    repository.RemoveEntities(entityMetadata.EntityType);
                 }
             }
 
@@ -115,7 +109,7 @@ namespace CherrySeed
                     entityData.First(od => od.EntityName == entityMetadata.EntityName).Objects;
 
                 var entitySetting = entityMetadata.EntitySetting;
-                var createEntityTarget = entitySetting.CreateRepository;
+                var createEntityTarget = entitySetting.Repository;
 
                 entityMetadata.Objects = Transform(entityMetadata.EntityType, entityMetadata.ObjectsAsDict,
                     objectListTransformation, entitySetting);

@@ -9,13 +9,13 @@ namespace CherrySeed.EntitySettings
     {
         protected readonly EntitySetting Obj;
 
-        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
+        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, 
+            IRepository defaultRepository, int order)
         {
             Obj = new EntitySetting
             {
                 EntityType = entityType,
-                CreateRepository = defaultCreateRepository,
-                RemoveRepository = defaultRemoveRepository,
+                Repository = defaultRepository,
                 PrimaryKey = new PrimaryKeySetting(defaultPrimaryKeyNames),
                 References = new List<ReferenceSetting>(),
                 Order = order
@@ -30,8 +30,8 @@ namespace CherrySeed.EntitySettings
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder
     {
-        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, ICreateRepository defaultCreateRepository, IRemoveRepository defaultRemoveRepository, int order)
-            : base(entityType, defaultPrimaryKeyNames, defaultCreateRepository, defaultRemoveRepository, order)
+        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, IRepository defaultRepository, int order)
+            : base(entityType, defaultPrimaryKeyNames, defaultRepository, order)
         { }
 
         public EntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression)
@@ -47,15 +47,9 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public EntitySettingBuilder<T> WithCreateEntityTarget(ICreateRepository createRepository)
+        public EntitySettingBuilder<T> WithCreateEntityTarget(IRepository repository)
         {
-            Obj.CreateRepository = createRepository;
-            return this;
-        }
-
-        public EntitySettingBuilder<T> WithRemoveEntitiesTarget(IRemoveRepository removeRepository)
-        {
-            Obj.RemoveRepository = removeRepository;
+            Obj.Repository = repository;
             return this;
         }
     }

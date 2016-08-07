@@ -8,9 +8,7 @@ namespace CherrySeed.EntitySettings
     {
         public List<EntitySettingBuilder> ObjectDescriptionBuilders { get; }
         public List<string> DefaultPrimaryKeyNames { get; set; }
-        public ICreateRepository DefaultCreateRepository { get; set; }
-        public IRemoveRepository DefaultRemoveRepository { get; set; }
-
+        public IRepository DefaultRepository { get; set; }
         private int _order = 1;
 
         public CompositeEntitySettingBuilder()
@@ -21,14 +19,13 @@ namespace CherrySeed.EntitySettings
 
             DefaultPrimaryKeyNames = new List<string> {"Id", "{ClassName}Id"};
 
-            DefaultCreateRepository = emptyTarget;
-            DefaultRemoveRepository = emptyTarget;
+            DefaultRepository = emptyTarget;
         }
 
         public EntitySettingBuilder<T> ForEntity<T>()
         {
             var entityType = typeof (T);
-            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, DefaultPrimaryKeyNames, DefaultCreateRepository, DefaultRemoveRepository, _order++);
+            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, DefaultPrimaryKeyNames, DefaultRepository, _order++);
             ObjectDescriptionBuilders.Add(newObjectDescriptionBuilder);
             return newObjectDescriptionBuilder;
         }

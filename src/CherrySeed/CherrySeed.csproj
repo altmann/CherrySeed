@@ -51,7 +51,7 @@
     <Compile Include="EntitySettings\ReferenceSetting.cs" />
     <Compile Include="IdMappings\IdMappingDescription.cs" />
     <Compile Include="Repositories\EmptyRepository.cs" />
-    <Compile Include="Repositories\ICreateRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IRemoveRepository.cs" />
     <Compile Include="IdMappings\IdMappingProvider.cs" />
     <Compile Include="ObjectTransformation\ObjectListTransformation.cs" />

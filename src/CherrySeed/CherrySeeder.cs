@@ -15,7 +15,7 @@ namespace CherrySeed
     {
         // Configuration
         public IEntityDataProvider EntityDataProvider { get; set; }
-        public Dictionary<Type, ISimpleTypeTransformation> SimpleTypeTransformations { get; }
+        public Dictionary<Type, ITypeTransformation> CustomTypeTransformations { get; }
         private readonly Dictionary<Type, EntitySetting> _entitySettings;
 
         public List<string> DefaultPrimaryKeyNames => _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames;
@@ -52,7 +52,7 @@ namespace CherrySeed
 
             DefaultRepository = new EmptyRepository();
             IsClearBeforeSeedingEnabled = true;
-            SimpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>();
+            CustomTypeTransformations = new Dictionary<Type, ITypeTransformation>();
 
             _entitySettings = new Dictionary<Type, EntitySetting>();
             _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
@@ -69,7 +69,7 @@ namespace CherrySeed
 
             var objectListTransformation = new ObjectListTransformation(
                 new ObjectTransformation.ObjectTransformation(
-                    new SimpleTypeTransformationProvider(SimpleTypeTransformations),
+                    new TypeTransformationProvider(CustomTypeTransformations),
                     idMappingProvider));
 
             foreach (var entitySettingPair in _entitySettings.OrderBy(es => es.Value.Order))

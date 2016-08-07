@@ -10,14 +10,14 @@ namespace CherrySeed.ObjectTransformation
 {
     public class ObjectTransformation
     {
-        private readonly SimpleTypeTransformationProvider _simpleTypeTransformationProvider;
+        private readonly TypeTransformationProvider _typeTransformationProvider;
         private readonly IdMappingProvider _idMappingProvider;
 
         public ObjectTransformation(
-            SimpleTypeTransformationProvider simpleTypeTransformationProvider,
+            TypeTransformationProvider typeTransformationProvider,
             IdMappingProvider idMappingProvider)
         {
-            _simpleTypeTransformationProvider = simpleTypeTransformationProvider;
+            _typeTransformationProvider = typeTransformationProvider;
             _idMappingProvider = idMappingProvider;
         }
 
@@ -65,8 +65,8 @@ namespace CherrySeed.ObjectTransformation
                     else
                     {
                         var simpleTransformation = propertyType.IsEnum
-                            ? _simpleTypeTransformationProvider.GetSimpleTransformation(typeof(Enum))
-                            : _simpleTypeTransformationProvider.GetSimpleTransformation(propertyType);
+                            ? _typeTransformationProvider.GetSimpleTransformation(typeof(Enum))
+                            : _typeTransformationProvider.GetSimpleTransformation(propertyType);
 
                         targetPropertyValue = simpleTransformation.Transform(propertyType, (string)propertyValue);
                     }

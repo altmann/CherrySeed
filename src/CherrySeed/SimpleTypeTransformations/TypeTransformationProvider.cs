@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace CherrySeed.SimpleTypeTransformations
 {
-    public class SimpleTypeTransformationProvider
+    public class TypeTransformationProvider
     {
-        private readonly Dictionary<Type, ISimpleTypeTransformation> _simpleTypeTransformations;
+        private readonly Dictionary<Type, ITypeTransformation> _simpleTypeTransformations;
 
-        public SimpleTypeTransformationProvider(Dictionary<Type, ISimpleTypeTransformation> simpleTypeTransformations)
+        public TypeTransformationProvider(Dictionary<Type, ITypeTransformation> simpleTypeTransformations)
         {
-            _simpleTypeTransformations = new Dictionary<Type, ISimpleTypeTransformation>
+            _simpleTypeTransformations = new Dictionary<Type, ITypeTransformation>
             {
                 { typeof(string), new StringTransformation() },
                 { typeof(int), new IntegerTransformation() },
@@ -35,7 +35,7 @@ namespace CherrySeed.SimpleTypeTransformations
             }
         }
 
-        public ISimpleTypeTransformation GetSimpleTransformation(Type type)
+        public ITypeTransformation GetSimpleTransformation(Type type)
         {
             return _simpleTypeTransformations[type];
         }

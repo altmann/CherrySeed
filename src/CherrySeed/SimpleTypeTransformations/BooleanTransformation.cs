@@ -2,7 +2,7 @@
 
 namespace CherrySeed.SimpleTypeTransformations
 {
-    public class BooleanTransformation : ISimpleTypeTransformation
+    public class BooleanTransformation : ITypeTransformation
     {
         public object Transform(Type type, string str)
         {

@@ -2,7 +2,7 @@
 
 namespace CherrySeed.SimpleTypeTransformations
 {
-    public class StringTransformation : ISimpleTypeTransformation
+    public class StringTransformation : ITypeTransformation
     {
         public object Transform(Type type, string str)
         {

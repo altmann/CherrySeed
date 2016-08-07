@@ -47,7 +47,7 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public EntitySettingBuilder<T> WithCreateEntityTarget(IRepository repository)
+        public EntitySettingBuilder<T> WithRepository(IRepository repository)
         {
             Obj.Repository = repository;
             return this;

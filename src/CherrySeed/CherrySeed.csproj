@@ -52,7 +52,6 @@
     <Compile Include="IdMappings\IdMappingDescription.cs" />
     <Compile Include="Repositories\EmptyRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IRemoveRepository.cs" />
     <Compile Include="IdMappings\IdMappingProvider.cs" />
     <Compile Include="ObjectTransformation\ObjectListTransformation.cs" />
     <Compile Include="ObjectTransformation\ObjectTransformation.cs" />
@@ -64,8 +63,8 @@
     <Compile Include="SimpleTypeTransformations\EnumTransformation.cs" />
     <Compile Include="SimpleTypeTransformations\GuidTransformation.cs" />
     <Compile Include="SimpleTypeTransformations\IntegerTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\ISimpleTypeTransformation.cs" />
-    <Compile Include="SimpleTypeTransformations\SimpleTypeTransformationProvider.cs" />
+    <Compile Include="SimpleTypeTransformations\ITypeTransformation.cs" />
+    <Compile Include="SimpleTypeTransformations\TypeTransformationProvider.cs" />
     <Compile Include="SimpleTypeTransformations\StringTransformation.cs" />
     <Compile Include="Utils\ReflectionUtil.cs" />
   </ItemGroup>

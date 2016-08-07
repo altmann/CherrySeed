@@ -2,7 +2,7 @@
 
 namespace CherrySeed.Repositories
 {
-    public class EmptyRepository : IRepository, IRemoveRepository
+    public class EmptyRepository : IRepository
     {
         public void SaveEntity(object obj)
         {

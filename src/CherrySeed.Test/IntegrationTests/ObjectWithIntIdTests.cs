@@ -35,7 +35,7 @@ namespace CherrySeed.Test.IntegrationTests
         public string Street { get; set; }
     }
 
-    public class TestEntityRepository : IRepository, IRemoveRepository
+    public class TestEntityRepository : IRepository
     {
         public void SaveEntity(object obj)
         {

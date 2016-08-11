@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
+using CherrySeed.Test.Asserts;
+using CherrySeed.Test.Convert;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,7 +55,16 @@ namespace CherrySeed.Test.UnitTests
 
             var assertRepository = new AssertRepository((obj, count) =>
             {
-                
+                AssertHelper.AssertIf(typeof(Person), 0, count, obj, () =>
+                {
+                    AssertPerson.AssertProperties(obj, Converter.ToGuid(1));
+                });
+
+                AssertHelper.AssertIf(typeof(Person), 1, count, obj, () =>
+                {
+                    AssertPerson.AssertProperties(obj, Converter.ToGuid(1));
+                });
+
             }, type =>
             {
                 
@@ -62,11 +73,11 @@ namespace CherrySeed.Test.UnitTests
             InitAndExecute(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Address>()
-                    .WithCodeIdGeneration().WithGuidIdGenerator();
+                    .WithCodeIdGeneration().WithCustomIdGenerator(new SequentialGuidIdGenerator());
 
                 cfg.ForEntity<Person>()
                     .WithReference(e => e.AddressId, typeof(Address))
-                    .WithCodeIdGeneration().WithGuidIdGenerator();
+                    .WithCodeIdGeneration().WithCustomIdGenerator(new SequentialGuidIdGenerator());
             });
         }
 

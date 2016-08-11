@@ -62,12 +62,13 @@
     <Compile Include="Asserts\AssertHelper.cs" />
     <Compile Include="Asserts\PersonAssert.cs" />
     <Compile Include="Asserts\MainAssert.cs" />
+    <Compile Include="Convert\Converter.cs" />
     <Compile Include="IntegrationTests\ObjectWithGuidIdAndNotNormalIdNamesTests.cs" />
     <Compile Include="IntegrationTests\ObjectWithGuidIdTests.cs" />
     <Compile Include="IntegrationTests\ObjectWithIntIdTests.cs" />
     <Compile Include="Mocks\AssertRepository.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
-    <Compile Include="Mocks\IdGenerator.cs" />
+    <Compile Include="Mocks\SequentialGuidIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Main.cs" />
     <Compile Include="Models\Person.cs" />

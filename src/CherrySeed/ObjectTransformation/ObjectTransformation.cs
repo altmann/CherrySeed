@@ -5,6 +5,7 @@ using System.Reflection;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
 using CherrySeed.TypeTransformations;
+using CherrySeed.Utils;
 
 namespace CherrySeed.ObjectTransformation
 {
@@ -25,62 +26,52 @@ namespace CherrySeed.ObjectTransformation
         {
             var outputObject = Activator.CreateInstance(outputType);
 
-            var primaryKeyName = entitySetting.PrimaryKey.FinalPrimaryKeyName;
-            var referenceDescriptions = entitySetting.References; 
-
             foreach (var inputKeyValuePair in inputDictionary)
             {
                 var propertyName = inputKeyValuePair.Key;
                 var propertyValue = inputKeyValuePair.Value;
 
-                if (propertyName != primaryKeyName)
-                {
-                    //property is not a primary key
-                    SetProperty(outputObject, propertyName, propertyValue, referenceDescriptions);
-                }
+                SetProperty(outputObject, propertyName, propertyValue, entitySetting);
             }
 
             return outputObject;
         }
 
-        private void SetProperty(object obj, string propertyName, object propertyValue, List<ReferenceSetting> referenceDescriptions)
+        private void SetProperty(object obj, string propertyName, string propertyValue, EntitySetting entitySetting)
         {
-            var type = obj.GetType();
+            var propertyType = ReflectionUtil.GetPropertyType(obj.GetType(), propertyName);
 
-            try
+            if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
             {
-                var prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-
-                if (prop != null && prop.CanWrite)
+                if (entitySetting.IdGeneration.Generator != null)
                 {
-                    var propertyType = prop.PropertyType;
-
-                    object targetPropertyValue = null;
-                    if (IsPropertyForeignKey(propertyName, referenceDescriptions))
-                    {
-                        //property is a foreign key
-                        var foreignKeyType = referenceDescriptions.First(rd => rd.ReferenceName == propertyName).ReferenceType;
-                        targetPropertyValue = _idMappingProvider.GetRepositoryId(foreignKeyType, (string)propertyValue);
-                    }
-                    else
-                    {
-                        var simpleTransformation = propertyType.IsEnum
-                            ? _typeTransformationProvider.GetSimpleTransformation(typeof(Enum))
-                            : _typeTransformationProvider.GetSimpleTransformation(propertyType);
-
-                        targetPropertyValue = simpleTransformation.Transform(propertyType, (string)propertyValue);
-                    }
-
-                    prop.SetValue(obj, targetPropertyValue, null);
+                    ReflectionUtil.SetProperty(obj, propertyName, entitySetting.IdGeneration.Generator.Generate());
                 }
             }
-            catch (Exception ex)
+            else if (IsForeignKey(propertyName, entitySetting.References))
             {
-                throw new SetPropertyException(type, propertyName, propertyValue, ex);
+                var foreignKeyType = entitySetting.References.First(rd => rd.ReferenceName == propertyName).ReferenceType;
+                var foreignKeyId = _idMappingProvider.GetRepositoryId(foreignKeyType, propertyValue);
+                ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+            }
+            else
+            {
+                var simpleTransformation = propertyType.IsEnum
+                    ? _typeTransformationProvider.GetSimpleTransformation(typeof(Enum))
+                    : _typeTransformationProvider.GetSimpleTransformation(propertyType);
+
+                var typedPropertyValue = simpleTransformation.Transform(propertyType, propertyValue);
+                ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
             }
         }
 
-        private static bool IsPropertyForeignKey(string propertyName, List<ReferenceSetting> referenceDescriptions)
+        private bool IsPrimaryKey(string propertyName, PrimaryKeySetting primaryKeySetting)
+        {
+            var primaryKeyName = primaryKeySetting.FinalPrimaryKeyName;
+            return propertyName == primaryKeyName;
+        }
+
+        private bool IsForeignKey(string propertyName, List<ReferenceSetting> referenceDescriptions)
         {
             return referenceDescriptions.Select(rd => rd.ReferenceName).Contains(propertyName);
         }

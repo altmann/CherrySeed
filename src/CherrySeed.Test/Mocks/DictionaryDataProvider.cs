@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CherrySeed.EntityDataProvider;
 
-namespace CherrySeed.EntityDataProvider
+namespace CherrySeed.Test.Mocks
 {
     public class DictionaryDataProvider : IEntityDataProvider
     {
@@ -19,6 +20,8 @@ namespace CherrySeed.EntityDataProvider
 
     public static class CherrySeederExtension
     {
+
+
         public static void UseDictionaryDataProvider(this CherrySeeder cherrySeeder,
             List<EntityData> entityData)
         {

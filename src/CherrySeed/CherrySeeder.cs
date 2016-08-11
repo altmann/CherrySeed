@@ -26,6 +26,17 @@ namespace CherrySeed
             set { _defaultCompositeEntitySettingBuilder.DefaultRepository = value; }
         }
 
+        public void WithDatabaseIdGeneration()
+        {
+            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(null);
+        }
+
+        public CodeIdGenerationSettingBuilder WithCodeIdGeneration()
+        {
+            _codeIdGenerationSettingBuilder = new CodeIdGenerationSettingBuilder();
+            return _codeIdGenerationSettingBuilder;
+        }
+
         private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
 
         public bool IsClearBeforeSeedingEnabled { get; set; }
@@ -45,6 +56,7 @@ namespace CherrySeed
         }
 
         private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
+        private CodeIdGenerationSettingBuilder _codeIdGenerationSettingBuilder;
 
         public CherrySeeder()
         {

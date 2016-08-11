@@ -4,6 +4,7 @@ using System.Data.Entity;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DictionaryDataProvider = CherrySeed.Test.Mocks.DictionaryDataProvider;
 
 namespace CherrySeed.Test.IntegrationTests
 {

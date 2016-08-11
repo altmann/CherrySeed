@@ -40,13 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityDataProvider\DictionaryDataProvider.cs" />
     <Compile Include="EntityDataProvider\EntityData.cs" />
     <Compile Include="EntityDataProvider\IEntityDataProvider.cs" />
     <Compile Include="EntityMetadata.cs" />
+    <Compile Include="EntitySettings\CodeIdGenerationSettingBuilder.cs" />
     <Compile Include="EntitySettings\CompositeEntitySettingBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />
     <Compile Include="EntitySettings\EntitySettingBuilder.cs" />
+    <Compile Include="IdGeneration\IIdGenerator.cs" />
+    <Compile Include="IdGeneration\GuidIdGenerator.cs" />
+    <Compile Include="IdGeneration\IntegerIdGenerator.cs" />
     <Compile Include="EntitySettings\PrimaryKeySetting.cs" />
     <Compile Include="EntitySettings\ReferenceSetting.cs" />
     <Compile Include="IdMappings\IdMappingDescription.cs" />

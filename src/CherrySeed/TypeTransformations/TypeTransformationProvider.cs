@@ -16,7 +16,9 @@ namespace CherrySeed.TypeTransformations
                 { typeof(DateTime), new DateTimeTransformation() },
                 { typeof(bool), new BooleanTransformation() },
                 { typeof(Guid), new GuidTransformation() },
-                { typeof(Enum), new EnumTransformation() }
+                { typeof(Enum), new EnumTransformation() },
+                { typeof(double), new DoubleTransformation() },
+                { typeof(decimal), new DecimalTransformation() },
             };
 
             foreach (var simpleTypeTransformation in simpleTypeTransformations)

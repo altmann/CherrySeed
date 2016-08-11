@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Repositories;
+using CherrySeed.Test.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CherrySeed.Test.IntegrationTests

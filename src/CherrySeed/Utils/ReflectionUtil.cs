@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace CherrySeed.Utils
 {
@@ -13,6 +14,25 @@ namespace CherrySeed.Utils
         public static bool ExistProperty(Type type, string propertyName)
         {
             return type.GetProperty(propertyName) != null;
+        }
+
+        public static void SetProperty(object obj, string propertyName, object propertyValue)
+        {
+            var type = obj.GetType();
+            var prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+
+            if (prop == null || !prop.CanWrite)
+            {
+                throw new InvalidOperationException("Failed to set property");
+            }
+
+            prop.SetValue(obj, propertyValue, null);
+        }
+
+        public static Type GetPropertyType(Type type, string propertyName)
+        {
+            var prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+            return prop.PropertyType;
         }
 
         public static string GetMemberName(LambdaExpression memberSelector)

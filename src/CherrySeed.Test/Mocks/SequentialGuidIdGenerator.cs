@@ -1,5 +1,4 @@
-﻿using System;
-using CherrySeed.IdGeneration;
+﻿using CherrySeed.IdGeneration;
 using CherrySeed.Test.Convert;
 
 namespace CherrySeed.Test.Mocks

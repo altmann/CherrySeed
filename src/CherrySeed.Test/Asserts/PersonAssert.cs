@@ -10,7 +10,7 @@ namespace CherrySeed.Test.Asserts
         {
             var person = obj as Person;
 
-            //Assert.AreEqual(expectedAddressId, person.AddressId);
+            Assert.AreEqual(expectedAddressId, person.AddressId);
         } 
     }
 }

@@ -60,8 +60,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeTransformations\BooleanTransformation.cs" />
     <Compile Include="TypeTransformations\DateTimeTransformation.cs" />
+    <Compile Include="TypeTransformations\DecimalTransformation.cs" />
     <Compile Include="TypeTransformations\EnumTransformation.cs" />
     <Compile Include="TypeTransformations\GuidTransformation.cs" />
+    <Compile Include="TypeTransformations\DoubleTransformation.cs" />
     <Compile Include="TypeTransformations\IntegerTransformation.cs" />
     <Compile Include="TypeTransformations\ITypeTransformation.cs" />
     <Compile Include="TypeTransformations\TypeTransformationProvider.cs" />

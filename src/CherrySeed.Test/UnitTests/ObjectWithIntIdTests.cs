@@ -97,8 +97,7 @@ namespace CherrySeed.Test.UnitTests
             {
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKey(e => e.Id)
-                    .WithCodeIdGeneration()
-                    .WithIntegerIdGenerator();
+                    .WithIntegerIdGenerationViaCode();
                 cfg.ForEntity<Main>();
             });
         }

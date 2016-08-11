@@ -43,7 +43,6 @@
     <Compile Include="EntityDataProvider\EntityData.cs" />
     <Compile Include="EntityDataProvider\IEntityDataProvider.cs" />
     <Compile Include="EntityMetadata.cs" />
-    <Compile Include="EntitySettings\CodeIdGenerationSettingBuilder.cs" />
     <Compile Include="EntitySettings\CompositeEntitySettingBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />
     <Compile Include="EntitySettings\EntitySettingBuilder.cs" />

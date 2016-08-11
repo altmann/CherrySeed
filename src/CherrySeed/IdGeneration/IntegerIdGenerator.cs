@@ -5,7 +5,7 @@ namespace CherrySeed.IdGeneration
         private int _id;
         private readonly int _steps;
 
-        public IntegerIdGenerator(int startId = 1, int steps = 1)
+        public IntegerIdGenerator(int startId, int steps)
         {
             _id = startId;
             _steps = steps;

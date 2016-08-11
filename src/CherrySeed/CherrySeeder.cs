@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
+using CherrySeed.IdGeneration;
 using CherrySeed.Repositories;
 using CherrySeed.IdMappings;
 using CherrySeed.ObjectTransformation;
@@ -31,12 +32,6 @@ namespace CherrySeed
             _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(null);
         }
 
-        public CodeIdGenerationSettingBuilder WithCodeIdGeneration()
-        {
-            _codeIdGenerationSettingBuilder = new CodeIdGenerationSettingBuilder();
-            return _codeIdGenerationSettingBuilder;
-        }
-
         private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
 
         public bool IsClearBeforeSeedingEnabled { get; set; }
@@ -55,8 +50,27 @@ namespace CherrySeed
             }
         }
 
+        public void WithIdGenerationViaDatabase()
+        {
+            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(null);
+        }
+
+        public void WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1)
+        {
+            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
+        }
+
+        public void WithGuidIdGenerationViaCode()
+        {
+            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(new GuidIdGenerator());
+        }
+
+        public void WithCustomIdGenerationViaCode(IIdGenerator generator)
+        {
+            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(generator);
+        }
+
         private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
-        private CodeIdGenerationSettingBuilder _codeIdGenerationSettingBuilder;
 
         public CherrySeeder()
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CherrySeed.IdGeneration;
 using CherrySeed.Repositories;
 
 namespace CherrySeed.EntitySettings
@@ -8,7 +9,6 @@ namespace CherrySeed.EntitySettings
     public class EntitySettingBuilder
     {
         protected readonly EntitySetting Obj;
-        protected CodeIdGenerationSettingBuilder CodeIdGenerationSettingBuilder;
 
         public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, 
             IRepository defaultRepository, IdGenerationSetting defaultGenerationSetting, int order)
@@ -55,16 +55,28 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public EntitySettingBuilder<T> WithDatabaseIdGeneration()
+        public EntitySettingBuilder<T> WithIdGenerationViaDatabase()
         {
             Obj.IdGeneration = new IdGenerationSetting(null);
             return this;
         }
 
-        public CodeIdGenerationSettingBuilder WithCodeIdGeneration()
+        public EntitySettingBuilder<T> WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1)
         {
-            CodeIdGenerationSettingBuilder = new CodeIdGenerationSettingBuilder();
-            return CodeIdGenerationSettingBuilder;
+            Obj.IdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
+            return this;
+        }
+
+        public EntitySettingBuilder<T> WithGuidIdGenerationViaCode()
+        {
+            Obj.IdGeneration = new IdGenerationSetting(new GuidIdGenerator());
+            return this;
+        }
+
+        public EntitySettingBuilder<T> WithCustomIdGenerationViaCode(IIdGenerator generator)
+        {
+            Obj.IdGeneration = new IdGenerationSetting(generator);
+            return this;
         }
     }
 }

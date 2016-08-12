@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntitySettings\IdGenerationSetting.cs" />
+    <Compile Include="Configuration\SeederConfiguration.cs" />
     <Compile Include="EntityDataProvider\EntityData.cs" />
     <Compile Include="EntityDataProvider\IEntityDataProvider.cs" />
     <Compile Include="EntityMetadata.cs" />
-    <Compile Include="EntitySettings\CompositeEntitySettingBuilder.cs" />
+    <Compile Include="Configuration\SeederConfigurationBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />
     <Compile Include="EntitySettings\EntitySettingBuilder.cs" />
     <Compile Include="IdGeneration\IIdGenerator.cs" />

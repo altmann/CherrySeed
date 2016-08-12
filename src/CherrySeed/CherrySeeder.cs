@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CherrySeed.EntityDataProvider;
+using CherrySeed.Configuration;
 using CherrySeed.EntitySettings;
-using CherrySeed.IdGeneration;
-using CherrySeed.Repositories;
 using CherrySeed.IdMappings;
 using CherrySeed.ObjectTransformation;
 using CherrySeed.TypeTransformations;
@@ -12,90 +10,45 @@ using CherrySeed.Utils;
 
 namespace CherrySeed
 {
-    public class CherrySeeder
+    public interface ICherrySeeder
     {
-        // Configuration
-        public IEntityDataProvider EntityDataProvider { get; set; }
-        public Dictionary<Type, ITypeTransformation> CustomTypeTransformations { get; }
+        void Seed();
+    }
+
+    public class CherrySeeder : ICherrySeeder
+    {
+        private readonly SeederConfigurationBuilder _configBuilder;
+        private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
         private readonly Dictionary<Type, EntitySetting> _entitySettings;
 
-        public List<string> DefaultPrimaryKeyNames => _defaultCompositeEntitySettingBuilder.DefaultPrimaryKeyNames;
-
-        public IRepository DefaultRepository
+        public CherrySeeder(Action<ISeederConfigurationBuilder> configurationExpression)
         {
-            get { return _defaultCompositeEntitySettingBuilder.DefaultRepository; }
-            set { _defaultCompositeEntitySettingBuilder.DefaultRepository = value; }
-        }
+            // init
+            _configBuilder = new SeederConfigurationBuilder();
+            _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
+            _entitySettings = new Dictionary<Type, EntitySetting>();
 
-        public void WithDatabaseIdGeneration()
-        {
-            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(null);
-        }
+            configurationExpression(_configBuilder);
 
-        private readonly CompositeEntitySettingBuilder _defaultCompositeEntitySettingBuilder;
-
-        public bool IsClearBeforeSeedingEnabled { get; set; }
-        public Action<Dictionary<string, string>, object> AfterTransformation { get; set; }
-
-        public void InitEntitySettings(Action<CompositeEntitySettingBuilder> objectDescriptionExpression)
-        {
-            objectDescriptionExpression(_defaultCompositeEntitySettingBuilder);
-            var builders = _defaultCompositeEntitySettingBuilder.ObjectDescriptionBuilders;
-
-            var objectDescriptions = builders.Select(b => b.Build()).ToList();
-
-            foreach (var objectDescription in objectDescriptions)
+            var entitySettings = _configBuilder.EntitySettings;
+            foreach (var objectDescription in entitySettings)
             {
                 _entitySettings.Add(objectDescription.EntityType, objectDescription);
             }
         }
 
-        public void WithIdGenerationViaDatabase()
-        {
-            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(null);
-        }
-
-        public void WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1)
-        {
-            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
-        }
-
-        public void WithGuidIdGenerationViaCode()
-        {
-            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(new GuidIdGenerator());
-        }
-
-        public void WithCustomIdGenerationViaCode(IIdGenerator generator)
-        {
-            _defaultCompositeEntitySettingBuilder.DefaultIdGeneration = new IdGenerationSetting(generator);
-        }
-
-        private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
-
-        public CherrySeeder()
-        {
-            _defaultCompositeEntitySettingBuilder = new CompositeEntitySettingBuilder();
-
-            DefaultRepository = new EmptyRepository();
-            IsClearBeforeSeedingEnabled = true;
-            CustomTypeTransformations = new Dictionary<Type, ITypeTransformation>();
-
-            _entitySettings = new Dictionary<Type, EntitySetting>();
-            _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
-        }
-
         public void Seed()
         {
-            if (EntityDataProvider == null)
+            if (_configBuilder.DataProvider == null)
             {
-                throw new InvalidOperationException("EntityDataProvider is not set");
+                throw new InvalidOperationException("_entityDataProvider is not set");
             }
 
             var idMappingProvider = new IdMappingProvider();
 
             var objectListTransformation = new ObjectListTransformation(
                 new ObjectTransformation.ObjectTransformation(
-                    new TypeTransformationProvider(CustomTypeTransformations),
+                    new TypeTransformationProvider(_configBuilder.TypeTransformations),
                     idMappingProvider));
 
             foreach (var entitySettingPair in _entitySettings.OrderBy(es => es.Value.Order))
@@ -113,7 +66,7 @@ namespace CherrySeed
                 });
             }
 
-            if (IsClearBeforeSeedingEnabled)
+            if (_configBuilder.IsClearBeforeSeedingEnabled)
             {
                 foreach (var entityMetadataPair in _entityMetadataDict.OrderByDescending(em => em.Value.EntitySetting.Order))
                 {
@@ -124,7 +77,7 @@ namespace CherrySeed
                 }
             }
 
-            var entityData = EntityDataProvider.GetEntityData();
+            var entityData = _configBuilder.DataProvider.GetEntityData();
 
             foreach (var objectMetadataPair in _entityMetadataDict.OrderBy(em => em.Value.EntitySetting.Order))
             {
@@ -145,7 +98,7 @@ namespace CherrySeed
                     var obj = entityMetadata.Objects[i];
                     var objDict = entityMetadata.ObjectsAsDict[i];
 
-                    AfterTransformation?.Invoke(objDict, obj);
+                    _configBuilder.AfterTransformationAction?.Invoke(objDict, obj);
 
                     createEntityTarget.SaveEntity(obj);
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CherrySeed.Configuration;
 using CherrySeed.IdGeneration;
 using CherrySeed.Repositories;
 
@@ -10,20 +11,24 @@ namespace CherrySeed.EntitySettings
     {
         protected readonly EntitySetting Obj;
 
-        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, 
-            IRepository defaultRepository, IdGenerationSetting defaultGenerationSetting, int order)
+        public EntitySettingBuilder(Type entityType, 
+            PrimaryKeySetting primaryKey, 
+            IRepository defaultRepository, 
+            IdGenerationSetting defaultGenerationSetting, 
+            int order)
         {
             Obj = new EntitySetting
             {
                 EntityType = entityType,
                 Repository = defaultRepository,
-                PrimaryKey = new PrimaryKeySetting(defaultPrimaryKeyNames),
+                PrimaryKey = primaryKey,
                 References = new List<ReferenceSetting>(),
                 IdGeneration = defaultGenerationSetting,
                 Order = order
             };
         }
 
+        //todo: make it public invisible
         public EntitySetting Build()
         {
             return Obj;
@@ -32,8 +37,8 @@ namespace CherrySeed.EntitySettings
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder
     {
-        public EntitySettingBuilder(Type entityType, List<string> defaultPrimaryKeyNames, IRepository defaultRepository, IdGenerationSetting defaultIdGenerationSetting, int order)
-            : base(entityType, defaultPrimaryKeyNames, defaultRepository, defaultIdGenerationSetting, order)
+        public EntitySettingBuilder(Type entityType, PrimaryKeySetting primaryKey, IRepository defaultRepository, IdGenerationSetting defaultIdGenerationSetting, int order)
+            : base(entityType, primaryKey, defaultRepository, defaultIdGenerationSetting, order)
         { }
 
         public EntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression)

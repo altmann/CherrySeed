@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CherrySeed.Configuration;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
@@ -103,14 +104,17 @@ namespace CherrySeed.Test.UnitTests
         }
 
         private void InitAndExecute(List<EntityData> data, IRepository repository, 
-            Action<CompositeEntitySettingBuilder> entitySettings)
+            Action<ISeederConfigurationBuilder> entitySettings)
         {
-            var cherrySeeder = new CherrySeeder();
-            cherrySeeder.UseDictionaryDataProvider(data);
-            cherrySeeder.DefaultRepository = repository;
+            var config = new SeederConfiguration(cfg =>
+            {
+                cfg.WithDataProvider(new DictionaryDataProvider(data));
+                cfg.WithDefaultRepository(repository);
 
-            cherrySeeder.InitEntitySettings(entitySettings);
+                entitySettings(cfg);
+            });
 
+            var cherrySeeder = config.CreateSeeder();
             cherrySeeder.Seed();
         }
     }

@@ -17,15 +17,4 @@ namespace CherrySeed.Test.Mocks
             return _entityData;
         }
     }
-
-    public static class CherrySeederExtension
-    {
-
-
-        public static void UseDictionaryDataProvider(this CherrySeeder cherrySeeder,
-            List<EntityData> entityData)
-        {
-            cherrySeeder.EntityDataProvider = new DictionaryDataProvider(entityData);
-        }
-    }
 }

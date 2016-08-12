@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CherrySeed.Configuration;
 using CherrySeed.Repositories;
 
 namespace CherrySeed.EntitySettings

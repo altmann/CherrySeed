@@ -64,9 +64,6 @@
     <Compile Include="Asserts\PersonAssert.cs" />
     <Compile Include="Asserts\MainAssert.cs" />
     <Compile Include="Convert\Converter.cs" />
-    <Compile Include="IntegrationTests\ObjectWithGuidIdAndNotNormalIdNamesTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithGuidIdTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithIntIdTests.cs" />
     <Compile Include="Mocks\AssertRepository.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidIdGenerator.cs" />

@@ -11,7 +11,7 @@ namespace CherrySeed.Configuration
 {
     public interface ISeederConfigurationBuilder
     {
-        EntitySettingBuilder<T> ForEntity<T>();
+        IEntitySettingBuilder<T> ForEntity<T>();
         void WithDataProvider(IEntityDataProvider dataProvider);
         void AddTypeTransformation(Type type, ITypeTransformation transformation);
         void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames);
@@ -58,7 +58,7 @@ namespace CherrySeed.Configuration
             IsClearBeforeSeedingEnabled = true;
         }
 
-        public EntitySettingBuilder<T> ForEntity<T>()
+        public IEntitySettingBuilder<T> ForEntity<T>()
         {
             var entityType = typeof (T);
             var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, new PrimaryKeySetting(DefaultPrimaryKey.PrimaryKeyNames), DefaultRepository, DefaultIdGeneration, _order++);

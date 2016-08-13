@@ -8,12 +8,16 @@ namespace CherrySeed.EntitySettings
     {
         public string ReferenceName { get; set; }
         public Type ReferenceType { get; set; }
+        public bool IsModelReference { get; set; }
     }
 
     public class ReferenceSetting<T> : ReferenceSetting
     {
-        public ReferenceSetting(Expression<Func<T, object>> referenceMember, Type referenceType)
+        public ReferenceSetting(Expression<Func<T, object>> referenceMember, 
+            Type referenceType,
+            bool isModelReference)
         {
+            IsModelReference = isModelReference;
             ReferenceName = ReflectionUtil.GetMemberName(referenceMember);
             ReferenceType = referenceType;
         }

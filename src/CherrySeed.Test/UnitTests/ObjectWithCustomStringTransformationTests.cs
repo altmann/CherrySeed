@@ -51,7 +51,7 @@ namespace CherrySeed.Test.UnitTests
                 },
             };
 
-            var assertRepository = new AssertRepository((obj, count) =>
+            var assertRepository = new AssertRepository((obj, count, entities) =>
             {
                 AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
                 {

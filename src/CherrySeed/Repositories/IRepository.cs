@@ -6,5 +6,6 @@ namespace CherrySeed.Repositories
     {
         void SaveEntity(object obj);
         void RemoveEntities(Type type);
+        object LoadEntity(Type type, object id);
     }
 }

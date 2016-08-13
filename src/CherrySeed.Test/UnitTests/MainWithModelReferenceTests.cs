@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CherrySeed.Configuration;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Repositories;
 using CherrySeed.Test.Asserts;
-using CherrySeed.Test.Convert;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,42 +12,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CherrySeed.Test.UnitTests
 {
     [TestClass]
-    public class ObjectWithGuidIdTests
+    public class MainWithModelReferenceTests
     {
         [TestMethod]
-        public void ObjectWithGuidId()
+        public void MainWithModelReference()
         {
             var entityData = new List<EntityData>
             {
                 new EntityData
                 {
-                    EntityName = "CherrySeed.Test.Models.Person",
+                    EntityName = "CherrySeed.Test.Models.MainWithModelReference",
                     Objects = new List<Dictionary<string, string>>
                     {
                         new Dictionary<string, string>
                         {
-                            { "PersonId", "P1" },
-                            { "AddressId", "A1" }
+                            { "Id", "1" },
+                            { "Sub", "2" },
                         },
                         new Dictionary<string, string>
                         {
-                            { "PersonId", "P2" },
-                            { "AddressId", "A1" }
+                            { "Id", "2" },
+                            { "Sub", "1" },
                         }
                     }
                 },
                 new EntityData
                 {
-                    EntityName = "CherrySeed.Test.Models.Address",
+                    EntityName = "CherrySeed.Test.Models.Sub",
                     Objects = new List<Dictionary<string, string>>
                     {
                         new Dictionary<string, string>
                         {
-                            { "AddressId", "A1" }
+                            { "Id", "1" },
+                            { "MyString", "MyString 1" },
                         },
                         new Dictionary<string, string>
                         {
-                            { "AddressId", "A2" }
+                            { "Id", "2" },
+                            { "MyString", "MyString 2" },
                         }
                     }
                 },
@@ -55,16 +57,25 @@ namespace CherrySeed.Test.UnitTests
 
             var assertRepository = new AssertRepository((obj, count, entities) =>
             {
-                AssertHelper.AssertIf(typeof(Person), 0, count, obj, () =>
+                AssertHelper.AssertIf(typeof(MainWithModelReference), 0, count, obj, () =>
                 {
-                    AssertPerson.AssertProperties(obj, Converter.ToGuid(1));
+                    AssertMainWithModelReference.AssertProperties(obj, entities[typeof(Sub)].First(e => ((Sub)e).Id == 2));
                 });
 
-                AssertHelper.AssertIf(typeof(Person), 1, count, obj, () =>
+                AssertHelper.AssertIf(typeof(MainWithModelReference), 1, count, obj, () =>
                 {
-                    AssertPerson.AssertProperties(obj, Converter.ToGuid(1));
+                    AssertMainWithModelReference.AssertProperties(obj, entities[typeof(Sub)].First(e => ((Sub)e).Id == 1));
                 });
 
+                AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
+                {
+                    AssertSub.AssertProperties(obj, "MyString 1");
+                });
+
+                AssertHelper.AssertIf(typeof(Sub), 1, count, obj, () =>
+                {
+                    AssertSub.AssertProperties(obj, "MyString 2");
+                });
             }, type =>
             {
                 
@@ -72,12 +83,12 @@ namespace CherrySeed.Test.UnitTests
             
             InitAndExecute(entityData, assertRepository, cfg =>
             {
-                cfg.ForEntity<Address>()
-                    .WithCustomIdGenerationViaCode(new SequentialGuidIdGenerator());
+                cfg.ForEntity<Sub>()
+                    .WithIntegerIdGenerationViaCode();
 
-                cfg.ForEntity<Person>()
-                    .WithReference(e => e.AddressId, typeof(Address))
-                    .WithCustomIdGenerationViaCode(new SequentialGuidIdGenerator());
+                cfg.ForEntity<MainWithModelReference>()
+                    .WithIntegerIdGenerationViaCode()
+                    .WithReference(e => e.Sub, typeof(Sub), true);
             });
         }
 

@@ -60,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Asserts\AssertHelper.cs" />
+    <Compile Include="Asserts\MainWithModelReferenceAssert.cs" />
     <Compile Include="Asserts\NullableMainAssert.cs" />
     <Compile Include="Asserts\ProjectAssert.cs" />
     <Compile Include="Asserts\PersonAssert.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Mocks\SequentialGuidIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\MainWithModelReference.cs" />
     <Compile Include="Models\Main.cs" />
     <Compile Include="Models\NullableMain.cs" />
     <Compile Include="Models\Person.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="UnitTests\ObjectWithInormalIntIdTests.cs" />
     <Compile Include="UnitTests\ObjectWithGuidIdTests.cs" />
     <Compile Include="UnitTests\ObjectWithCustomEmptyStringTests.cs" />
+    <Compile Include="UnitTests\MainWithModelReferenceTests.cs" />
     <Compile Include="UnitTests\ObjectWithNullableTests.cs" />
     <Compile Include="UnitTests\ObjectWithIntIdTests.cs" />
   </ItemGroup>

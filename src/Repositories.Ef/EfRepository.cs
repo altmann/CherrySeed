@@ -35,5 +35,10 @@ namespace CherrySeed.Repositories.Ef
                 dbContext.SaveChanges();
             }
         }
+
+        public object LoadEntity(Type type, object id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

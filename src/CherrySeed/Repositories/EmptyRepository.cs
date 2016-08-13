@@ -13,5 +13,10 @@ namespace CherrySeed.Repositories
         {
             
         }
+
+        public object LoadEntity(Type type, object id)
+        {
+            return null;
+        }
     }
 }

@@ -49,9 +49,18 @@ namespace CherrySeed.ObjectTransformation
             }
             else if (IsForeignKey(propertyName, entitySetting.References))
             {
-                var foreignKeyType = entitySetting.References.First(rd => rd.ReferenceName == propertyName).ReferenceType;
-                var foreignKeyId = _idMappingProvider.GetRepositoryId(foreignKeyType, propertyValue);
-                ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+                var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
+                var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
+
+                if (referenceSetting.IsModelReference)
+                {
+                    var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
+                    ReflectionUtil.SetProperty(obj, propertyName, referenceModel);
+                }
+                else
+                {
+                    ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+                }
             }
             else
             {

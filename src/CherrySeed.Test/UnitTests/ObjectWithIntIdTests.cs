@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using CherrySeed.Configuration;
 using CherrySeed.EntityDataProvider;
-using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
 using CherrySeed.Test.Asserts;
 using CherrySeed.Test.Mocks;

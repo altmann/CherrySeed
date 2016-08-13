@@ -2,9 +2,9 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class GuidTransformation : ITypeTransformation
+    public class GuidTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
             return Guid.Parse(str);
         }

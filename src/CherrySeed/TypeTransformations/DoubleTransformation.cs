@@ -2,9 +2,9 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class DoubleTransformation : ITypeTransformation
+    public class DoubleTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
             return double.Parse(str);
         }

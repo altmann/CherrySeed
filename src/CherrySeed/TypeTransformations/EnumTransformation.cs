@@ -1,12 +1,17 @@
 ﻿using System;
+using CherrySeed.Utils;
 
 namespace CherrySeed.TypeTransformations
 {
-    public class EnumTransformation : ITypeTransformation
+    public class EnumTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
-            return Enum.Parse(type, str);
+            var enumType = ReflectionUtil.IsNullableValueType(type)
+                ? Nullable.GetUnderlyingType(type)
+                : type;
+
+            return Enum.Parse(enumType, str);
         }
     }
 }

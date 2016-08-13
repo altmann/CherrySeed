@@ -2,9 +2,9 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class DecimalTransformation : ITypeTransformation
+    public class DecimalTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
             return decimal.Parse(str);
         }

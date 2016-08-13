@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CherrySeed.Utils;
 
 namespace CherrySeed.TypeTransformations
 {
@@ -9,17 +10,7 @@ namespace CherrySeed.TypeTransformations
 
         public TypeTransformationProvider(Dictionary<Type, ITypeTransformation> simpleTypeTransformations)
         {
-            _simpleTypeTransformations = new Dictionary<Type, ITypeTransformation>
-            {
-                { typeof(string), new StringTransformation() },
-                { typeof(int), new IntegerTransformation() },
-                { typeof(DateTime), new DateTimeTransformation() },
-                { typeof(bool), new BooleanTransformation() },
-                { typeof(Guid), new GuidTransformation() },
-                { typeof(Enum), new EnumTransformation() },
-                { typeof(double), new DoubleTransformation() },
-                { typeof(decimal), new DecimalTransformation() },
-            };
+            _simpleTypeTransformations = new Dictionary<Type, ITypeTransformation>();
 
             foreach (var simpleTypeTransformation in simpleTypeTransformations)
             {
@@ -39,7 +30,19 @@ namespace CherrySeed.TypeTransformations
 
         public ITypeTransformation GetSimpleTransformation(Type type)
         {
-            return _simpleTypeTransformations[type];
+            var relevantType = GetRelevantType(type);
+
+            return relevantType.IsEnum
+                ? _simpleTypeTransformations[typeof(Enum)]
+                : _simpleTypeTransformations[relevantType];
+        }
+
+        private Type GetRelevantType(Type type)
+        {
+            if (ReflectionUtil.IsNullableValueType(type))
+                return type.GetGenericArguments()[0];
+
+            return type;
         }
     }
 }

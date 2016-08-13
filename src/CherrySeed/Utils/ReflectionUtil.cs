@@ -29,6 +29,11 @@ namespace CherrySeed.Utils
             prop.SetValue(obj, propertyValue, null);
         }
 
+        public static bool IsNullableValueType(Type type)
+        {
+            return Nullable.GetUnderlyingType(type) != null;
+        }
+
         public static Type GetPropertyType(Type type, string propertyName)
         {
             var prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);

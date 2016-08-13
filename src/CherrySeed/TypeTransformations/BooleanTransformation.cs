@@ -2,9 +2,9 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class BooleanTransformation : ITypeTransformation
+    public class BooleanTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
             return bool.Parse(str);
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
 using CherrySeed.TypeTransformations;
@@ -56,11 +55,12 @@ namespace CherrySeed.ObjectTransformation
             }
             else
             {
-                var simpleTransformation = propertyType.IsEnum
-                    ? _typeTransformationProvider.GetSimpleTransformation(typeof(Enum))
-                    : _typeTransformationProvider.GetSimpleTransformation(propertyType);
+                var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
 
-                var typedPropertyValue = simpleTransformation.Transform(propertyType, propertyValue);
+                var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
+                    ? simpleTransformation.TransformNullable(propertyType, propertyValue)
+                    : simpleTransformation.Transform(propertyType, propertyValue);
+                
                 ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
             }
         }

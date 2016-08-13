@@ -21,6 +21,7 @@ namespace CherrySeed.Configuration
         void WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1);
         void WithGuidIdGenerationViaCode();
         void WithCustomIdGenerationViaCode(IIdGenerator generator);
+        void WithEmptyStringMarker(string marker);
     }
 
     public class SeederConfigurationBuilder : ISeederConfigurationBuilder
@@ -49,8 +50,18 @@ namespace CherrySeed.Configuration
         {
             // init
             _entitySettingBuilders = new List<EntitySettingBuilder>();
-            TypeTransformations = new Dictionary<Type, ITypeTransformation>();
-            
+            TypeTransformations = new Dictionary<Type, ITypeTransformation>
+            {
+                { typeof(string), new StringTransformation("$EMPTY$") },
+                { typeof(int), new IntegerTransformation() },
+                { typeof(DateTime), new DateTimeTransformation() },
+                { typeof(bool), new BooleanTransformation() },
+                { typeof(Guid), new GuidTransformation() },
+                { typeof(Enum), new EnumTransformation() },
+                { typeof(double), new DoubleTransformation() },
+                { typeof(decimal), new DecimalTransformation() }
+            };
+
             // set defaults
             DefaultPrimaryKey = new PrimaryKeySetting(new List<string> { "Id", "{ClassName}Id" });
             DefaultIdGeneration = new IdGenerationSetting();
@@ -117,6 +128,11 @@ namespace CherrySeed.Configuration
         public void WithCustomIdGenerationViaCode(IIdGenerator generator)
         {
             DefaultIdGeneration = new IdGenerationSetting(generator);
+        }
+
+        public void WithEmptyStringMarker(string marker)
+        {
+            TypeTransformations[typeof(string)] = new StringTransformation(marker);
         }
     }
 }

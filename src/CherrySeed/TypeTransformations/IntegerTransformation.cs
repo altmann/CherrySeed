@@ -2,9 +2,9 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class IntegerTransformation : ITypeTransformation
+    public class IntegerTransformation : TypeTransformationBase
     {
-        public object Transform(Type type, string str)
+        public override object Transform(Type type, string str)
         {
             return int.Parse(str);
         }

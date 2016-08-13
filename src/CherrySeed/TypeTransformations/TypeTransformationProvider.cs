@@ -10,22 +10,7 @@ namespace CherrySeed.TypeTransformations
 
         public TypeTransformationProvider(Dictionary<Type, ITypeTransformation> simpleTypeTransformations)
         {
-            _simpleTypeTransformations = new Dictionary<Type, ITypeTransformation>();
-
-            foreach (var simpleTypeTransformation in simpleTypeTransformations)
-            {
-                var type = simpleTypeTransformation.Key;
-                var transformation = simpleTypeTransformation.Value;
-
-                if (_simpleTypeTransformations.ContainsKey(type))
-                {
-                    _simpleTypeTransformations[type] = transformation;
-                }
-                else
-                {
-                    _simpleTypeTransformations.Add(type, transformation);
-                }
-            }
+            _simpleTypeTransformations = simpleTypeTransformations;
         }
 
         public ITypeTransformation GetSimpleTransformation(Type type)

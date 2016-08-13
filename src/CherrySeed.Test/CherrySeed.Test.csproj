@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\ObjectWithInormalIntIdTests.cs" />
     <Compile Include="UnitTests\ObjectWithGuidIdTests.cs" />
+    <Compile Include="UnitTests\ObjectWithCustomEmptyStringTests.cs" />
     <Compile Include="UnitTests\ObjectWithNullableTests.cs" />
     <Compile Include="UnitTests\ObjectWithIntIdTests.cs" />
   </ItemGroup>

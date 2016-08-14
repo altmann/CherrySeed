@@ -68,5 +68,10 @@ namespace CherrySeed.Utils
                 }
             }
         }
+
+        public static bool IsReferenceType(Type type)
+        {
+            return type.IsClass;
+        }
     }
 }

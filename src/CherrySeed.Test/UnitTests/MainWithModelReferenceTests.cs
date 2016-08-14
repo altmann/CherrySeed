@@ -88,7 +88,7 @@ namespace CherrySeed.Test.UnitTests
 
                 cfg.ForEntity<MainWithModelReference>()
                     .WithIntegerIdGenerationViaCode()
-                    .WithReference(e => e.Sub, typeof(Sub), true);
+                    .WithReference(e => e.Sub, typeof(Sub));
             });
         }
 

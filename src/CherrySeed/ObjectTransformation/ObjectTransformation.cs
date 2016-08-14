@@ -52,7 +52,7 @@ namespace CherrySeed.ObjectTransformation
                 var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
                 var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
 
-                if (referenceSetting.IsModelReference)
+                if (ReflectionUtil.IsReferenceType(propertyType))
                 {
                     var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
                     ReflectionUtil.SetProperty(obj, propertyName, referenceModel);

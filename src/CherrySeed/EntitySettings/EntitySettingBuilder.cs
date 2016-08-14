@@ -36,7 +36,7 @@ namespace CherrySeed.EntitySettings
     public interface IEntitySettingBuilder<T>
     {
         IEntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression);
-        IEntitySettingBuilder<T> WithReference(Expression<Func<T, object>> referenceExpression, Type referenceEntity, bool isModelReference = false);
+        IEntitySettingBuilder<T> WithReference(Expression<Func<T, object>> referenceExpression, Type referenceEntity);
         IEntitySettingBuilder<T> WithRepository(IRepository repository);
         IEntitySettingBuilder<T> WithIdGenerationViaDatabase();
         IEntitySettingBuilder<T> WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1);
@@ -58,10 +58,9 @@ namespace CherrySeed.EntitySettings
 
         public IEntitySettingBuilder<T> WithReference(
             Expression<Func<T, object>> referenceExpression,
-            Type referenceEntity,
-            bool isModelReference = false)
+            Type referenceEntity)
         {
-            Obj.References.Add(new ReferenceSetting<T>(referenceExpression, referenceEntity, isModelReference));
+            Obj.References.Add(new ReferenceSetting<T>(referenceExpression, referenceEntity));
             return this;
         }
 

@@ -12,5 +12,6 @@ namespace CherrySeed.EntitySettings
         public IRepository Repository { get; set; }
         public int Order { get; set; }
         public IdGenerationSetting IdGeneration { get; set; }
+        public List<string> EntityNames { get; set; }
     }
 }

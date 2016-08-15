@@ -23,10 +23,23 @@ namespace CherrySeed.EntitySettings
                 PrimaryKey = primaryKey,
                 References = new List<ReferenceSetting>(),
                 IdGeneration = defaultGenerationSetting,
+                EntityNames = GetFinalEntityNames(entityType),
                 Order = order
             };
         }
-        
+
+        private List<string> GetFinalEntityNames(Type entityType)
+        {
+            var firstEntityName = entityType.FullName;
+            var secondEntityName = entityType.Name;
+
+            return new List<string>
+            {
+                firstEntityName,
+                secondEntityName
+            };
+        }
+
         public EntitySetting Build()
         {
             return Obj;
@@ -42,6 +55,7 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1);
         IEntitySettingBuilder<T> WithGuidIdGenerationViaCode();
         IEntitySettingBuilder<T> WithCustomIdGenerationViaCode(IIdGenerator generator);
+        IEntitySettingBuilder<T> HasEntityName(string entityName);
     }
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>
@@ -91,6 +105,12 @@ namespace CherrySeed.EntitySettings
         public IEntitySettingBuilder<T> WithCustomIdGenerationViaCode(IIdGenerator generator)
         {
             Obj.IdGeneration = new IdGenerationSetting(generator);
+            return this;
+        }
+
+        public IEntitySettingBuilder<T> HasEntityName(string entityName)
+        {
+            Obj.EntityNames = new List<string> { entityName };
             return this;
         }
     }

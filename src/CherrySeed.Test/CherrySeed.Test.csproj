@@ -83,6 +83,7 @@
     <Compile Include="UnitTests\ObjectWithGuidIdTests.cs" />
     <Compile Include="UnitTests\ObjectWithCustomEmptyStringTests.cs" />
     <Compile Include="UnitTests\MainWithModelReferenceTests.cs" />
+    <Compile Include="UnitTests\ObjectWithEnitityNamesTests.cs" />
     <Compile Include="UnitTests\ObjectWithNullableTests.cs" />
     <Compile Include="UnitTests\ObjectWithIntIdTests.cs" />
   </ItemGroup>

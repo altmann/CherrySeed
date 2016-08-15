@@ -60,7 +60,7 @@ namespace CherrySeed
 
                 _entityMetadataDict.Add(entityType, new EntityMetadata
                 {
-                    EntityName = entityType.FullName,
+                    //EntityName = entityType.FullName,
                     EntityType = entityType,
                     EntitySetting = entitySetting
                 });
@@ -85,7 +85,7 @@ namespace CherrySeed
                 var entityMetadata = objectMetadataPair.Value;
 
                 entityMetadata.ObjectsAsDict =
-                    entityData.First(od => od.EntityName == entityMetadata.EntityName).Objects;
+                    entityData.First(od => entityMetadata.EntitySetting.EntityNames.Contains(od.EntityName)).Objects;
 
                 var entitySetting = entityMetadata.EntitySetting;
                 var createEntityTarget = entitySetting.Repository;

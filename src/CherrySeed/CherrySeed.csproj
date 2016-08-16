@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntitySettings\IdGenerationSetting.cs" />
-    <Compile Include="Configuration\SeederConfiguration.cs" />
+    <Compile Include="Configuration\CherrySeedConfiguration.cs" />
     <Compile Include="EntityDataProvider\EntityData.cs" />
-    <Compile Include="EntityDataProvider\IEntityDataProvider.cs" />
+    <Compile Include="EntityDataProvider\IDataProvider.cs" />
     <Compile Include="EntityMetadata.cs" />
     <Compile Include="Configuration\SeederConfigurationBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />

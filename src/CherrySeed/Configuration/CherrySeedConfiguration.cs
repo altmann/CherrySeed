@@ -2,11 +2,11 @@ using System;
 
 namespace CherrySeed.Configuration
 {
-    public class SeederConfiguration
+    public class CherrySeedConfiguration
     {
         private readonly Action<ISeederConfigurationBuilder> _configurationExpression;
 
-        public SeederConfiguration(Action<ISeederConfigurationBuilder> configurationExpression)
+        public CherrySeedConfiguration(Action<ISeederConfigurationBuilder> configurationExpression)
         {
             _configurationExpression = configurationExpression;
         }

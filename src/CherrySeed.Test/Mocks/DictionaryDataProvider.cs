@@ -3,7 +3,7 @@ using CherrySeed.EntityDataProvider;
 
 namespace CherrySeed.Test.Mocks
 {
-    public class DictionaryDataProvider : IEntityDataProvider
+    public class DictionaryDataProvider : IDataProvider
     {
         private readonly List<EntityData> _entityData;
 

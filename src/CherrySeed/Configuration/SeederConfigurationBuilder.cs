@@ -12,10 +12,10 @@ namespace CherrySeed.Configuration
     public interface ISeederConfigurationBuilder
     {
         IEntitySettingBuilder<T> ForEntity<T>();
-        void WithDataProvider(IEntityDataProvider dataProvider);
+        void WithDataProvider(IDataProvider dataProvider);
         void AddTypeTransformation(Type type, ITypeTransformation transformation);
         void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames);
-        void WithDefaultRepository(IRepository repository);
+        void WithRepository(IRepository repository);
         void DisableClearBeforeSeeding();
         void AfterTransformation(Action<Dictionary<string, string>, object> afterTransformationAction);
         void WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1);
@@ -44,7 +44,7 @@ namespace CherrySeed.Configuration
         public IdGenerationSetting DefaultIdGeneration { get; set; }
         public bool IsClearBeforeSeedingEnabled { get; set; }
         public Action<Dictionary<string, string>, object> AfterTransformationAction { get; set; }
-        public IEntityDataProvider DataProvider { get; set; }
+        public IDataProvider DataProvider { get; set; }
         public Dictionary<Type, ITypeTransformation> TypeTransformations { get; }
 
         public SeederConfigurationBuilder()
@@ -78,7 +78,7 @@ namespace CherrySeed.Configuration
             return newObjectDescriptionBuilder;
         }
 
-        public void WithDataProvider(IEntityDataProvider dataProvider)
+        public void WithDataProvider(IDataProvider dataProvider)
         {
             DataProvider = dataProvider;
         }
@@ -101,7 +101,7 @@ namespace CherrySeed.Configuration
             DefaultPrimaryKey = new PrimaryKeySetting(primaryKeyNames.ToList());
         }
 
-        public void WithDefaultRepository(IRepository repository)
+        public void WithRepository(IRepository repository)
         {
             DefaultRepository = repository;
         }

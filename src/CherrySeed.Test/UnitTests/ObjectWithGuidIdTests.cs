@@ -84,10 +84,10 @@ namespace CherrySeed.Test.UnitTests
         private void InitAndExecute(List<EntityData> data, IRepository repository, 
             Action<ISeederConfigurationBuilder> entitySettings)
         {
-            var config = new SeederConfiguration(cfg =>
+            var config = new CherrySeedConfiguration(cfg =>
             {
                 cfg.WithDataProvider(new DictionaryDataProvider(data));
-                cfg.WithDefaultRepository(repository);
+                cfg.WithRepository(repository);
 
                 entitySettings(cfg);
             });

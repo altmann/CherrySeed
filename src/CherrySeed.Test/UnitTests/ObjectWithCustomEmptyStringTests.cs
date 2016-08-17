@@ -58,7 +58,7 @@ namespace CherrySeed.Test.UnitTests
                 cfg.WithEmptyStringMarker("%");
 
                 cfg.ForEntity<Sub>()
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }
 

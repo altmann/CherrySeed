@@ -84,10 +84,10 @@ namespace CherrySeed.Test.UnitTests
             InitAndExecute(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Sub>()
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
 
                 cfg.ForEntity<MainWithModelReference>()
-                    .WithIntegerIdGenerationViaCode()
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger()
                     .WithReference(e => e.Sub, typeof(Sub));
             });
         }

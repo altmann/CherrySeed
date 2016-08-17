@@ -102,10 +102,10 @@ namespace CherrySeed.Test.UnitTests
             InitAndExecute(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Sub>()
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
 
                 cfg.ForEntity<NullableMain>()
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }
 

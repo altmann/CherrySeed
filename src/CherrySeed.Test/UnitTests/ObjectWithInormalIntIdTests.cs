@@ -73,12 +73,12 @@ namespace CherrySeed.Test.UnitTests
             {
                 cfg.ForEntity<Customer>()
                     .WithPrimaryKey(e => e.MyCustomerId)
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
 
                 cfg.ForEntity<Project>()
                     .WithPrimaryKey(e => e.MyProjectId)
                     .WithReference(e => e.CustomerId, typeof (Customer))
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }
 

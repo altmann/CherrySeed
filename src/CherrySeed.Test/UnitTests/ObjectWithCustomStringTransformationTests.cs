@@ -72,7 +72,7 @@ namespace CherrySeed.Test.UnitTests
                 cfg.AddTypeTransformation(typeof(string), new CustomStringTransformation());
 
                 cfg.ForEntity<Sub>()
-                    .WithIntegerIdGenerationViaCode();
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }
 

@@ -51,10 +51,11 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression);
         IEntitySettingBuilder<T> WithReference(Expression<Func<T, object>> referenceExpression, Type referenceEntity);
         IEntitySettingBuilder<T> WithRepository(IRepository repository);
-        IEntitySettingBuilder<T> WithIdGenerationViaDatabase();
-        IEntitySettingBuilder<T> WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1);
-        IEntitySettingBuilder<T> WithGuidIdGenerationViaCode();
-        IEntitySettingBuilder<T> WithCustomIdGenerationViaCode(IIdGenerator generator);
+        IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInDatabase();
+        IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
+        IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsGuid();
+        IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
+        IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator);
         IEntitySettingBuilder<T> HasEntityName(string entityName);
     }
 
@@ -84,25 +85,31 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithIdGenerationViaDatabase()
+        public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInDatabase()
         {
             Obj.IdGeneration = new IdGenerationSetting(null);
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithIntegerIdGenerationViaCode(int startId = 1, int steps = 1)
+        public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
             Obj.IdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithGuidIdGenerationViaCode()
+        public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
             Obj.IdGeneration = new IdGenerationSetting(new GuidIdGenerator());
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithCustomIdGenerationViaCode(IIdGenerator generator)
+        public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
+        {
+            Obj.IdGeneration = new IdGenerationSetting(new StringIdGenerator(prefix, startId, steps));
+            return this;
+        }
+
+        public IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator)
         {
             Obj.IdGeneration = new IdGenerationSetting(generator);
             return this;

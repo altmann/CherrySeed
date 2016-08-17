@@ -1,4 +1,4 @@
-using CherrySeed.IdGeneration;
+using CherrySeed.PrimaryKeyIdGeneration;
 
 namespace CherrySeed.EntitySettings
 {
@@ -7,11 +7,11 @@ namespace CherrySeed.EntitySettings
         public IdGenerationSetting()
         { }
 
-        public IdGenerationSetting(IIdGenerator generator)
+        public IdGenerationSetting(IPrimaryKeyIdGenerator generator)
         {
             Generator = generator;
         }
 
-        public IIdGenerator Generator { get; set; }
+        public IPrimaryKeyIdGenerator Generator { get; set; }
     }
 }

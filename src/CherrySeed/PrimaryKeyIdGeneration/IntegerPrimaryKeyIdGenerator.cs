@@ -1,11 +1,11 @@
-namespace CherrySeed.IdGeneration
+namespace CherrySeed.PrimaryKeyIdGeneration
 {
-    public class IntegerIdGenerator : IIdGenerator
+    public class IntegerPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         private int _id;
         private readonly int _steps;
 
-        public IntegerIdGenerator(int startId, int steps)
+        public IntegerPrimaryKeyIdGenerator(int startId, int steps)
         {
             _id = startId;
             _steps = steps;

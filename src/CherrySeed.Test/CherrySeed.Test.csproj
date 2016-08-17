@@ -68,7 +68,7 @@
     <Compile Include="Convert\Converter.cs" />
     <Compile Include="Mocks\AssertRepository.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
-    <Compile Include="Mocks\SequentialGuidIdGenerator.cs" />
+    <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\MainWithModelReference.cs" />

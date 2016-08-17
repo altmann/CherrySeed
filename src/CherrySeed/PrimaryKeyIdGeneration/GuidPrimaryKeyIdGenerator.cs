@@ -1,8 +1,8 @@
 using System;
 
-namespace CherrySeed.IdGeneration
+namespace CherrySeed.PrimaryKeyIdGeneration
 {
-    public class GuidIdGenerator : IIdGenerator
+    public class GuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         public object Generate()
         {

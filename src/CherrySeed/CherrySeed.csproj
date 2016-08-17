@@ -48,10 +48,10 @@
     <Compile Include="Configuration\SeederConfigurationBuilder.cs" />
     <Compile Include="EntitySettings\EntitySetting.cs" />
     <Compile Include="EntitySettings\EntitySettingBuilder.cs" />
-    <Compile Include="IdGeneration\IIdGenerator.cs" />
-    <Compile Include="IdGeneration\GuidIdGenerator.cs" />
-    <Compile Include="IdGeneration\StringIdGenerator.cs" />
-    <Compile Include="IdGeneration\IntegerIdGenerator.cs" />
+    <Compile Include="PrimaryKeyIdGeneration\IPrimaryKeyIdGenerator.cs" />
+    <Compile Include="PrimaryKeyIdGeneration\GuidPrimaryKeyIdGenerator.cs" />
+    <Compile Include="PrimaryKeyIdGeneration\StringPrimaryKeyIdGenerator.cs" />
+    <Compile Include="PrimaryKeyIdGeneration\IntegerPrimaryKeyIdGenerator.cs" />
     <Compile Include="EntitySettings\PrimaryKeySetting.cs" />
     <Compile Include="EntitySettings\ReferenceSetting.cs" />
     <Compile Include="IdMappings\IdMappingDescription.cs" />

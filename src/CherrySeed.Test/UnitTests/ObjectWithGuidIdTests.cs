@@ -73,11 +73,11 @@ namespace CherrySeed.Test.UnitTests
             InitAndExecute(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Address>()
-                    .WithCustomPrimaryKeyIdGenerationInApplication(new SequentialGuidIdGenerator());
+                    .WithCustomPrimaryKeyIdGenerationInApplication(new SequentialGuidPrimaryKeyIdGenerator());
 
                 cfg.ForEntity<Person>()
                     .WithReference(e => e.AddressId, typeof(Address))
-                    .WithCustomPrimaryKeyIdGenerationInApplication(new SequentialGuidIdGenerator());
+                    .WithCustomPrimaryKeyIdGenerationInApplication(new SequentialGuidPrimaryKeyIdGenerator());
             });
         }
 

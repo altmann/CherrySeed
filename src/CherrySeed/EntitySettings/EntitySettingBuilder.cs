@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CherrySeed.IdGeneration;
+using CherrySeed.PrimaryKeyIdGeneration;
 using CherrySeed.Repositories;
 
 namespace CherrySeed.EntitySettings
@@ -55,7 +55,7 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
         IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsGuid();
         IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
-        IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator);
+        IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator);
         IEntitySettingBuilder<T> HasEntityName(string entityName);
     }
 
@@ -93,23 +93,23 @@ namespace CherrySeed.EntitySettings
 
         public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
-            Obj.IdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
+            Obj.IdGeneration = new IdGenerationSetting(new IntegerPrimaryKeyIdGenerator(startId, steps));
             return this;
         }
 
         public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
-            Obj.IdGeneration = new IdGenerationSetting(new GuidIdGenerator());
+            Obj.IdGeneration = new IdGenerationSetting(new GuidPrimaryKeyIdGenerator());
             return this;
         }
 
         public IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
         {
-            Obj.IdGeneration = new IdGenerationSetting(new StringIdGenerator(prefix, startId, steps));
+            Obj.IdGeneration = new IdGenerationSetting(new StringPrimaryKeyIdGenerator(prefix, startId, steps));
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator)
+        public IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator)
         {
             Obj.IdGeneration = new IdGenerationSetting(generator);
             return this;

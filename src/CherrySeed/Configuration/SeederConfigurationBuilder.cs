@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
-using CherrySeed.IdGeneration;
+using CherrySeed.PrimaryKeyIdGeneration;
 using CherrySeed.Repositories;
 using CherrySeed.TypeTransformations;
 
@@ -21,7 +21,7 @@ namespace CherrySeed.Configuration
         void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
         void WithPrimaryKeyIdGenerationInApplicationAsGuid();
         void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
-        void WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator);
+        void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator);
         void WithEmptyStringMarker(string marker);
     }
 
@@ -118,20 +118,20 @@ namespace CherrySeed.Configuration
 
         public void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new IntegerIdGenerator(startId, steps));
+            DefaultIdGeneration = new IdGenerationSetting(new IntegerPrimaryKeyIdGenerator(startId, steps));
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
-            DefaultIdGeneration = new IdGenerationSetting(new GuidIdGenerator());
+            DefaultIdGeneration = new IdGenerationSetting(new GuidPrimaryKeyIdGenerator());
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new StringIdGenerator(prefix, startId, steps));
+            DefaultIdGeneration = new IdGenerationSetting(new StringPrimaryKeyIdGenerator(prefix, startId, steps));
         }
 
-        public void WithCustomPrimaryKeyIdGenerationInApplication(IIdGenerator generator)
+        public void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator)
         {
             DefaultIdGeneration = new IdGenerationSetting(generator);
         }

@@ -1,9 +1,9 @@
-﻿using CherrySeed.IdGeneration;
+﻿using CherrySeed.PrimaryKeyIdGeneration;
 using CherrySeed.Test.Convert;
 
 namespace CherrySeed.Test.Mocks
 {
-    public class SequentialGuidIdGenerator : IIdGenerator
+    public class SequentialGuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         private int _id = 0;
 

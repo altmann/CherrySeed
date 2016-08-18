@@ -98,9 +98,11 @@ namespace CherrySeed
                     var obj = entityMetadata.Objects[i];
                     var objDict = entityMetadata.ObjectsAsDict[i];
 
-                    _configBuilder.AfterTransformationAction?.Invoke(objDict, obj);
+                    _configBuilder.BeforeSaveAction?.Invoke(objDict, obj);
 
                     createEntityTarget.SaveEntity(obj);
+
+                    _configBuilder.AfterSaveAction?.Invoke(objDict, obj);
 
                     var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
                         entitySetting.PrimaryKey.FinalPrimaryKeyName);

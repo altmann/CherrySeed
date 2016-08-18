@@ -17,7 +17,8 @@ namespace CherrySeed.Configuration
         void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames);
         void WithRepository(IRepository repository);
         void DisableClearBeforeSeeding();
-        void AfterTransformation(Action<Dictionary<string, string>, object> afterTransformationAction);
+        void BeforeSave(Action<Dictionary<string, string>, object> beforeSaveAction);
+        void AfterSave(Action<Dictionary<string, string>, object> afterSaveAction);
         void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
         void WithPrimaryKeyIdGenerationInApplicationAsGuid();
         void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
@@ -43,7 +44,8 @@ namespace CherrySeed.Configuration
         public IRepository DefaultRepository { get; set; }
         public IdGenerationSetting DefaultIdGeneration { get; set; }
         public bool IsClearBeforeSeedingEnabled { get; set; }
-        public Action<Dictionary<string, string>, object> AfterTransformationAction { get; set; }
+        public Action<Dictionary<string, string>, object> BeforeSaveAction { get; set; }
+        public Action<Dictionary<string, string>, object> AfterSaveAction { get; set; }
         public IDataProvider DataProvider { get; set; }
         public Dictionary<Type, ITypeTransformation> TypeTransformations { get; }
 
@@ -111,9 +113,14 @@ namespace CherrySeed.Configuration
             IsClearBeforeSeedingEnabled = false;
         }
 
-        public void AfterTransformation(Action<Dictionary<string, string>, object> afterTransformationAction)
+        public void BeforeSave(Action<Dictionary<string, string>, object> beforeSaveAction)
         {
-            AfterTransformationAction = afterTransformationAction;
+            BeforeSaveAction = beforeSaveAction;
+        }
+
+        public void AfterSave(Action<Dictionary<string, string>, object> afterSaveAction)
+        {
+            AfterSaveAction = afterSaveAction;
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)

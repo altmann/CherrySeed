@@ -110,6 +110,11 @@ namespace CherrySeed.Test.UnitTests
                 cfg.WithDataProvider(new DictionaryDataProvider(data));
                 cfg.WithRepository(repository);
 
+                cfg.BeforeSave((objDictionary, obj) =>
+                {
+                    
+                });
+
                 entitySettings(cfg);
             });
 

@@ -67,6 +67,7 @@
     <Compile Include="Asserts\MainAssert.cs" />
     <Compile Include="Convert\Converter.cs" />
     <Compile Include="Infrastructure\CultureUtil.cs" />
+    <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="Mocks\AssertRepository.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />

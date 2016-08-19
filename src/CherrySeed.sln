@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Ef", "Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CherrySeed.Test", "CherrySeed.Test\CherrySeed.Test.csproj", "{2EE25DC0-D03C-4433-97E3-0704139C63F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProviders", "DataProviders", "{8FD43350-6005-43EF-8AB0-B18065191494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Csv", "DataProviders.Csv\DataProviders.Csv.csproj", "{D918620A-A15D-4AE2-A416-5A55BB189CD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Csv.Test", "DataProviders.Csv.Test\DataProviders.Csv.Test.csproj", "{0FA87C7F-BA21-46E0-914E-A0712479731A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,11 +35,21 @@ Global
 		{2EE25DC0-D03C-4433-97E3-0704139C63F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EE25DC0-D03C-4433-97E3-0704139C63F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EE25DC0-D03C-4433-97E3-0704139C63F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D918620A-A15D-4AE2-A416-5A55BB189CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D918620A-A15D-4AE2-A416-5A55BB189CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D918620A-A15D-4AE2-A416-5A55BB189CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D918620A-A15D-4AE2-A416-5A55BB189CD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BB9996EC-F815-4AA3-B83A-17BAFA66D690} = {5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}
+		{D918620A-A15D-4AE2-A416-5A55BB189CD4} = {8FD43350-6005-43EF-8AB0-B18065191494}
+		{0FA87C7F-BA21-46E0-914E-A0712479731A} = {8FD43350-6005-43EF-8AB0-B18065191494}
 	EndGlobalSection
 EndGlobal

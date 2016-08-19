@@ -4,6 +4,6 @@ namespace CherrySeed.EntityDataProvider
 {
     public interface IDataProvider
     {
-        List<EntityData> GetEntityData();
+        List<EntityData> GetEntityDataList();
     }
 }

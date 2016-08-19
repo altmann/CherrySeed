@@ -77,7 +77,7 @@ namespace CherrySeed
                 }
             }
 
-            var entityData = _configBuilder.DataProvider.GetEntityData();
+            var entityData = _configBuilder.DataProvider.GetEntityDataList();
 
             foreach (var objectMetadataPair in _entityMetadataDict.OrderBy(em => em.Value.EntitySetting.Order))
             {

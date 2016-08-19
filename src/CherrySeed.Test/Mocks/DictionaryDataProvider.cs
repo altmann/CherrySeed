@@ -12,7 +12,7 @@ namespace CherrySeed.Test.Mocks
             _entityData = entityData;
         }
 
-        public List<EntityData> GetEntityData()
+        public List<EntityData> GetEntityDataList()
         {
             return _entityData;
         }

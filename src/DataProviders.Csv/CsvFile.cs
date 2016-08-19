@@ -5,7 +5,7 @@ using CherrySeed.EntityDataProvider;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace DataProviders.Csv
+namespace CherrySeed.DataProviders.Csv
 {
     public class CsvFile
     {

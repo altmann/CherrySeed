@@ -38,7 +38,10 @@ namespace CherrySeed.Repositories.Ef
 
         public object LoadEntity(Type type, object id)
         {
-            throw new NotImplementedException();
+            using (var dbContext = _createDbContextFunc())
+            {
+                return dbContext.Set(type).Find(id);
+            }
         }
     }
 }

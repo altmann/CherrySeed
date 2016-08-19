@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CherrySeed.DataProviders.Csv;
 using DataProviders.Csv.Test.Asserts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

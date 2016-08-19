@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2EE25DC0-D03C-4433-97E3-0704139C63F9}</ProjectGuid>
+    <ProjectGuid>{582E1BA4-BF43-4174-9315-3556EE3059E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CherrySeed.Test</RootNamespace>
-    <AssemblyName>CherrySeed.Test</AssemblyName>
+    <RootNamespace>Repositories.Ef.Test</RootNamespace>
+    <AssemblyName>Repositories.Ef.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,34 +59,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Asserts\AssertHelper.cs" />
-    <Compile Include="Asserts\MainWithModelReferenceAssert.cs" />
-    <Compile Include="Asserts\NullableMainAssert.cs" />
-    <Compile Include="Asserts\ProjectAssert.cs" />
-    <Compile Include="Asserts\PersonAssert.cs" />
-    <Compile Include="Asserts\MainAssert.cs" />
-    <Compile Include="Convert\Converter.cs" />
-    <Compile Include="Infrastructure\CultureUtil.cs" />
-    <Compile Include="Mocks\AssertRepository.cs" />
-    <Compile Include="Mocks\DictionaryDataProvider.cs" />
-    <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\MainWithModelReference.cs" />
-    <Compile Include="Models\Main.cs" />
-    <Compile Include="Models\NullableMain.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\Sub.cs" />
+    <Compile Include="EfRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\ObjectWithCustomStringTransformationTests.cs" />
-    <Compile Include="UnitTests\ObjectWithInormalIntIdTests.cs" />
-    <Compile Include="UnitTests\ObjectWithGuidIdTests.cs" />
-    <Compile Include="UnitTests\ObjectWithCustomEmptyStringTests.cs" />
-    <Compile Include="UnitTests\MainWithModelReferenceTests.cs" />
-    <Compile Include="UnitTests\ObjectWithEnitityNamesTests.cs" />
-    <Compile Include="UnitTests\ObjectWithNullableTests.cs" />
-    <Compile Include="UnitTests\ObjectWithIntIdTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CherrySeed\CherrySeed.csproj">

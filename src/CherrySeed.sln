@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Csv", "DataPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Csv.Test", "DataProviders.Csv.Test\DataProviders.Csv.Test.csproj", "{0FA87C7F-BA21-46E0-914E-A0712479731A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Ef.Test", "Repositories.Ef.Test\Repositories.Ef.Test.csproj", "{582E1BA4-BF43-4174-9315-3556EE3059E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FA87C7F-BA21-46E0-914E-A0712479731A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 		{BB9996EC-F815-4AA3-B83A-17BAFA66D690} = {5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}
 		{D918620A-A15D-4AE2-A416-5A55BB189CD4} = {8FD43350-6005-43EF-8AB0-B18065191494}
 		{0FA87C7F-BA21-46E0-914E-A0712479731A} = {8FD43350-6005-43EF-8AB0-B18065191494}
+		{582E1BA4-BF43-4174-9315-3556EE3059E2} = {5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}
 	EndGlobalSection
 EndGlobal

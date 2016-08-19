@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using CherrySeed.EntityDataProvider;
 
-namespace DataProviders.Csv
+namespace CherrySeed.DataProviders.Csv
 {
     public class CsvDataProvider : IDataProvider
     {

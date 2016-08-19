@@ -7,8 +7,8 @@
     <ProjectGuid>{D918620A-A15D-4AE2-A416-5A55BB189CD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataProviders.Csv</RootNamespace>
-    <AssemblyName>DataProviders.Csv</AssemblyName>
+    <RootNamespace>CherrySeed.DataProviders.Csv</RootNamespace>
+    <AssemblyName>CherrySeed.DataProviders.Csv</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -2,30 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using CherrySeed.EntityDataProvider;
 
 namespace CherrySeed.DataProviders.Csv
 {
     public class CsvDataProvider : IDataProvider
     {
-        private readonly List<string> _csvFilePaths;
-        private readonly string _folderPath;
-        private readonly string _delimiter;
-        private readonly Encoding _encoding;
+        private readonly CsvDataProviderConfiguration _configuration;
 
-        public CsvDataProvider(string folderPath, string delimiter = ";")
+        public CsvDataProvider(CsvDataProviderConfiguration configuration)
         {
-            _folderPath = folderPath;
-            _delimiter = delimiter;
-            _encoding = new UTF8Encoding();
-        }
-
-        public CsvDataProvider(List<string> csvFilePaths, string delimiter = ";")
-        {
-            _csvFilePaths = csvFilePaths;
-            _delimiter = delimiter;
-            _encoding = new UTF8Encoding();
+            _configuration = configuration;
         }
 
         public List<EntityData> GetEntityDataList()
@@ -33,24 +20,24 @@ namespace CherrySeed.DataProviders.Csv
             var csvFilePaths = GetCsvFilePaths();
 
             return csvFilePaths
-                .Select(csvFilePath => new CsvFile(csvFilePath, _delimiter, _encoding).ReadFile())
+                .Select(csvFilePath => new CsvFile(csvFilePath, _configuration.Delimiter, _configuration.Encoding).ReadFile())
                 .ToList();
         }
 
         private IEnumerable<string> GetCsvFilePaths()
         {
-            if (_folderPath != null)
+            if (_configuration.FolderPath != null)
             {
-                return Directory.GetFiles(_folderPath, "*.csv").ToList();
+                return Directory.GetFiles(_configuration.FolderPath, "*.csv").ToList();
             }
 
-            foreach (var csvFilePath in _csvFilePaths)
+            foreach (var csvFilePath in _configuration.CsvFilePaths)
             {
                 if(!File.Exists(csvFilePath))
                     throw new InvalidOperationException($"File not found {csvFilePath}");
             }
 
-            return _csvFilePaths;
+            return _configuration.CsvFilePaths;
         }
     }
 }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvDataProvider.cs" />
+    <Compile Include="CsvDataProviderConfiguration.cs" />
     <Compile Include="CsvFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

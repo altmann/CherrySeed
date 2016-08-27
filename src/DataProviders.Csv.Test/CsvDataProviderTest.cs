@@ -11,7 +11,10 @@ namespace DataProviders.Csv.Test
         [TestMethod]
         public void ReadCsvsFromDictionary()
         {
-            var csvDataProvider = new CsvDataProvider("./CsvFiles");
+            var csvDataProvider = new CsvDataProvider(new CsvDataProviderConfiguration
+            {
+                FolderPath = "./CsvFiles"
+            });
             var entityDataList = csvDataProvider.GetEntityDataList();
 
             Assert.IsNotNull(entityDataList);
@@ -26,7 +29,10 @@ namespace DataProviders.Csv.Test
         [TestMethod]
         public void ReadSimpleCsvFile()
         {
-            var csvDataProvider = new CsvDataProvider(new List<string> { "./CsvFiles/Simple.csv" });
+            var csvDataProvider = new CsvDataProvider(new CsvDataProviderConfiguration
+            {
+                CsvFilePaths = new List<string> { "./CsvFiles/Simple.csv" }
+            });
             var entityDataList = csvDataProvider.GetEntityDataList();
 
             Assert.IsNotNull(entityDataList);
@@ -38,7 +44,10 @@ namespace DataProviders.Csv.Test
         [TestMethod]
         public void ReadSimpleEmptyCsvFile()
         {
-            var csvDataProvider = new CsvDataProvider(new List<string> { "./CsvFiles/SimpleEmpty.csv" });
+            var csvDataProvider = new CsvDataProvider(new CsvDataProviderConfiguration
+            {
+                CsvFilePaths = new List<string> { "./CsvFiles/SimpleEmpty.csv" }
+            });
             var entityDataList = csvDataProvider.GetEntityDataList();
 
             Assert.IsNotNull(entityDataList);

@@ -32,34 +32,7 @@ CherrySeed is a simple little library built to solve a common problem - create a
     var cherrySeeder = config.CreateSeeder();
     cherrySeeder.Seed();
 
-CherrySeed require five things to work properly:
-- Entity Class
-- Entity Settings
-- Test Data
-- Data Provider
-- Repository
-
-## Entity Class
-The entity class defines entity name and entity field names. Commonly you don’t have to create this entity class specifically for CherrySeed because you already use it in your application. 
-
-    public class Person
-    {
-        public int Identification { get; set; }
-        public string Name { get; set; }
-        public DateTime Birthdate { get; set; }
-    }
-
-## Entity Settings
-With entity settings metadata is added to the entity. You define which field is the primary key, which fields are foreign keys, etc. More info see [Entity Settings](./Entity-Settings).
-
-## Test Data
-Test data is the data which is inserted into the database. For example the entity Person with Name “Julia” and Birthdate 1990/01/01. This is your main work to create valid and good test data. More info see [Defining Test Data](./Defining-Test-Data).
-
-## Data Provider
-The data provider defines the way how to load and define test data. If test data comes from a csv/json/xml file or is declared directly in C# code is up to the data provider. More info see [Data Provider](./Data-Provider).
-
-## Repository
-The repository is responsible for storing test data in the database. If Entity Framework, Hibernate or another O/R mapping framework is used is up to the repository. More info see [Repository](./Repository).
+More see in [Getting Started](./Getting-Started).
 
 # Release and Contact
 Now this library is in alpha state, but in a few weeks I will release it. Drop me a line via twitter [@michael_altmann](https://twitter.com/michael_altmann) if you are interested in this library.

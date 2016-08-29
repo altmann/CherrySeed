@@ -32,7 +32,7 @@ CherrySeed is a simple little library built to solve a common problem - create a
     var cherrySeeder = config.CreateSeeder();
     cherrySeeder.Seed();
 
-More see in [Getting Started](./Getting-Started).
+More see in [Getting Started](https://github.com/altmann/CherrySeed/wiki/Getting-Started).
 
 # Release and Contact
 Now this library is in alpha state, but in a few weeks I will release it. Drop me a line via twitter [@michael_altmann](https://twitter.com/michael_altmann) if you are interested in this library.

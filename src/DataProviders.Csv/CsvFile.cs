@@ -7,7 +7,7 @@ using CsvHelper.Configuration;
 
 namespace CherrySeed.DataProviders.Csv
 {
-    public class CsvFile
+    class CsvFile
     {
         private readonly string _filePath;
         private readonly string _delimiter;

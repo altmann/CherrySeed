@@ -8,7 +8,7 @@ namespace CherrySeed.Utils
     {
         public static object GetPropertyValue(object obj, Type type, string propertyName)
         {
-            return type.GetProperty(propertyName).GetValue(obj);
+            return type.GetProperty(propertyName).GetValue(obj, null);
         }
 
         public static bool ExistProperty(Type type, string propertyName)

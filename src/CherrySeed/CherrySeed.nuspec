@@ -13,6 +13,6 @@
   <description>$description$</description> 
   <releaseNotes></releaseNotes>
   <copyright></copyright> 
-  <tags></tags> 
+  <tags>CherrySeed seed seeder dataseed database testdata</tags>
 </metadata> 
 </package>

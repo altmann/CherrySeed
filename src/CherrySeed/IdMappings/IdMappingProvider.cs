@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CherrySeed.IdMappings
 {
-    public class IdMappingProvider
+    class IdMappingProvider
     {
         private readonly Dictionary<Type, List<IdMappingDescription>> _idMappingDict;
 

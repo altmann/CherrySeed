@@ -2,7 +2,7 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class StringTransformation : ITypeTransformation
+    class StringTransformation : ITypeTransformation
     {
         private readonly string _emptyStringMarker;
 

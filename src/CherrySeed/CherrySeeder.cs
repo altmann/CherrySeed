@@ -134,7 +134,7 @@ namespace CherrySeed
             return providerId;
         }
 
-        public List<object> Transform(Type type, List<Dictionary<string, string>> inputObjectDictionary,
+        private List<object> Transform(Type type, List<Dictionary<string, string>> inputObjectDictionary,
             ObjectListTransformation objectListTransformation, EntitySetting entitySetting)
         {
             return objectListTransformation.Transform(type, inputObjectDictionary, entitySetting);

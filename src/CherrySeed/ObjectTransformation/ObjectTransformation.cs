@@ -8,7 +8,7 @@ using CherrySeed.Utils;
 
 namespace CherrySeed.ObjectTransformation
 {
-    public class ObjectTransformation
+    class ObjectTransformation
     {
         private readonly TypeTransformationProvider _typeTransformationProvider;
         private readonly IdMappingProvider _idMappingProvider;

@@ -3,7 +3,7 @@ using CherrySeed.Utils;
 
 namespace CherrySeed.TypeTransformations
 {
-    public class EnumTransformation : TypeTransformationBase
+    class EnumTransformation : TypeTransformationBase
     {
         public override object Transform(Type type, string str)
         {

@@ -1,6 +1,6 @@
 namespace CherrySeed.PrimaryKeyIdGeneration
 {
-    public class StringPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
+    class StringPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         private readonly string _prefix;
         private readonly IntegerPrimaryKeyIdGenerator _primaryKeyIdGenerator;

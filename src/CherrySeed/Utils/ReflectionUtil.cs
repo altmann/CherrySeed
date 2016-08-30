@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace CherrySeed.Utils
 {
-    public class ReflectionUtil
+    class ReflectionUtil
     {
         public static object GetPropertyValue(object obj, Type type, string propertyName)
         {

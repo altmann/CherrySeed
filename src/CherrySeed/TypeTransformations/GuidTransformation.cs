@@ -2,7 +2,7 @@
 
 namespace CherrySeed.TypeTransformations
 {
-    public class GuidTransformation : TypeTransformationBase
+    class GuidTransformation : TypeTransformationBase
     {
         public override object Transform(Type type, string str)
         {

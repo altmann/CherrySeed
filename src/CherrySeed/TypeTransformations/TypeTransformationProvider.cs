@@ -4,7 +4,7 @@ using CherrySeed.Utils;
 
 namespace CherrySeed.TypeTransformations
 {
-    public class TypeTransformationProvider
+    class TypeTransformationProvider
     {
         private readonly Dictionary<Type, ITypeTransformation> _simpleTypeTransformations;
 

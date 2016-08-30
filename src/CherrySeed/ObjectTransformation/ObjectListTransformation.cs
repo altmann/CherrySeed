@@ -5,7 +5,7 @@ using CherrySeed.EntitySettings;
 
 namespace CherrySeed.ObjectTransformation
 {
-    public class ObjectListTransformation
+    class ObjectListTransformation
     {
         private readonly ObjectTransformation _objectTransformation;
 

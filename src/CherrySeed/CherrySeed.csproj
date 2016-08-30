@@ -71,6 +71,7 @@
     <Compile Include="TypeTransformations\DoubleTransformation.cs" />
     <Compile Include="TypeTransformations\IntegerTransformation.cs" />
     <Compile Include="TypeTransformations\ITypeTransformation.cs" />
+    <Compile Include="TypeTransformations\TypeTransformationBase.cs" />
     <Compile Include="TypeTransformations\TypeTransformationProvider.cs" />
     <Compile Include="TypeTransformations\StringTransformation.cs" />
     <Compile Include="Utils\ReflectionUtil.cs" />

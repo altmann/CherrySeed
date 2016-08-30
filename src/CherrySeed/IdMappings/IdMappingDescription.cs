@@ -1,6 +1,6 @@
 namespace CherrySeed.IdMappings
 {
-    public class IdMappingDescription
+    class IdMappingDescription
     {
         public string ProviderId { get; set; }
         public object RepositoryId { get; set; }

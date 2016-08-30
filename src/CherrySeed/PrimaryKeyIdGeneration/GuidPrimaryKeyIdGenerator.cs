@@ -2,7 +2,7 @@ using System;
 
 namespace CherrySeed.PrimaryKeyIdGeneration
 {
-    public class GuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
+    class GuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         public object Generate()
         {

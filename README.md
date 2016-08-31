@@ -35,5 +35,5 @@ CherrySeed is a simple little library built to solve a common problem - create a
 More see in [Getting Started](https://github.com/altmann/CherrySeed/wiki/Getting-Started).
 
 # Resources
-- [Install via NuGet]()
+- [Install via NuGet](https://www.nuget.org/packages?q=CherrySeed)
 - [Documentation](https://github.com/altmann/CherrySeed/wiki/Getting-Started)

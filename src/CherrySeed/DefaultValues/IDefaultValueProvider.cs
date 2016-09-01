@@ -5,7 +5,7 @@
         object GetDefaultValue();
     }
 
-    public class ConstantDefaultValueProvider<T> : IDefaultValueProvider
+    class ConstantDefaultValueProvider<T> : IDefaultValueProvider
     {
         private readonly T _value;
 

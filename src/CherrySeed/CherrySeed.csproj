@@ -36,6 +36,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultValues\IDefaultValueProvider.cs" />
+    <Compile Include="EntitySettings\DefaultValueSetting.cs" />
     <Compile Include="EntitySettings\IdGenerationSetting.cs" />
     <Compile Include="Configuration\CherrySeedConfiguration.cs" />
     <Compile Include="EntityDataProvider\EntityData.cs" />

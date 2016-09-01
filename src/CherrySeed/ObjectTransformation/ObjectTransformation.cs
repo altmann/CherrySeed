@@ -64,6 +64,15 @@ namespace CherrySeed.ObjectTransformation
             }
             else
             {
+                // set default value
+                if (HasDefaultValue(propertyName, entitySetting.DefaultValueSettings))
+                {
+                    var defaultValueSetting = entitySetting.DefaultValueSettings.First(dvs => dvs.PropertyName == propertyName);
+                    var defaultValueProvider = defaultValueSetting.Provider;
+                    var defaultValue = defaultValueProvider.GetDefaultValue();
+                    ReflectionUtil.SetProperty(obj, propertyName, defaultValue);
+                }
+
                 var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
 
                 var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
@@ -83,6 +92,11 @@ namespace CherrySeed.ObjectTransformation
         private bool IsForeignKey(string propertyName, List<ReferenceSetting> referenceDescriptions)
         {
             return referenceDescriptions.Select(rd => rd.ReferenceName).Contains(propertyName);
+        }
+
+        private bool HasDefaultValue(string propertyName, List<DefaultValueSetting> defaultValueSettings)
+        {
+            return defaultValueSettings.Select(dvs => dvs.PropertyName).Contains(propertyName);
         }
     }
 }

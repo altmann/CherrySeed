@@ -14,5 +14,6 @@ namespace CherrySeed.EntitySettings
         public IdGenerationSetting IdGeneration { get; set; }
         public List<string> EntityNames { get; set; }
         public Action<object> AfterSave { get; set; }
+        public List<DefaultValueSetting> DefaultValueSettings { get; set; }
     }
 }

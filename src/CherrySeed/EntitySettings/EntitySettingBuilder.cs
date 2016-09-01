@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CherrySeed.DefaultValues;
 using CherrySeed.PrimaryKeyIdGeneration;
 using CherrySeed.Repositories;
 
@@ -13,7 +14,7 @@ namespace CherrySeed.EntitySettings
         public EntitySettingBuilder(Type entityType, 
             PrimaryKeySetting primaryKey, 
             IRepository defaultRepository, 
-            IdGenerationSetting defaultGenerationSetting, 
+            IdGenerationSetting defaultGenerationSetting,
             int order)
         {
             Obj = new EntitySetting
@@ -25,6 +26,7 @@ namespace CherrySeed.EntitySettings
                 IdGeneration = defaultGenerationSetting,
                 EntityNames = GetFinalEntityNames(entityType),
                 AfterSave = obj => { },
+                DefaultValueSettings = new List<DefaultValueSetting>(),
                 Order = order
             };
         }
@@ -59,11 +61,17 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator);
         IEntitySettingBuilder<T> HasEntityName(string entityName);
         IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction);
+        IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression,
+            IDefaultValueProvider defaultValueProvider);
     }
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>
     {
-        public EntitySettingBuilder(Type entityType, PrimaryKeySetting primaryKey, IRepository defaultRepository, IdGenerationSetting defaultIdGenerationSetting, int order)
+        public EntitySettingBuilder(Type entityType, 
+            PrimaryKeySetting primaryKey, 
+            IRepository defaultRepository, 
+            IdGenerationSetting defaultIdGenerationSetting,
+            int order)
             : base(entityType, primaryKey, defaultRepository, defaultIdGenerationSetting, order)
         { }
 
@@ -126,6 +134,18 @@ namespace CherrySeed.EntitySettings
         public IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction)
         {
             Obj.AfterSave = afterSaveAction;
+            return this;
+        }
+
+        public IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression, IDefaultValueProvider defaultValueProvider)
+        {
+            Obj.DefaultValueSettings.Add(new DefaultValueSetting<T>(fieldExpression, defaultValueProvider));
+            return this;
+        }
+
+        public IEntitySettingBuilder<T> WithFieldWithDefaultValue<TField>(Expression<Func<T, object>> fieldExpression, TField constantValue)
+        {
+            Obj.DefaultValueSettings.Add(new DefaultValueSetting<T>(fieldExpression, new ConstantDefaultValueProvider<TField>(constantValue)));
             return this;
         }
     }

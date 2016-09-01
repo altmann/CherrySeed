@@ -98,7 +98,8 @@ namespace CherrySeed.Test.UnitTests
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKey(e => e.Id)
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();
-                cfg.ForEntity<Main>();
+                cfg.ForEntity<Main>()
+                    .AfterSave(obj => { });
             });
         }
 

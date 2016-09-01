@@ -24,6 +24,7 @@ namespace CherrySeed.EntitySettings
                 References = new List<ReferenceSetting>(),
                 IdGeneration = defaultGenerationSetting,
                 EntityNames = GetFinalEntityNames(entityType),
+                AfterSave = obj => { },
                 Order = order
             };
         }
@@ -57,6 +58,7 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
         IEntitySettingBuilder<T> WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator);
         IEntitySettingBuilder<T> HasEntityName(string entityName);
+        IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction);
     }
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>
@@ -118,6 +120,12 @@ namespace CherrySeed.EntitySettings
         public IEntitySettingBuilder<T> HasEntityName(string entityName)
         {
             Obj.EntityNames = new List<string> { entityName };
+            return this;
+        }
+
+        public IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction)
+        {
+            Obj.AfterSave = afterSaveAction;
             return this;
         }
     }

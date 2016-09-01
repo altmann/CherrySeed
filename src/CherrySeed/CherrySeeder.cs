@@ -102,6 +102,7 @@ namespace CherrySeed
 
                     createEntityTarget.SaveEntity(obj);
 
+                    entitySetting.AfterSave(obj);
                     _configBuilder.AfterSaveAction?.Invoke(objDict, obj);
 
                     var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,

@@ -63,6 +63,9 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction);
         IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression,
             IDefaultValueProvider defaultValueProvider);
+
+        IEntitySettingBuilder<T> WithFieldWithDefaultValue<TField>(Expression<Func<T, object>> fieldExpression,
+            TField constantValue);
     }
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>

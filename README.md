@@ -1,5 +1,5 @@
 # What is CherrySeed?
-CherrySeed is a simple little library built to solve a common problem - create and seed test data into the database. This type of code is boring to write and bring relations under control is hard, so why not use a library for that?
+CherrySeed is a simple little .NET library built to solve a common problem - create and seed test data into the database. This type of code is boring to write and bring relations under control is hard, so why not use a library for that?
 
 # Why use CherrySeed?
 - Bring relations between entities under control with an easy-to-use API 

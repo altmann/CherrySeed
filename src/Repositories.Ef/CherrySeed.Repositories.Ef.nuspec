@@ -6,9 +6,9 @@
   <title>$id$</title> 
   <authors>$author$</authors> 
   <owners>$author$</owners>
-   <projectUrl>https://github.com/altmann/CherrySeed/wiki/Entity-Framework-Repository</projectUrl>
-    <!--<licenseUrl></licenseUrl> 
-  <iconUrl></iconUrl>-->
+  <projectUrl>https://github.com/altmann/CherrySeed/wiki/Entity-Framework-Repository</projectUrl>
+  <!--<licenseUrl></licenseUrl>-->
+  <iconUrl>https://lh4.googleusercontent.com/95o80wnEdqPdL4vA-hFLLbjlyb83mnTwvZl5wKY_4KoH9cpWoXXtsso1xSf5yLfHolstYjJAxUD42hY=w1920-h886</iconUrl>
   <dependencies>
     <dependency id="CherrySeed" version="1.0.1" />
     <dependency id="EntityFramework" version="6.0.0" />

@@ -7,7 +7,7 @@
   <authors>$author$</authors> 
   <owners>$author$</owners>
   <projectUrl>https://github.com/altmann/CherrySeed/wiki/CSV-Data-Provider</projectUrl>
-  <iconUrl>https://lh4.googleusercontent.com/95o80wnEdqPdL4vA-hFLLbjlyb83mnTwvZl5wKY_4KoH9cpWoXXtsso1xSf5yLfHolstYjJAxUD42hY=w1920-h886</iconUrl>
+  <iconUrl>https://github.com/altmann/CherrySeed/blob/master/CherrySeed-icon-small.png?raw=true</iconUrl>
   <!--<licenseUrl></licenseUrl>-->
   <dependencies>
     <dependency id="CherrySeed" version="1.0.1" />

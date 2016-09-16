@@ -8,7 +8,7 @@
   <owners>$author$</owners>
   <projectUrl>https://github.com/altmann/CherrySeed</projectUrl>
     <!--<licenseUrl></licenseUrl> --> 
-  <iconUrl>https://lh4.googleusercontent.com/95o80wnEdqPdL4vA-hFLLbjlyb83mnTwvZl5wKY_4KoH9cpWoXXtsso1xSf5yLfHolstYjJAxUD42hY=w1920-h886</iconUrl>
+  <iconUrl>https://github.com/altmann/CherrySeed/blob/master/CherrySeed-icon-small.png?raw=true</iconUrl>
   <requireLicenseAcceptance>false</requireLicenseAcceptance> 
   <description>$description$</description> 
   <releaseNotes></releaseNotes>

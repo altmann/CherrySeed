@@ -8,7 +8,7 @@
   <owners>$author$</owners>
   <projectUrl>https://github.com/altmann/CherrySeed/wiki/Entity-Framework-Repository</projectUrl>
   <!--<licenseUrl></licenseUrl>-->
-  <iconUrl>https://lh4.googleusercontent.com/95o80wnEdqPdL4vA-hFLLbjlyb83mnTwvZl5wKY_4KoH9cpWoXXtsso1xSf5yLfHolstYjJAxUD42hY=w1920-h886</iconUrl>
+  <iconUrl>https://github.com/altmann/CherrySeed/blob/master/CherrySeed-icon-small.png?raw=true</iconUrl>
   <dependencies>
     <dependency id="CherrySeed" version="1.0.1" />
     <dependency id="Gherkin" version="4.0.0" />
@@ -17,6 +17,6 @@
   <description>$description$</description> 
   <releaseNotes></releaseNotes>
   <copyright></copyright> 
-  <tags>CherrySeed seed seeder dataseed database testdata entityframework</tags> 
+  <tags>CherrySeed seed seeder dataseed database testdata gherkin specflow</tags> 
 </metadata> 
 </package>

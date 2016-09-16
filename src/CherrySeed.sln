@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Csv.Test", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Ef.Test", "Repositories.Ef.Test\Repositories.Ef.Test.csproj", "{582E1BA4-BF43-4174-9315-3556EE3059E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Gherkin", "DataProviders.Gherkin\DataProviders.Gherkin.csproj", "{40BA2B6D-3897-481B-AFF1-77BDB454A533}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders.Gherkin.Test", "DataProviders.Gherkin.Test\DataProviders.Gherkin.Test.csproj", "{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{582E1BA4-BF43-4174-9315-3556EE3059E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BA2B6D-3897-481B-AFF1-77BDB454A533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BA2B6D-3897-481B-AFF1-77BDB454A533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BA2B6D-3897-481B-AFF1-77BDB454A533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BA2B6D-3897-481B-AFF1-77BDB454A533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +70,7 @@ Global
 		{D918620A-A15D-4AE2-A416-5A55BB189CD4} = {8FD43350-6005-43EF-8AB0-B18065191494}
 		{0FA87C7F-BA21-46E0-914E-A0712479731A} = {8FD43350-6005-43EF-8AB0-B18065191494}
 		{582E1BA4-BF43-4174-9315-3556EE3059E2} = {5451FEF9-3527-4CD7-A4C1-2325A12AF6D9}
+		{40BA2B6D-3897-481B-AFF1-77BDB454A533} = {8FD43350-6005-43EF-8AB0-B18065191494}
+		{54E0F0AA-2273-49B6-A91A-9C9A4E2400B2} = {8FD43350-6005-43EF-8AB0-B18065191494}
 	EndGlobalSection
 EndGlobal

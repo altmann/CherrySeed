@@ -61,6 +61,7 @@
     <Compile Include="Infrastructure\CultureUtil.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="Mocks\AssertRepository.cs" />
+    <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="UnitTests\ObjectWithCustomEmptyStringTests.cs" />
     <Compile Include="UnitTests\MainWithModelReferenceTests.cs" />
     <Compile Include="UnitTests\ObjectWithEnitityNamesTests.cs" />
+    <Compile Include="UnitTests\ObjectWithDefaultValuesTests.cs" />
     <Compile Include="UnitTests\ObjectWithNullableTests.cs" />
     <Compile Include="UnitTests\ObjectWithIntIdTests.cs" />
   </ItemGroup>

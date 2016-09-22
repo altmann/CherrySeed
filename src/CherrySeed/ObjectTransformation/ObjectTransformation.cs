@@ -25,6 +25,17 @@ namespace CherrySeed.ObjectTransformation
         {
             var outputObject = Activator.CreateInstance(outputType);
 
+            // Set default values
+            foreach (var defaultValueSetting in entitySetting.DefaultValueSettings)
+            {
+                var propertyName = defaultValueSetting.PropertyName;
+                var defaultValueProvider = defaultValueSetting.Provider;
+                var defaultValue = defaultValueProvider.GetDefaultValue();
+
+                ReflectionUtil.SetProperty(outputObject, propertyName, defaultValue);
+            }
+
+            // Set values from data provider
             foreach (var inputKeyValuePair in inputDictionary)
             {
                 var propertyName = inputKeyValuePair.Key;
@@ -64,15 +75,6 @@ namespace CherrySeed.ObjectTransformation
             }
             else
             {
-                // set default value
-                if (HasDefaultValue(propertyName, entitySetting.DefaultValueSettings))
-                {
-                    var defaultValueSetting = entitySetting.DefaultValueSettings.First(dvs => dvs.PropertyName == propertyName);
-                    var defaultValueProvider = defaultValueSetting.Provider;
-                    var defaultValue = defaultValueProvider.GetDefaultValue();
-                    ReflectionUtil.SetProperty(obj, propertyName, defaultValue);
-                }
-
                 var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
 
                 var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)

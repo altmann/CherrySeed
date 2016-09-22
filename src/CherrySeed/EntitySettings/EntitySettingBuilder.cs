@@ -63,9 +63,8 @@ namespace CherrySeed.EntitySettings
         IEntitySettingBuilder<T> AfterSave(Action<object> afterSaveAction);
         IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression,
             IDefaultValueProvider defaultValueProvider);
-
-        IEntitySettingBuilder<T> WithFieldWithDefaultValue<TField>(Expression<Func<T, object>> fieldExpression,
-            TField constantValue);
+        IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression,
+            Func<object> defaultValueFunc);
     }
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>
@@ -146,9 +145,9 @@ namespace CherrySeed.EntitySettings
             return this;
         }
 
-        public IEntitySettingBuilder<T> WithFieldWithDefaultValue<TField>(Expression<Func<T, object>> fieldExpression, TField constantValue)
+        public IEntitySettingBuilder<T> WithFieldWithDefaultValue(Expression<Func<T, object>> fieldExpression, Func<object> defaultValueFunc)
         {
-            Obj.DefaultValueSettings.Add(new DefaultValueSetting<T>(fieldExpression, new ConstantDefaultValueProvider<TField>(constantValue)));
+            Obj.DefaultValueSettings.Add(new DefaultValueSetting<T>(fieldExpression, new FuncDefaultValueProvider(defaultValueFunc)));
             return this;
         }
     }

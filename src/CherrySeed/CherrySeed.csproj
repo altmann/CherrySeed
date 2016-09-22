@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultValues\FuncDefaultValueProvider.cs" />
     <Compile Include="DefaultValues\IDefaultValueProvider.cs" />
     <Compile Include="EntitySettings\DefaultValueSetting.cs" />
     <Compile Include="EntitySettings\IdGenerationSetting.cs" />

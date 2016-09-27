@@ -6,7 +6,7 @@
   <title>$id$</title> 
   <authors>$author$</authors> 
   <owners>$author$</owners>
-  <projectUrl>https://github.com/altmann/CherrySeed/wiki/Entity-Framework-Repository</projectUrl>
+  <projectUrl>https://github.com/altmann/CherrySeed/wiki/Gherkin-Data-Provider</projectUrl>
   <!--<licenseUrl></licenseUrl>-->
   <iconUrl>https://github.com/altmann/CherrySeed/blob/master/CherrySeed-icon-small.png?raw=true</iconUrl>
   <dependencies>

@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2EE25DC0-D03C-4433-97E3-0704139C63F9}</ProjectGuid>
+    <ProjectGuid>{8B359543-174E-4F52-92FC-02478EE7A05D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CherrySeed.Test</RootNamespace>
-    <AssemblyName>CherrySeed.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>CherrySeed.DataProviders.SpecFlow.Test</RootNamespace>
+    <AssemblyName>CherrySeed.DataProviders.SpecFlow.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="TechTalk.SpecFlow, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -51,53 +55,38 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Asserts\AssertHelper.cs" />
-    <Compile Include="Asserts\MainWithModelReferenceAssert.cs" />
-    <Compile Include="Asserts\NullableMainAssert.cs" />
-    <Compile Include="Asserts\ProjectAssert.cs" />
-    <Compile Include="Asserts\PersonAssert.cs" />
-    <Compile Include="Asserts\MainAssert.cs" />
-    <Compile Include="Convert\Converter.cs" />
-    <Compile Include="Infrastructure\CherrySeedDriver.cs" />
-    <Compile Include="Infrastructure\CultureUtil.cs" />
-    <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
-    <Compile Include="IntegrationTests\NegativeTests.cs" />
-    <Compile Include="Mocks\AssertRepository.cs" />
-    <Compile Include="Mocks\DefaultValueProviderMock.cs" />
-    <Compile Include="Mocks\DictionaryDataProvider.cs" />
-    <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\AnotherEntityWithStringId.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\EntityWithStringId.cs" />
-    <Compile Include="Models\MainWithModelReference.cs" />
-    <Compile Include="Models\Main.cs" />
-    <Compile Include="Models\NullableMain.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\Sub.cs" />
+    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Features\Project.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Project.feature</DependentUpon>
+    </Compile>
+    <Compile Include="StepDefinitions\CherrySeedDriverSupport.cs" />
+    <Compile Include="StepDefinitions\ProjectSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntegrationTests\ObjectWithCustomStringTransformationTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithInormalIntIdTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithCustomEmptyStringTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithEnitityNamesTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithDefaultValuesTests.cs" />
-    <Compile Include="IntegrationTests\BasicTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CherrySeed.Test.Base\CherrySeed.Test.Base.csproj">
+      <Project>{b2a5444d-82b9-410d-bb85-39951972ebb6}</Project>
+      <Name>CherrySeed.Test.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CherrySeed\CherrySeed.csproj">
       <Project>{f40a4d24-2e1d-4c23-9c06-e22c11c43a3c}</Project>
       <Name>CherrySeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Repositories.Ef\Repositories.Ef.csproj">
-      <Project>{bb9996ec-f815-4aa3-b83a-17bafa66d690}</Project>
-      <Name>Repositories.Ef</Name>
+    <ProjectReference Include="..\DataProviders.SpecFlow\DataProviders.SpecFlow.csproj">
+      <Project>{b4f2b2ad-c49d-46dd-b3ab-ad25225326a3}</Project>
+      <Name>DataProviders.SpecFlow</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
+    <None Include="App.config" />
+    <None Include="Features\Project.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Project.feature.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

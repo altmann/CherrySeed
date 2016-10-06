@@ -6,15 +6,29 @@ using CherrySeed.Repositories;
 using CherrySeed.Test.Asserts;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
+using CherrySeed.TypeTransformations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CherrySeed.Test.UnitTests
+namespace CherrySeed.Test.IntegrationTests
 {
+    public class CustomStringTransformation : ITypeTransformation
+    {
+        public object Transform(Type type, string str)
+        {
+            return "Michael";
+        }
+
+        public object TransformNullable(Type type, string str)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     [TestClass]
-    public class ObjectWithCustomEmptyStringTests
+    public class ObjectWithCustomStringTransformationTests
     {
         [TestMethod]
-        public void ObjectWithCustomEmptyString()
+        public void ObjectWithCustomStringTransformation()
         {
             var entityData = new List<EntityData>
             {
@@ -26,12 +40,12 @@ namespace CherrySeed.Test.UnitTests
                         new Dictionary<string, string>
                         {
                             { "Id", "1" },
-                            { "MyString", "%" },
+                            { "MyString", "Hello" },
                         },
                         new Dictionary<string, string>
                         {
                             { "Id", "2" },
-                            { "MyString", "MyString 2" },
+                            { "MyString", "World" },
                         }
                     }
                 },
@@ -41,12 +55,12 @@ namespace CherrySeed.Test.UnitTests
             {
                 AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
                 {
-                    AssertSub.AssertProperties(obj, "");
+                    AssertSub.AssertProperties(obj, "Michael");
                 });
 
                 AssertHelper.AssertIf(typeof(Sub), 1, count, obj, () =>
                 {
-                    AssertSub.AssertProperties(obj, "MyString 2");
+                    AssertSub.AssertProperties(obj, "Michael");
                 });
             }, type =>
             {
@@ -55,7 +69,7 @@ namespace CherrySeed.Test.UnitTests
             
             InitAndExecute(entityData, assertRepository, cfg =>
             {
-                cfg.WithEmptyStringMarker("%");
+                cfg.AddTypeTransformation(typeof(string), new CustomStringTransformation());
 
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();

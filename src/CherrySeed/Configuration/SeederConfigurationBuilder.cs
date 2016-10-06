@@ -68,7 +68,6 @@ namespace CherrySeed.Configuration
             // set defaults
             DefaultPrimaryKey = new PrimaryKeySetting(new List<string> { "Id", "{ClassName}Id" });
             DefaultIdGeneration = new IdGenerationSetting();
-            DefaultRepository = new EmptyRepository();
             IsClearBeforeSeedingEnabled = true;
         }
 

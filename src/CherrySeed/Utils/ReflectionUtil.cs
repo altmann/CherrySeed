@@ -71,7 +71,7 @@ namespace CherrySeed.Utils
 
         public static bool IsReferenceType(Type type)
         {
-            return type.IsClass;
+            return type != typeof (string) && type.IsClass;
         }
     }
 }

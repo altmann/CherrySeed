@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CherrySeed.Test.Asserts
 {
@@ -17,6 +18,26 @@ namespace CherrySeed.Test.Asserts
             }
 
             action();
+        }
+
+        public static void AssertExceptionWithMessage(Exception actualException, Type expectedException,
+            string expectedMessage)
+        {
+            Assert.AreEqual(expectedException, actualException.GetType());
+            Assert.IsTrue(actualException.Message.Contains(expectedMessage));
+        }
+
+        public static void TryCatch(Action tryAction, Action<Exception> catchAction)
+        {
+            try
+            {
+                tryAction();
+                Assert.Fail("Expected exception was not thrown.");
+            }
+            catch (Exception ex)
+            {
+                catchAction(ex);
+            }
         }
     }
 }

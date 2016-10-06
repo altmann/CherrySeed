@@ -8,45 +8,30 @@ using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CherrySeed.Test.UnitTests
+namespace CherrySeed.Test.IntegrationTests
 {
     [TestClass]
-    public class ObjectWithInormalIntIdTests
+    public class ObjectWithCustomEmptyStringTests
     {
         [TestMethod]
-        public void ObjectWithInormalIntId()
+        public void ObjectWithCustomEmptyString()
         {
             var entityData = new List<EntityData>
             {
                 new EntityData
                 {
-                    EntityName = "CherrySeed.Test.Models.Project",
+                    EntityName = "CherrySeed.Test.Models.Sub",
                     Objects = new List<Dictionary<string, string>>
                     {
                         new Dictionary<string, string>
                         {
-                            { "MyProjectId", "P1" },
-                            { "CustomerId", "C1" }
+                            { "Id", "1" },
+                            { "MyString", "%" },
                         },
                         new Dictionary<string, string>
                         {
-                            { "MyProjectId", "P2" },
-                            { "CustomerId", "C2" }
-                        }
-                    }
-                },
-                new EntityData
-                {
-                    EntityName = "CherrySeed.Test.Models.Customer",
-                    Objects = new List<Dictionary<string, string>>
-                    {
-                        new Dictionary<string, string>
-                        {
-                            { "MyCustomerId", "C1" }
-                        },
-                        new Dictionary<string, string>
-                        {
-                            { "MyCustomerId", "C2" }
+                            { "Id", "2" },
+                            { "MyString", "MyString 2" },
                         }
                     }
                 },
@@ -54,16 +39,15 @@ namespace CherrySeed.Test.UnitTests
 
             var assertRepository = new AssertRepository((obj, count, entities) =>
             {
-                AssertHelper.AssertIf(typeof(Project), 0, count, obj, () =>
+                AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
                 {
-                    AssertProject.AssertProperties(obj, 1);
+                    AssertSub.AssertProperties(obj, "");
                 });
 
-                AssertHelper.AssertIf(typeof(Project), 1, count, obj, () =>
+                AssertHelper.AssertIf(typeof(Sub), 1, count, obj, () =>
                 {
-                    AssertProject.AssertProperties(obj, 2);
+                    AssertSub.AssertProperties(obj, "MyString 2");
                 });
-
             }, type =>
             {
                 
@@ -71,13 +55,9 @@ namespace CherrySeed.Test.UnitTests
             
             InitAndExecute(entityData, assertRepository, cfg =>
             {
-                cfg.ForEntity<Customer>()
-                    .WithPrimaryKey(e => e.MyCustomerId)
-                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
+                cfg.WithEmptyStringMarker("%");
 
-                cfg.ForEntity<Project>()
-                    .WithPrimaryKey(e => e.MyProjectId)
-                    .WithReference(e => e.CustomerId, typeof (Customer))
+                cfg.ForEntity<Sub>()
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }

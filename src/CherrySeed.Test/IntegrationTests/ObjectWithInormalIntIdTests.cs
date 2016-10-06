@@ -6,46 +6,47 @@ using CherrySeed.Repositories;
 using CherrySeed.Test.Asserts;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
-using CherrySeed.TypeTransformations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CherrySeed.Test.UnitTests
+namespace CherrySeed.Test.IntegrationTests
 {
-    public class CustomStringTransformation : ITypeTransformation
-    {
-        public object Transform(Type type, string str)
-        {
-            return "Michael";
-        }
-
-        public object TransformNullable(Type type, string str)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [TestClass]
-    public class ObjectWithCustomStringTransformationTests
+    public class ObjectWithInormalIntIdTests
     {
         [TestMethod]
-        public void ObjectWithCustomStringTransformation()
+        public void ObjectWithInormalIntId()
         {
             var entityData = new List<EntityData>
             {
                 new EntityData
                 {
-                    EntityName = "CherrySeed.Test.Models.Sub",
+                    EntityName = "CherrySeed.Test.Models.Project",
                     Objects = new List<Dictionary<string, string>>
                     {
                         new Dictionary<string, string>
                         {
-                            { "Id", "1" },
-                            { "MyString", "Hello" },
+                            { "MyProjectId", "P1" },
+                            { "CustomerId", "C1" }
                         },
                         new Dictionary<string, string>
                         {
-                            { "Id", "2" },
-                            { "MyString", "World" },
+                            { "MyProjectId", "P2" },
+                            { "CustomerId", "C2" }
+                        }
+                    }
+                },
+                new EntityData
+                {
+                    EntityName = "CherrySeed.Test.Models.Customer",
+                    Objects = new List<Dictionary<string, string>>
+                    {
+                        new Dictionary<string, string>
+                        {
+                            { "MyCustomerId", "C1" }
+                        },
+                        new Dictionary<string, string>
+                        {
+                            { "MyCustomerId", "C2" }
                         }
                     }
                 },
@@ -53,15 +54,16 @@ namespace CherrySeed.Test.UnitTests
 
             var assertRepository = new AssertRepository((obj, count, entities) =>
             {
-                AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
+                AssertHelper.AssertIf(typeof(Project), 0, count, obj, () =>
                 {
-                    AssertSub.AssertProperties(obj, "Michael");
+                    AssertProject.AssertProperties(obj, 1);
                 });
 
-                AssertHelper.AssertIf(typeof(Sub), 1, count, obj, () =>
+                AssertHelper.AssertIf(typeof(Project), 1, count, obj, () =>
                 {
-                    AssertSub.AssertProperties(obj, "Michael");
+                    AssertProject.AssertProperties(obj, 2);
                 });
+
             }, type =>
             {
                 
@@ -69,9 +71,13 @@ namespace CherrySeed.Test.UnitTests
             
             InitAndExecute(entityData, assertRepository, cfg =>
             {
-                cfg.AddTypeTransformation(typeof(string), new CustomStringTransformation());
+                cfg.ForEntity<Customer>()
+                    .WithPrimaryKey(e => e.MyCustomerId)
+                    .WithPrimaryKeyIdGenerationInApplicationAsInteger();
 
-                cfg.ForEntity<Sub>()
+                cfg.ForEntity<Project>()
+                    .WithPrimaryKey(e => e.MyProjectId)
+                    .WithReference(e => e.CustomerId, typeof (Customer))
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();
             });
         }

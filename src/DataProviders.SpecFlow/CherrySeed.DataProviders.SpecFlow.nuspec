@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?> 
+<package> 
+  <metadata> 
+  <id>$id$</id> 
+  <version>$version$</version> 
+  <title>$id$</title> 
+  <authors>$author$</authors> 
+  <owners>$author$</owners>
+  <projectUrl>https://github.com/altmann/CherrySeed/wiki/SpecFlow-Data-Provider</projectUrl>
+  <!--<licenseUrl></licenseUrl>-->
+  <iconUrl>https://github.com/altmann/CherrySeed/blob/master/CherrySeed-icon-small.png?raw=true</iconUrl>
+  <dependencies>
+    <dependency id="CherrySeed" version="1.0.1" />
+    <dependency id="SpecFlow" version="2.1.0" />
+  </dependencies>
+  <requireLicenseAcceptance>false</requireLicenseAcceptance> 
+  <description>$description$</description> 
+  <releaseNotes></releaseNotes>
+  <copyright></copyright> 
+  <tags>CherrySeed seed seeder dataseed database testdata gherkin specflow</tags> 
+</metadata> 
+</package>

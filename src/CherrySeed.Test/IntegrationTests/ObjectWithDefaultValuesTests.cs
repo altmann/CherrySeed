@@ -8,13 +8,13 @@ using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CherrySeed.Test.UnitTests
+namespace CherrySeed.Test.IntegrationTests
 {
     [TestClass]
-    public class ObjectWithIntIdTests
+    public class ObjectWithDefaultValuesTests
     {
         [TestMethod]
-        public void ObjectWithIntId()
+        public void ObjectWithDefaultValues()
         {
             var entityData = new List<EntityData>
             {
@@ -27,10 +27,7 @@ namespace CherrySeed.Test.UnitTests
                         {
                             { "Id", "1" },
                             { "MyString", "MyString 1" },
-                            { "MyBool", "true" },
-                            { "MyDateTime", "2016/05/03" },
                             { "MyDouble", "123,456" },
-                            { "MyDecimal", "123,12" },
                             { "MyEnum1", "EnumValue1" },
                             { "MyEnum2", "EnumValue2" },
                         },
@@ -70,7 +67,7 @@ namespace CherrySeed.Test.UnitTests
             {
                 AssertHelper.AssertIf(typeof(Main), 0, count, obj, () =>
                 {
-                    AssertMain.AssertProperties(obj, new DateTime(2016, 5, 3), "MyString 1", true, (decimal)123.12, 123.456, MyEnum.EnumValue1, MyEnum.EnumValue2);
+                    AssertMain.AssertProperties(obj, new DateTime(2010, 1, 1), "MyString 1", true, (decimal)12.12, 123.456, MyEnum.EnumValue1, MyEnum.EnumValue2);
                 });
 
                 AssertHelper.AssertIf(typeof(Main), 1, count, obj, () =>
@@ -98,8 +95,11 @@ namespace CherrySeed.Test.UnitTests
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKey(e => e.Id)
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();
+
                 cfg.ForEntity<Main>()
-                    .AfterSave(obj => { });
+                    .WithFieldWithDefaultValue(e => e.MyBool, () => true)
+                    .WithFieldWithDefaultValue(e => e.MyDateTime, () => new DateTime(2010, 1, 1))
+                    .WithFieldWithDefaultValue(e => e.MyDecimal, new DefaultValueProviderMock<decimal>((decimal)12.12));
             });
         }
 

@@ -1,8 +1,9 @@
 ﻿using System;
+using CherrySeed.Repositories;
 
-namespace CherrySeed.Repositories
+namespace CherrySeed.Test.Base.Repositories
 {
-    class EmptyRepository : IRepository
+    public class EmptyRepository : IRepository
     {
         public void SaveEntity(object obj)
         {

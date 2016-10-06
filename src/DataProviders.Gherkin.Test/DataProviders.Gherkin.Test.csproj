@@ -50,7 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GherkinDataProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +59,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CherrySeed.Test.Base\CherrySeed.Test.Base.csproj">
+      <Project>{b2a5444d-82b9-410d-bb85-39951972ebb6}</Project>
+      <Name>CherrySeed.Test.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CherrySeed\CherrySeed.csproj">
       <Project>{f40a4d24-2e1d-4c23-9c06-e22c11c43a3c}</Project>
       <Name>CherrySeed</Name>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CherrySeed.Configuration;
 using CherrySeed.DataProviders.Gherkin;
+using CherrySeed.Test.Base.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataProviders.Gherkin.Test
@@ -17,6 +18,8 @@ namespace DataProviders.Gherkin.Test
                 {
                     FilePaths = new List<string> { @"Testfeature.feature" }
                 }));
+
+                cfg.WithRepository(new EmptyRepository());
             });
 
             var seeder = config.CreateSeeder();

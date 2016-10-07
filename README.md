@@ -42,4 +42,4 @@ More see in [Getting Started](https://github.com/altmann/CherrySeed/wiki/Getting
 
 # Copyright
 
-Copyright (c) Michael Altmann. See [https://raw.githubusercontent.com/altmann/CherrySeed/master/LICENSE](LICENSE) for details.
+Copyright (c) Michael Altmann. See [LICENSE](https://raw.githubusercontent.com/altmann/CherrySeed/master/LICENSE) for details.

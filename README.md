@@ -1,4 +1,4 @@
-[[https://github.com/altmann/CherrySeed/blob/master/CherrySeed-Icon-With-Name.png]]
+![CherrySeed](https://github.com/altmann/CherrySeed/blob/master/CherrySeed-Icon-With-Name.png "CherrySeed")
 
 # What is CherrySeed?
 CherrySeed is a simple .NET library built to solve a common problem - creating and seeding test data into the database. This type of code is boring to write and bringing relations under control is hard, so why not use a library for that?

@@ -39,3 +39,7 @@ More see in [Getting Started](https://github.com/altmann/CherrySeed/wiki/Getting
 # Resources
 - [Install via NuGet](https://www.nuget.org/packages?q=CherrySeed)
 - [Documentation](https://github.com/altmann/CherrySeed/wiki/Getting-Started)
+
+# Copyright
+
+Copyright (c) Michael Altmann. See [https://raw.githubusercontent.com/altmann/CherrySeed/master/LICENSE](LICENSE) for details.

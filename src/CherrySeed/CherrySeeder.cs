@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using CherrySeed.Configuration;
-using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
@@ -23,7 +22,6 @@ namespace CherrySeed
         private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
         private readonly IdMappingProvider _idMappingProvider;
         private readonly ObjectListTransformation _objectListTransformation;
-        private readonly SeederConfigurationValidator _configurationValidator;
         private readonly SeederConfiguration _configuration;
 
         public CherrySeeder(Action<ISeederConfigurationBuilder> configurationExpression)
@@ -31,7 +29,6 @@ namespace CherrySeed
             // init
             _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
             _idMappingProvider = new IdMappingProvider();
-            _configurationValidator = new SeederConfigurationValidator();
 
             var configBuilder = new SeederConfigurationBuilder();
             configurationExpression(configBuilder);
@@ -55,7 +52,8 @@ namespace CherrySeed
                 });
             }
 
-            _configurationValidator.IsValid(_configuration);
+            var configurationValidator = new SeederConfigurationValidator();
+            configurationValidator.IsValid(_configuration);
         }
 
         public void Seed()

@@ -17,7 +17,6 @@ namespace CherrySeed.Configuration
 
         public SeederConfigurationBuilder()
         {
-            // init
             _entitySettingBuilders = new List<EntitySettingBuilder>();
             _seederConfiguration = new SeederConfiguration();
         }
@@ -60,7 +59,6 @@ namespace CherrySeed.Configuration
 
         public void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames)
         {
-            //todo: is valid primary key (check {} tokens)
             _seederConfiguration.DefaultPrimaryKeyNames.AddRange(primaryKeyNames);
         }
 

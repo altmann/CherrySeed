@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
@@ -37,6 +38,31 @@ namespace CherrySeed.Configuration
             DefaultPrimaryKeyNames = new List<string> { "Id", "{ClassName}Id" };
             DefaultIdGeneration = new IdGenerationSetting();
             IsClearBeforeSeedingEnabled = true;
+        }
+    }
+
+    public class SeederConfigurationValidator
+    {
+        public void IsValid(SeederConfiguration configuration)
+        {
+            IsDataProviderValid(configuration);
+            IsRepositoryValid(configuration);
+        }
+
+        private static void IsRepositoryValid(SeederConfiguration configuration)
+        {
+            if (configuration.DefaultRepository == null)
+            {
+                throw new MissingConfigurationException("Repository");
+            }
+        }
+
+        private static void IsDataProviderValid(SeederConfiguration configuration)
+        {
+            if (configuration.DataProvider == null)
+            {
+                throw new MissingConfigurationException("DataProvider");
+            }
         }
     }
 }

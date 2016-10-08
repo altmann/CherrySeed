@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.Repositories;
@@ -19,50 +18,5 @@ namespace CherrySeed.Configuration
         public Action<Dictionary<string, string>, object> AfterSaveAction { get; set; }
         public IDataProvider DataProvider { get; set; }
         public Dictionary<Type, ITypeTransformation> TypeTransformations { get; set; }
-
-        public SeederConfiguration()
-        {
-            TypeTransformations = new Dictionary<Type, ITypeTransformation>
-            {
-                { typeof(string), new StringTransformation("$EMPTY$") },
-                { typeof(int), new IntegerTransformation() },
-                { typeof(DateTime), new DateTimeTransformation() },
-                { typeof(bool), new BooleanTransformation() },
-                { typeof(Guid), new GuidTransformation() },
-                { typeof(Enum), new EnumTransformation() },
-                { typeof(double), new DoubleTransformation() },
-                { typeof(decimal), new DecimalTransformation() }
-            };
-
-            // set defaults
-            DefaultPrimaryKeyNames = new List<string> { "Id", "{ClassName}Id" };
-            DefaultIdGeneration = new IdGenerationSetting();
-            IsClearBeforeSeedingEnabled = true;
-        }
-    }
-
-    public class SeederConfigurationValidator
-    {
-        public void IsValid(SeederConfiguration configuration)
-        {
-            IsDataProviderValid(configuration);
-            IsRepositoryValid(configuration);
-        }
-
-        private static void IsRepositoryValid(SeederConfiguration configuration)
-        {
-            if (configuration.DefaultRepository == null)
-            {
-                throw new MissingConfigurationException("Repository");
-            }
-        }
-
-        private static void IsDataProviderValid(SeederConfiguration configuration)
-        {
-            if (configuration.DataProvider == null)
-            {
-                throw new MissingConfigurationException("DataProvider");
-            }
-        }
     }
 }

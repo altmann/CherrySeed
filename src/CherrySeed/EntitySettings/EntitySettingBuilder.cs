@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using CherrySeed.DefaultValues;
 using CherrySeed.PrimaryKeyIdGeneration;
 using CherrySeed.Repositories;
+using CherrySeed.Utils;
 
 namespace CherrySeed.EntitySettings
 {
@@ -37,7 +39,7 @@ namespace CherrySeed.EntitySettings
             };
         }
 
-        public EntitySetting Build(IRepository defaultRepository, IdGenerationSetting defaultGenerationSetting)
+        public EntitySetting Build(IRepository defaultRepository, IdGenerationSetting defaultGenerationSetting, List<string> defaultPrimaryKeyNames)
         {
             if (Obj.Repository == null)
             {
@@ -49,7 +51,19 @@ namespace CherrySeed.EntitySettings
                 Obj.IdGeneration = defaultGenerationSetting;
             }
 
+            if (string.IsNullOrEmpty(Obj.PrimaryKey.PrimaryKeyName))
+            {
+                Obj.PrimaryKey.PrimaryKeyName = GetFinalPrimaryKeyName(Obj.EntityType, defaultPrimaryKeyNames);
+            }
+
             return Obj;
+        }
+
+        private string GetFinalPrimaryKeyName(Type type, List<string> defaultPrimaryKeyNames)
+        {
+            return defaultPrimaryKeyNames
+                .Select(propertyName => propertyName.Replace("{ClassName}", type.Name))
+                .FirstOrDefault(propertyNameWithoutTokens => ReflectionUtil.ExistProperty(type, propertyNameWithoutTokens));
         }
     }
 

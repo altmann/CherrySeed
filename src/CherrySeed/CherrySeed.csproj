@@ -46,6 +46,7 @@
     <Compile Include="Configuration\Exceptions\ConfigurationException.cs" />
     <Compile Include="Configuration\ISeederConfigurationBuilder.cs" />
     <Compile Include="Configuration\SeederConfiguration.cs" />
+    <Compile Include="Configuration\SeederConfigurationValidator.cs" />
     <Compile Include="DefaultValues\FuncDefaultValueProvider.cs" />
     <Compile Include="DefaultValues\IDefaultValueProvider.cs" />
     <Compile Include="EntitySettings\DefaultValueSetting.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="TypeTransformations\TypeTransformationBase.cs" />
     <Compile Include="TypeTransformations\TypeTransformationProvider.cs" />
     <Compile Include="TypeTransformations\StringTransformation.cs" />
+    <Compile Include="Utils\DictionaryExtensions.cs" />
     <Compile Include="Utils\ReflectionUtil.cs" />
   </ItemGroup>
   <ItemGroup>

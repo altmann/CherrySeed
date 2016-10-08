@@ -26,7 +26,6 @@ namespace CherrySeed
 
         public CherrySeeder(Action<ISeederConfigurationBuilder> configurationExpression)
         {
-            // init
             _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
             _idMappingProvider = new IdMappingProvider();
 
@@ -41,19 +40,12 @@ namespace CherrySeed
             
             foreach (var entitySetting in _configuration.EntitySettings)
             {
-                var entityType = entitySetting.EntityType;
-
-                entitySetting.PrimaryKey.PrimaryKeyName = GetFinalPrimaryKeyName(entityType, entitySetting.PrimaryKey.PrimaryKeyName, _configuration.DefaultPrimaryKeyNames);
-
-                _entityMetadataDict.Add(entityType, new EntityMetadata
+                _entityMetadataDict.Add(entitySetting.EntityType, new EntityMetadata
                 {
-                    EntityType = entityType,
+                    EntityType = entitySetting.EntityType,
                     EntitySetting = entitySetting
                 });
             }
-
-            var configurationValidator = new SeederConfigurationValidator();
-            configurationValidator.IsValid(_configuration);
         }
 
         public void Seed()
@@ -120,26 +112,6 @@ namespace CherrySeed
 
                 repository.RemoveEntities(entityMetadata.EntityType);
             }
-        }
-
-        private string GetFinalPrimaryKeyName(Type type, string primaryKeyName, List<string> defaultPrimaryKeyNames)
-        {
-            if (!string.IsNullOrEmpty(primaryKeyName))
-            {
-                return primaryKeyName;
-            }
-
-            foreach (var propertyName in defaultPrimaryKeyNames)
-            {
-                var propertyNameWithoutTokens = propertyName.Replace("{ClassName}", type.Name);
-
-                if (ReflectionUtil.ExistProperty(type, propertyNameWithoutTokens))
-                {
-                    return propertyNameWithoutTokens;
-                }
-            }
-
-            return null;
         }
 
         private string GetProviderIdOfObject(Dictionary<string, string> objectDict, string primaryKeyName)

@@ -23,10 +23,17 @@ namespace CherrySeed.Utils
 
             if (prop == null || !prop.CanWrite)
             {
-                throw new InvalidOperationException("Failed to set property");
+                throw new NullReferenceException("Property is missing");
             }
 
-            prop.SetValue(obj, propertyValue, null);
+            try
+            {
+                prop.SetValue(obj, propertyValue, null);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Set property failed", ex);
+            }
         }
 
         public static bool IsNullableValueType(Type type)
@@ -37,6 +44,12 @@ namespace CherrySeed.Utils
         public static Type GetPropertyType(Type type, string propertyName)
         {
             var prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+
+            if (prop == null)
+            {
+                throw new NullReferenceException("Property is missing");
+            }
+
             return prop.PropertyType;
         }
 

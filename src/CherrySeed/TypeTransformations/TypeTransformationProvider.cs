@@ -16,10 +16,16 @@ namespace CherrySeed.TypeTransformations
         public ITypeTransformation GetSimpleTransformation(Type type)
         {
             var relevantType = GetRelevantType(type);
+            var lookupType = relevantType.IsEnum
+                ? typeof(Enum)
+                : relevantType;
 
-            return relevantType.IsEnum
-                ? _simpleTypeTransformations[typeof(Enum)]
-                : _simpleTypeTransformations[relevantType];
+            if (!_simpleTypeTransformations.ContainsKey(lookupType))
+            {
+                throw new KeyNotFoundException($"Transformation of type '{type}' not found");
+            }
+
+            return _simpleTypeTransformations[lookupType];
         }
 
         private Type GetRelevantType(Type type)

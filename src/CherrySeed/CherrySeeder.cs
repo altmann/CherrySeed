@@ -20,30 +20,31 @@ namespace CherrySeed
 
     public class CherrySeeder : ICherrySeeder
     {
-        private readonly SeederConfigurationBuilder _configBuilder;
         private readonly Dictionary<Type, EntityMetadata> _entityMetadataDict;
         private readonly IdMappingProvider _idMappingProvider;
         private readonly ObjectListTransformation _objectListTransformation;
+        private readonly SeederConfiguration _configuration;
 
         public CherrySeeder(Action<ISeederConfigurationBuilder> configurationExpression)
         {
             // init
-            _configBuilder = new SeederConfigurationBuilder();
             _entityMetadataDict = new Dictionary<Type, EntityMetadata>();
             _idMappingProvider = new IdMappingProvider();
 
-            configurationExpression(_configBuilder);
+            var configBuilder = new SeederConfigurationBuilder();
+            configurationExpression(configBuilder);
+            _configuration = configBuilder.Build();
 
             _objectListTransformation = new ObjectListTransformation(
                 new ObjectTransformation.ObjectTransformation(
-                    new TypeTransformationProvider(_configBuilder.TypeTransformations),
+                    new TypeTransformationProvider(_configuration.TypeTransformations),
                     _idMappingProvider));
             
-            foreach (var entitySetting in _configBuilder.EntitySettings)
+            foreach (var entitySetting in _configuration.EntitySettings)
             {
                 var entityType = entitySetting.EntityType;
 
-                entitySetting.PrimaryKey.FinalPrimaryKeyName = GetFinalPrimaryKeyName(entityType, entitySetting.PrimaryKey.PrimaryKeyNames);
+                entitySetting.PrimaryKey.PrimaryKeyName = GetFinalPrimaryKeyName(entityType, entitySetting.PrimaryKey.PrimaryKeyName, _configuration.DefaultPrimaryKeyNames);
 
                 _entityMetadataDict.Add(entityType, new EntityMetadata
                 {
@@ -52,11 +53,11 @@ namespace CherrySeed
                 });
             }
 
-            if (_configBuilder.DataProvider == null)
+            if (_configuration.DataProvider == null)
             {
                 throw new MissingConfigurationException("DataProvider");
             }
-            if (_configBuilder.DefaultRepository == null)
+            if (_configuration.DefaultRepository == null)
             {
                 throw new MissingConfigurationException("Repository");
             }
@@ -64,12 +65,12 @@ namespace CherrySeed
 
         public void Seed()
         {
-            if (_configBuilder.IsClearBeforeSeedingEnabled)
+            if (_configuration.IsClearBeforeSeedingEnabled)
             {
                 Clear();
             }
 
-            var entityDataList = _configBuilder.DataProvider.GetEntityDataList();
+            var entityDataList = _configuration.DataProvider.GetEntityDataList();
 
             foreach (var objectMetadataPair in _entityMetadataDict.OrderBy(em => em.Value.EntitySetting.Order))
             {
@@ -102,17 +103,17 @@ namespace CherrySeed
                 var obj = entityMetadata.Objects[i];
                 var objDict = entityMetadata.ObjectsAsDict[i];
 
-                _configBuilder.BeforeSaveAction?.Invoke(objDict, obj);
+                _configuration.BeforeSaveAction?.Invoke(objDict, obj);
 
                 createEntityTarget.SaveEntity(obj);
 
                 entitySetting.AfterSave(obj);
-                _configBuilder.AfterSaveAction?.Invoke(objDict, obj);
+                _configuration.AfterSaveAction?.Invoke(objDict, obj);
 
                 var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
-                    entitySetting.PrimaryKey.FinalPrimaryKeyName);
+                    entitySetting.PrimaryKey.PrimaryKeyName);
 
-                var entityIdInProvider = GetProviderIdOfObject(objDict, entitySetting.PrimaryKey.FinalPrimaryKeyName);
+                var entityIdInProvider = GetProviderIdOfObject(objDict, entitySetting.PrimaryKey.PrimaryKeyName);
                 _idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInProvider, entityIdInRepo);
             }
         }
@@ -128,9 +129,14 @@ namespace CherrySeed
             }
         }
 
-        private string GetFinalPrimaryKeyName(Type type, List<string> availablePropertyNames)
+        private string GetFinalPrimaryKeyName(Type type, string primaryKeyName, List<string> defaultPrimaryKeyNames)
         {
-            foreach (var propertyName in availablePropertyNames)
+            if (!string.IsNullOrEmpty(primaryKeyName))
+            {
+                return primaryKeyName;
+            }
+
+            foreach (var propertyName in defaultPrimaryKeyNames)
             {
                 var propertyNameWithoutTokens = propertyName.Replace("{ClassName}", type.Name);
 
@@ -140,7 +146,7 @@ namespace CherrySeed
                 }
             }
 
-            throw new InvalidOperationException("Property not found");
+            return null;
         }
 
         private string GetProviderIdOfObject(Dictionary<string, string> objectDict, string primaryKeyName)

@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Exceptions\ConfigurationException.cs" />
+    <Compile Include="Configuration\ISeederConfigurationBuilder.cs" />
+    <Compile Include="Configuration\SeederConfiguration.cs" />
     <Compile Include="DefaultValues\FuncDefaultValueProvider.cs" />
     <Compile Include="DefaultValues\IDefaultValueProvider.cs" />
     <Compile Include="EntitySettings\DefaultValueSetting.cs" />
@@ -66,7 +68,7 @@
     <Compile Include="IdMappings\IdMappingProvider.cs" />
     <Compile Include="ObjectTransformation\ObjectListTransformation.cs" />
     <Compile Include="ObjectTransformation\ObjectTransformation.cs" />
-    <Compile Include="ObjectTransformation\PropertyMappingException.cs" />
+    <Compile Include="ObjectTransformation\PropertyTransformationException.cs" />
     <Compile Include="CherrySeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeTransformations\BooleanTransformation.cs" />

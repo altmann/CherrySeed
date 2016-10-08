@@ -11,19 +11,13 @@ namespace CherrySeed.EntitySettings
     {
         protected readonly EntitySetting Obj;
 
-        public EntitySettingBuilder(Type entityType, 
-            PrimaryKeySetting primaryKey, 
-            IRepository defaultRepository, 
-            IdGenerationSetting defaultGenerationSetting,
-            int order)
+        public EntitySettingBuilder(Type entityType, int order)
         {
             Obj = new EntitySetting
             {
                 EntityType = entityType,
-                Repository = defaultRepository,
-                PrimaryKey = primaryKey,
+                PrimaryKey = new PrimaryKeySetting(),
                 References = new List<ReferenceSetting>(),
-                IdGeneration = defaultGenerationSetting,
                 EntityNames = GetFinalEntityNames(entityType),
                 AfterSave = obj => { },
                 DefaultValueSettings = new List<DefaultValueSetting>(),
@@ -43,8 +37,18 @@ namespace CherrySeed.EntitySettings
             };
         }
 
-        public EntitySetting Build()
+        public EntitySetting Build(IRepository defaultRepository, IdGenerationSetting defaultGenerationSetting)
         {
+            if (Obj.Repository == null)
+            {
+                Obj.Repository = defaultRepository;
+            }
+
+            if (Obj.IdGeneration == null)
+            {
+                Obj.IdGeneration = defaultGenerationSetting;
+            }
+
             return Obj;
         }
     }
@@ -69,12 +73,8 @@ namespace CherrySeed.EntitySettings
 
     public class EntitySettingBuilder<T> : EntitySettingBuilder, IEntitySettingBuilder<T>
     {
-        public EntitySettingBuilder(Type entityType, 
-            PrimaryKeySetting primaryKey, 
-            IRepository defaultRepository, 
-            IdGenerationSetting defaultIdGenerationSetting,
-            int order)
-            : base(entityType, primaryKey, defaultRepository, defaultIdGenerationSetting, order)
+        public EntitySettingBuilder(Type entityType, int order)
+            : base(entityType, order)
         { }
 
         public IEntitySettingBuilder<T> WithPrimaryKey(Expression<Func<T, object>> primaryKeyExpression)

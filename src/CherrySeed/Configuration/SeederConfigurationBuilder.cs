@@ -9,142 +9,104 @@ using CherrySeed.TypeTransformations;
 
 namespace CherrySeed.Configuration
 {
-    public interface ISeederConfigurationBuilder
-    {
-        IEntitySettingBuilder<T> ForEntity<T>();
-        void WithDataProvider(IDataProvider dataProvider);
-        void AddTypeTransformation(Type type, ITypeTransformation transformation);
-        void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames);
-        void WithRepository(IRepository repository);
-        void DisableClearBeforeSeeding();
-        void BeforeSave(Action<Dictionary<string, string>, object> beforeSaveAction);
-        void AfterSave(Action<Dictionary<string, string>, object> afterSaveAction);
-        void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
-        void WithPrimaryKeyIdGenerationInApplicationAsGuid();
-        void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);
-        void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator);
-        void WithEmptyStringMarker(string marker);
-    }
-
     public class SeederConfigurationBuilder : ISeederConfigurationBuilder
     {
         private readonly List<EntitySettingBuilder> _entitySettingBuilders;
+        private readonly SeederConfiguration _seederConfiguration;
         private int _order = 1;
-
-        public List<EntitySetting> EntitySettings
-        {
-            get
-            {
-                var builders = _entitySettingBuilders;
-                return builders.Select(b => b.Build()).ToList();
-            }
-        }
-
-        public PrimaryKeySetting DefaultPrimaryKey { get; set; }
-        public IRepository DefaultRepository { get; set; }
-        public IdGenerationSetting DefaultIdGeneration { get; set; }
-        public bool IsClearBeforeSeedingEnabled { get; set; }
-        public Action<Dictionary<string, string>, object> BeforeSaveAction { get; set; }
-        public Action<Dictionary<string, string>, object> AfterSaveAction { get; set; }
-        public IDataProvider DataProvider { get; set; }
-        public Dictionary<Type, ITypeTransformation> TypeTransformations { get; }
 
         public SeederConfigurationBuilder()
         {
             // init
             _entitySettingBuilders = new List<EntitySettingBuilder>();
-            TypeTransformations = new Dictionary<Type, ITypeTransformation>
-            {
-                { typeof(string), new StringTransformation("$EMPTY$") },
-                { typeof(int), new IntegerTransformation() },
-                { typeof(DateTime), new DateTimeTransformation() },
-                { typeof(bool), new BooleanTransformation() },
-                { typeof(Guid), new GuidTransformation() },
-                { typeof(Enum), new EnumTransformation() },
-                { typeof(double), new DoubleTransformation() },
-                { typeof(decimal), new DecimalTransformation() }
-            };
+            _seederConfiguration = new SeederConfiguration();
+        }
 
-            // set defaults
-            DefaultPrimaryKey = new PrimaryKeySetting(new List<string> { "Id", "{ClassName}Id" });
-            DefaultIdGeneration = new IdGenerationSetting();
-            IsClearBeforeSeedingEnabled = true;
+        public SeederConfiguration Build()
+        {
+            _seederConfiguration.EntitySettings = _entitySettingBuilders
+                .Select(b => b.Build(
+                    _seederConfiguration.DefaultRepository, 
+                    _seederConfiguration.DefaultIdGeneration))
+                .ToList();
+
+            return _seederConfiguration;
         }
 
         public IEntitySettingBuilder<T> ForEntity<T>()
         {
             var entityType = typeof (T);
-            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, new PrimaryKeySetting(DefaultPrimaryKey.PrimaryKeyNames), DefaultRepository, DefaultIdGeneration, _order++);
+            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, _order++);
             _entitySettingBuilders.Add(newObjectDescriptionBuilder);
             return newObjectDescriptionBuilder;
         }
 
         public void WithDataProvider(IDataProvider dataProvider)
         {
-            DataProvider = dataProvider;
+            _seederConfiguration.DataProvider = dataProvider;
         }
 
         public void AddTypeTransformation(Type type, ITypeTransformation transformation)
         {
-            if (TypeTransformations.ContainsKey(type))
+            if (_seederConfiguration.TypeTransformations.ContainsKey(type))
             {
-                TypeTransformations[type] = transformation;
+                _seederConfiguration.TypeTransformations[type] = transformation;
             }
             else
             {
-                TypeTransformations.Add(type, transformation);
+                _seederConfiguration.TypeTransformations.Add(type, transformation);
             }
         }
 
         public void WithDefaultPrimaryKeyNames(params string[] primaryKeyNames)
         {
             //todo: is valid primary key (check {} tokens)
-            DefaultPrimaryKey = new PrimaryKeySetting(primaryKeyNames.ToList());
+            _seederConfiguration.DefaultPrimaryKeyNames.AddRange(primaryKeyNames);
         }
 
         public void WithRepository(IRepository repository)
         {
-            DefaultRepository = repository;
+            _seederConfiguration.DefaultRepository = repository;
         }
 
         public void DisableClearBeforeSeeding()
         {
-            IsClearBeforeSeedingEnabled = false;
+            _seederConfiguration.IsClearBeforeSeedingEnabled = false;
         }
 
         public void BeforeSave(Action<Dictionary<string, string>, object> beforeSaveAction)
         {
-            BeforeSaveAction = beforeSaveAction;
+            _seederConfiguration.BeforeSaveAction = beforeSaveAction;
         }
 
         public void AfterSave(Action<Dictionary<string, string>, object> afterSaveAction)
         {
-            AfterSaveAction = afterSaveAction;
+            _seederConfiguration.AfterSaveAction = afterSaveAction;
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new IntegerPrimaryKeyIdGenerator(startId, steps));
+            _seederConfiguration.DefaultIdGeneration = new IdGenerationSetting(new IntegerPrimaryKeyIdGenerator(startId, steps));
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
-            DefaultIdGeneration = new IdGenerationSetting(new GuidPrimaryKeyIdGenerator());
+            _seederConfiguration.DefaultIdGeneration = new IdGenerationSetting(new GuidPrimaryKeyIdGenerator());
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new StringPrimaryKeyIdGenerator(prefix, startId, steps));
+            _seederConfiguration.DefaultIdGeneration = new IdGenerationSetting(new StringPrimaryKeyIdGenerator(prefix, startId, steps));
         }
 
         public void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator)
         {
-            DefaultIdGeneration = new IdGenerationSetting(generator);
+            _seederConfiguration.DefaultIdGeneration = new IdGenerationSetting(generator);
         }
 
         public void WithEmptyStringMarker(string marker)
         {
-            TypeTransformations[typeof(string)] = new StringTransformation(marker);
+            _seederConfiguration.TypeTransformations[typeof(string)] = new StringTransformation(marker);
         }
     }
 }

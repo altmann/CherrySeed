@@ -23,8 +23,13 @@ namespace CherrySeed.Test.Asserts
         public static void AssertExceptionWithMessage(Exception actualException, Type expectedException,
             string expectedMessage)
         {
-            Assert.AreEqual(expectedException, actualException.GetType());
-            Assert.IsTrue(actualException.Message.Contains(expectedMessage));
+            Assert.AreEqual(expectedException, actualException.GetType(), "Asset: Expected exception is not actual exception");
+            Assert.IsTrue(actualException.Message.Contains(expectedMessage), "Asset: Expected exception message is not actual exception message");
+        }
+
+        public static void AssertException(Exception actualException, Type expectedException)
+        {
+            Assert.AreEqual(expectedException, actualException.GetType(), "Asset: Expected exception is not actual exception");
         }
 
         public static void TryCatch(Action tryAction, Action<Exception> catchAction)

@@ -49,56 +49,58 @@ namespace CherrySeed.ObjectTransformation
 
         private void SetProperty(object obj, string propertyName, string propertyValue, EntitySetting entitySetting)
         {
-            var propertyType = ReflectionUtil.GetPropertyType(obj.GetType(), propertyName);
-
-            if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
+            try
             {
-                if (entitySetting.IdGeneration.Generator != null)
+                var propertyType = ReflectionUtil.GetPropertyType(obj.GetType(), propertyName);
+
+                if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
                 {
-                    ReflectionUtil.SetProperty(obj, propertyName, entitySetting.IdGeneration.Generator.Generate());
+                    if (entitySetting.IdGeneration.Generator != null)
+                    {
+                        ReflectionUtil.SetProperty(obj, propertyName, entitySetting.IdGeneration.Generator.Generate());
+                    }
                 }
-            }
-            else if (IsForeignKey(propertyName, entitySetting.References))
-            {
-                var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
-                var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
-
-                if (ReflectionUtil.IsReferenceType(propertyType))
+                else if (IsForeignKey(propertyName, entitySetting.References))
                 {
-                    var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
-                    ReflectionUtil.SetProperty(obj, propertyName, referenceModel);
+                    var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
+                    var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
+
+                    if (ReflectionUtil.IsReferenceType(propertyType))
+                    {
+                        var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
+                        ReflectionUtil.SetProperty(obj, propertyName, referenceModel);
+                    }
+                    else
+                    {
+                        ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+                    }
                 }
                 else
                 {
-                    ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+                    var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
+
+                    var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
+                        ? simpleTransformation.TransformNullable(propertyType, propertyValue)
+                        : simpleTransformation.Transform(propertyType, propertyValue);
+
+                    ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
-
-                var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
-                    ? simpleTransformation.TransformNullable(propertyType, propertyValue)
-                    : simpleTransformation.Transform(propertyType, propertyValue);
-                
-                ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
+                throw new PropertyTransformationException(obj.GetType(), propertyName, propertyValue, ex);
             }
         }
 
         private bool IsPrimaryKey(string propertyName, PrimaryKeySetting primaryKeySetting)
         {
-            var primaryKeyName = primaryKeySetting.FinalPrimaryKeyName;
+            var primaryKeyName = primaryKeySetting.PrimaryKeyName;
             return propertyName == primaryKeyName;
         }
 
         private bool IsForeignKey(string propertyName, List<ReferenceSetting> referenceDescriptions)
         {
             return referenceDescriptions.Select(rd => rd.ReferenceName).Contains(propertyName);
-        }
-
-        private bool HasDefaultValue(string propertyName, List<DefaultValueSetting> defaultValueSettings)
-        {
-            return defaultValueSettings.Select(dvs => dvs.PropertyName).Contains(propertyName);
         }
     }
 }

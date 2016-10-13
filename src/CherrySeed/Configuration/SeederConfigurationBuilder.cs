@@ -85,10 +85,10 @@ namespace CherrySeed.Configuration
                 return _entitySettingBuilders[entityType] as IEntitySettingBuilder<T>;
             }
 
-            var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, _order++);
-            _entitySettingBuilders.Add(entityType, newObjectDescriptionBuilder);
+            var entitySettingBuilder = new EntitySettingBuilder<T>(entityType, _order++);
+            _entitySettingBuilders.Add(entityType, entitySettingBuilder);
 
-            return newObjectDescriptionBuilder;
+            return entitySettingBuilder;
         }
 
         public void WithDataProvider(IDataProvider dataProvider)

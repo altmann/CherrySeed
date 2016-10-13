@@ -98,9 +98,9 @@ namespace CherrySeed.ObjectTransformation
             return propertyName == primaryKeyName;
         }
 
-        private bool IsForeignKey(string propertyName, List<ReferenceSetting> referenceDescriptions)
+        private bool IsForeignKey(string propertyName, List<ReferenceSetting> referenceSettings)
         {
-            return referenceDescriptions.Select(rd => rd.ReferenceName).Contains(propertyName);
+            return referenceSettings.Select(rd => rd.ReferenceName).Contains(propertyName);
         }
     }
 }

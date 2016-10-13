@@ -44,7 +44,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CherrySeedConfigurationExtensions.cs" />
     <Compile Include="CherrySeedDriver.cs" />
+    <Compile Include="CherrySeedExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecFlowDataProvider.cs" />
   </ItemGroup>

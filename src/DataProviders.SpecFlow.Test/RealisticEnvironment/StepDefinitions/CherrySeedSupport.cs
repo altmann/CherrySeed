@@ -1,18 +1,17 @@
 using BoDi;
 using CherrySeed.Configuration;
-using CherrySeed.DataProviders.SpecFlow.Test.Entities;
-using CherrySeed.Test.Base.Repositories;
 using CherrySeed.DataProviders.SpecFlow.Test.Common;
+using CherrySeed.Test.Base.Repositories;
 using TechTalk.SpecFlow;
 
-namespace CherrySeed.DataProviders.SpecFlow.Test.StepDefinitions
+namespace CherrySeed.DataProviders.SpecFlow.Test.RealisticEnvironment.StepDefinitions
 {
     [Binding]
-    public class CherrySeedDriverSupport
+    public class CherrySeedSupport
     {
         private readonly IObjectContainer _objectContainer;
 
-        public CherrySeedDriverSupport(IObjectContainer objectContainer)
+        public CherrySeedSupport(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
         }
@@ -20,7 +19,6 @@ namespace CherrySeed.DataProviders.SpecFlow.Test.StepDefinitions
         [BeforeScenario(Order = 1)]
         public void InitializeCherrySeedDriver()
         {
-            // First way with default CherrySeed instance and extensions
             var cherrySeedConfig = new CherrySeedConfiguration(cfg =>
             {
                 cfg.WithSpecFlowConfiguration();
@@ -29,15 +27,6 @@ namespace CherrySeed.DataProviders.SpecFlow.Test.StepDefinitions
             });
             var seeder = cherrySeedConfig.CreateSeeder();
             _objectContainer.RegisterInstanceAs(seeder);
-
-            // Second way with CherrySeedDriver
-            var cherrySeedDriver = new CherrySeedDriver(cfg =>
-            {
-                cfg.WithRepository(new EmptyRepository());
-                cfg.WithCountryAndProjectEntities();
-            });
-
-            _objectContainer.RegisterInstanceAs(cherrySeedDriver);
         }
     }
 }

@@ -89,7 +89,7 @@ this.ScenarioSetup(scenarioInfo);
                         "L",
                         "London"});
 #line 4
-    testRunner.Given("the following entries of Country exist", ((string)(null)), table1, "Given ");
+    testRunner.Given("the following countries exist", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -108,7 +108,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Decrease tools",
                         "S"});
 #line 9
-    testRunner.And("the following entries of Project exist", ((string)(null)), table2, "And ");
+    testRunner.And("the following projects exist", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

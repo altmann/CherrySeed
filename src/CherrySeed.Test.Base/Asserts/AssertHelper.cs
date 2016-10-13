@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CherrySeed.Test.Asserts
+namespace CherrySeed.Test.Base.Asserts
 {
     public static class AssertHelper
     {

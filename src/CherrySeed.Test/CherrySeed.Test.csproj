@@ -51,7 +51,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Asserts\AssertHelper.cs" />
     <Compile Include="Asserts\MainWithModelReferenceAssert.cs" />
     <Compile Include="Asserts\NullableMainAssert.cs" />
     <Compile Include="Asserts\ProjectAssert.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Infrastructure\CultureUtil.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="IntegrationTests\NegativeTests.cs" />
-    <Compile Include="Mocks\AssertRepository.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />

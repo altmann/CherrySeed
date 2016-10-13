@@ -4,6 +4,8 @@ using System.Linq;
 using CherrySeed.Configuration;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Test.Asserts;
+using CherrySeed.Test.Base.Asserts;
+using CherrySeed.Test.Base.Repositories;
 using CherrySeed.Test.Convert;
 using CherrySeed.Test.Infrastructure;
 using CherrySeed.Test.Mocks;
@@ -98,10 +100,10 @@ namespace CherrySeed.Test.IntegrationTests
                 {
                     AssertSub.AssertProperties(obj, "MyString 2");
                 });
-            }, type =>
+            }, (type, repo) =>
             {
 
-            });
+            }, null);
 
             _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
             {
@@ -190,10 +192,10 @@ namespace CherrySeed.Test.IntegrationTests
                 {
                     AssertSub.AssertProperties(obj, "MyString 2");
                 });
-            }, type =>
+            }, (type, repo) =>
             {
 
-            });
+            }, null);
 
             var config = new CherrySeedConfiguration(cfg =>
             {
@@ -263,10 +265,10 @@ namespace CherrySeed.Test.IntegrationTests
                     AssertPerson.AssertProperties(obj, Converter.ToGuid(1));
                 });
 
-            }, type =>
+            }, (type, repo) =>
             {
 
-            });
+            }, null);
 
             _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
             {
@@ -340,10 +342,10 @@ namespace CherrySeed.Test.IntegrationTests
                     AssertAnotherEntityWithStringId.AssertProperties(obj, "E2-200");
                 });
 
-            }, type =>
+            }, (type, repo) =>
             {
 
-            });
+            }, null);
 
             _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
             {
@@ -437,10 +439,10 @@ namespace CherrySeed.Test.IntegrationTests
                 {
                     AssertSub.AssertProperties(obj, "MyString 2");
                 });
-            }, type =>
+            }, (type, repo) =>
             {
 
-            });
+            }, null);
 
             _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
             {
@@ -493,16 +495,16 @@ namespace CherrySeed.Test.IntegrationTests
                 },
             };
 
-            var assertRepository = new AssertRepository((obj, count, entities) =>
+            var assertRepository = new AssertRepository((obj, count, repo) =>
             {
                 AssertHelper.AssertIf(typeof(MainWithModelReference), 0, count, obj, () =>
                 {
-                    AssertMainWithModelReference.AssertProperties(obj, entities[typeof(Sub)].First(e => ((Sub)e).Id == 2));
+                    AssertMainWithModelReference.AssertProperties(obj, repo.Entities[typeof(Sub)].First(e => ((Sub)e).Id == 2));
                 });
 
                 AssertHelper.AssertIf(typeof(MainWithModelReference), 1, count, obj, () =>
                 {
-                    AssertMainWithModelReference.AssertProperties(obj, entities[typeof(Sub)].First(e => ((Sub)e).Id == 1));
+                    AssertMainWithModelReference.AssertProperties(obj, repo.Entities[typeof(Sub)].First(e => ((Sub)e).Id == 1));
                 });
 
                 AssertHelper.AssertIf(typeof(Sub), 0, count, obj, () =>
@@ -514,9 +516,18 @@ namespace CherrySeed.Test.IntegrationTests
                 {
                     AssertSub.AssertProperties(obj, "MyString 2");
                 });
-            }, type =>
+            }, (type, repo) =>
             {
 
+            }, (entities, type, id) =>
+            {
+                if (!entities.ContainsKey(type))
+                    throw new InvalidOperationException("entity type not found in dict");
+
+                if (type != typeof(Sub))
+                    throw new InvalidOperationException("this entity is not supported for model reference");
+
+                return entities[type].First(e => ((Sub)e).Id == (int)id);
             });
 
             _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>

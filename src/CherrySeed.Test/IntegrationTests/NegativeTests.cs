@@ -5,6 +5,7 @@ using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.ObjectTransformation;
 using CherrySeed.Test.Asserts;
+using CherrySeed.Test.Base.Asserts;
 using CherrySeed.Test.Base.Repositories;
 using CherrySeed.Test.Infrastructure;
 using CherrySeed.Test.Mocks;

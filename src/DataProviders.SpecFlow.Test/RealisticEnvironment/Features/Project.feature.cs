@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace CherrySeed.DataProviders.SpecFlow.Test.Features
+namespace CherrySeed.DataProviders.SpecFlow.Test.RealisticEnvironment.Features
 {
     using TechTalk.SpecFlow;
     
@@ -47,7 +47,7 @@ namespace CherrySeed.DataProviders.SpecFlow.Test.Features
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "Project")))
             {
-                CherrySeed.DataProviders.SpecFlow.Test.Features.ProjectFeature.FeatureSetup(null);
+                CherrySeed.DataProviders.SpecFlow.Test.RealisticEnvironment.Features.ProjectFeature.FeatureSetup(null);
             }
         }
         

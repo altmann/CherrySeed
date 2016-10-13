@@ -20,14 +20,14 @@ namespace CherrySeed.EntitySettings
                 EntityType = entityType,
                 PrimaryKey = new PrimaryKeySetting(),
                 References = new List<ReferenceSetting>(),
-                EntityNames = GetFinalEntityNames(entityType),
+                EntityNames = GetPossibleEntityNames(entityType),
                 AfterSave = obj => { },
                 DefaultValueSettings = new List<DefaultValueSetting>(),
                 Order = order
             };
         }
 
-        private List<string> GetFinalEntityNames(Type entityType)
+        private List<string> GetPossibleEntityNames(Type entityType)
         {
             var firstEntityName = entityType.FullName;
             var secondEntityName = entityType.Name;

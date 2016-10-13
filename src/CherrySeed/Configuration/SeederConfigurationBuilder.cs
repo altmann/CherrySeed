@@ -12,7 +12,7 @@ namespace CherrySeed.Configuration
 {
     public class SeederConfigurationBuilder : ISeederConfigurationBuilder
     {
-        private readonly List<EntitySettingBuilder> _entitySettingBuilders;
+        private readonly Dictionary<Type, EntitySettingBuilder> _entitySettingBuilders;
         private int _order = 1;
 
         // Settings
@@ -28,7 +28,7 @@ namespace CherrySeed.Configuration
 
         public SeederConfigurationBuilder()
         {
-            _entitySettingBuilders = new List<EntitySettingBuilder>();
+            _entitySettingBuilders = new Dictionary<Type, EntitySettingBuilder>();
 
             TypeTransformations = new Dictionary<Type, ITypeTransformation>
             {
@@ -50,7 +50,7 @@ namespace CherrySeed.Configuration
 
         public SeederConfiguration Build()
         {
-            var entitySettings = _entitySettingBuilders
+            var entitySettings = _entitySettingBuilders.Values
                 .Select(b => b.Build(
                     DefaultRepository, 
                     DefaultIdGeneration,
@@ -78,9 +78,16 @@ namespace CherrySeed.Configuration
 
         public IEntitySettingBuilder<T> ForEntity<T>()
         {
-            var entityType = typeof (T);
+            var entityType = typeof(T);
+
+            if (_entitySettingBuilders.ContainsKey(entityType))
+            {
+                return _entitySettingBuilders[entityType] as IEntitySettingBuilder<T>;
+            }
+
             var newObjectDescriptionBuilder = new EntitySettingBuilder<T>(entityType, _order++);
-            _entitySettingBuilders.Add(newObjectDescriptionBuilder);
+            _entitySettingBuilders.Add(entityType, newObjectDescriptionBuilder);
+
             return newObjectDescriptionBuilder;
         }
 

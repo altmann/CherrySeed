@@ -48,6 +48,8 @@ namespace CherrySeed
             }
         }
 
+        public IDataProvider DataProvider => _configuration.DataProvider;
+
         public void Seed()
         {
             if (_configuration.IsClearBeforeSeedingEnabled)
@@ -63,12 +65,12 @@ namespace CherrySeed
             }
         }
 
-        private void ProcessEntity(KeyValuePair<Type, EntityMetadata> objectMetadataPair, List<EntityData> entityData)
+        private void ProcessEntity(KeyValuePair<Type, EntityMetadata> objectMetadataPair, List<EntityData> entityDataList)
         {
             var entityType = objectMetadataPair.Key;
             var entityMetadata = objectMetadataPair.Value;
 
-            var eData = entityData.SingleOrDefault(od => entityMetadata.EntitySetting.EntityNames.Contains(od.EntityName));
+            var eData = entityDataList.SingleOrDefault(od => entityMetadata.EntitySetting.EntityNames.Contains(od.EntityName));
 
             if (eData == null)
             {

@@ -50,20 +50,26 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationTests\Asserts\PersonAssert.cs" />
+    <Compile Include="Common\CherrySeedConfigurationExtensions.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="Features\Project.feature.cs">
+    <Compile Include="IntegrationTests\ObjectMothers\ProjectObjectMother.cs" />
+    <Compile Include="IntegrationTests\SpecFlowExtensionsTests.cs" />
+    <Compile Include="RealisticEnvironment\Features\Project.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Project.feature</DependentUpon>
     </Compile>
-    <Compile Include="StepDefinitions\CherrySeedDriverSupport.cs" />
-    <Compile Include="StepDefinitions\ProjectSteps.cs" />
+    <Compile Include="RealisticEnvironment\StepDefinitions\CherrySeedDriverSupport.cs" />
+    <Compile Include="RealisticEnvironment\StepDefinitions\ProjectSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,12 +88,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\Project.feature">
+    <None Include="RealisticEnvironment\Features\Project.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Project.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

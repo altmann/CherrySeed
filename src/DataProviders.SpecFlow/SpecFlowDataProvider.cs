@@ -9,6 +9,11 @@ namespace CherrySeed.DataProviders.SpecFlow
     {
         private List<EntityData> _entityDataList;
 
+        public SpecFlowDataProvider()
+        {
+            _entityDataList = new List<EntityData>();
+        }
+
         public void ClearAndAdd(string entityName, Table table)
         {
             _entityDataList = TransformTableToEntityData(entityName, table);

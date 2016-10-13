@@ -4,6 +4,8 @@ using CherrySeed.Configuration;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Repositories;
 using CherrySeed.Test.Asserts;
+using CherrySeed.Test.Base.Asserts;
+using CherrySeed.Test.Base.Repositories;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -64,10 +66,10 @@ namespace CherrySeed.Test.IntegrationTests
                     AssertProject.AssertProperties(obj, 2);
                 });
 
-            }, type =>
+            }, (type, repo) =>
             {
                 
-            });
+            }, null);
             
             InitAndExecute(entityData, assertRepository, cfg =>
             {

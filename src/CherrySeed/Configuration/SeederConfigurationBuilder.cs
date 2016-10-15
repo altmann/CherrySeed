@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.PrimaryKeyIdGeneration;
@@ -16,6 +17,7 @@ namespace CherrySeed.Configuration
         private int _order = 1;
 
         // Settings
+        public string EmptyStringMarker { get; set; }
         public List<EntitySetting> EntitySettings { get; set; }
         public List<string> DefaultPrimaryKeyNames { get; set; }
         public IRepository DefaultRepository { get; set; }
@@ -57,6 +59,16 @@ namespace CherrySeed.Configuration
                     DefaultPrimaryKeyNames))
                 .ToList();
 
+            if (!string.IsNullOrEmpty(EmptyStringMarker))
+            { 
+                if (!(TypeTransformations[typeof(string)] is StringTransformation))
+                {
+                    throw new ConfigurationException("EmptyString marker can not be set, because the string transformation logic is overriden from you.", null);
+                }
+
+                TypeTransformations[typeof(string)] = new StringTransformation(EmptyStringMarker);
+            }
+            
             var configuration = new SeederConfiguration
             {
                 AfterSaveAction = AfterSaveAction,
@@ -148,7 +160,7 @@ namespace CherrySeed.Configuration
 
         public void WithEmptyStringMarker(string marker)
         {
-            TypeTransformations[typeof(string)] = new StringTransformation(marker);
+            EmptyStringMarker = marker;
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.ObjectTransformation;
 using CherrySeed.Test.Asserts;
 using CherrySeed.Test.Base.Asserts;
 using CherrySeed.Test.Base.Repositories;
 using CherrySeed.Test.Infrastructure;
+using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -138,6 +140,64 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
             {
                 MyString = string.Empty
+            });
+        }
+
+        [TestMethod]
+        public void TransformSimplePropertyTypesWithCustomEmptyStringAfterAddingCustomStringTransformation()
+        {
+            AssertHelper.TryCatch(() =>
+            {
+                // Arrange 
+                var entityData = new List<EntityData>
+                {
+                    new EntityDataBuilder("CherrySeed.Test.Models.EntityWithSimpleProperties",
+                        "MyString")
+                        .WithEntity("Sample text")
+                        .Build()
+                };
+
+                // Act
+                var repository = new InMemoryRepository();
+                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+                {
+                    cfg.AddTypeTransformation(typeof(string), new CustomTypeTransformation<string>("Other sample text"));
+                    cfg.WithEmptyStringMarker("%%");
+                    cfg.ForEntity<EntityWithSimpleProperties>();
+                });
+            }, ex =>
+            {
+                // Assert
+                AssertHelper.AssertExceptionWithMessage(ex, typeof(ConfigurationException), "EmptyString marker can not be set, because the string transformation logic is overriden from you.");
+            });
+        }
+
+        [TestMethod]
+        public void TransformSimplePropertyTypesWithCustomEmptyStringBeforeAddingCustomStringTransformation()
+        {
+            AssertHelper.TryCatch(() =>
+            {
+                // Arrange 
+                var entityData = new List<EntityData>
+                {
+                    new EntityDataBuilder("CherrySeed.Test.Models.EntityWithSimpleProperties",
+                        "MyString")
+                        .WithEntity("Sample text")
+                        .Build()
+                };
+
+                // Act
+                var repository = new InMemoryRepository();
+                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+                {
+                    cfg.WithEmptyStringMarker("%%");
+                    cfg.AddTypeTransformation(typeof(string), new CustomTypeTransformation<string>("Other sample text"));
+                    cfg.ForEntity<EntityWithSimpleProperties>();
+                });
+            }, ex =>
+            {
+                // Assert
+                AssertHelper.AssertExceptionWithMessage(ex, typeof(ConfigurationException), "EmptyString marker can not be set, because the string transformation logic is overriden from you.");
             });
         }
 

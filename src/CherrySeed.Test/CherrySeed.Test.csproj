@@ -46,11 +46,14 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Asserts\EntityAsserts.cs" />
     <Compile Include="Asserts\MainWithModelReferenceAssert.cs" />
     <Compile Include="Asserts\NullableMainAssert.cs" />
     <Compile Include="Asserts\ProjectAssert.cs" />
@@ -59,14 +62,22 @@
     <Compile Include="Convert\Converter.cs" />
     <Compile Include="Infrastructure\CherrySeedDriver.cs" />
     <Compile Include="Infrastructure\CultureUtil.cs" />
+    <Compile Include="Infrastructure\EntityDataBuilder.cs" />
+    <Compile Include="Infrastructure\EntityDataExtensions.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="IntegrationTests\NegativeTests.cs" />
+    <Compile Include="IntegrationTests\PropertyTransformationTests\SimplePropertyTransformationTests.cs" />
+    <Compile Include="IntegrationTests\PropertyTransformationTests\NullablePropertyTransformationTests.cs" />
+    <Compile Include="IntegrationTests\PropertyTransformationTests\EnumPropertyTransformationTests.cs" />
+    <Compile Include="IntegrationTests\PropertyTransformationTests\NullableEnumPropertyTransformationTests.cs" />
+    <Compile Include="IntegrationTests\ConfigurationTests.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AnotherEntityWithStringId.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\EntityWithSimpleProperties.cs" />
     <Compile Include="Models\EntityWithStringId.cs" />
     <Compile Include="Models\MainWithModelReference.cs" />
     <Compile Include="Models\Main.cs" />

@@ -97,11 +97,14 @@ namespace CherrySeed
                 entitySetting.AfterSave(obj);
                 _configuration.AfterSaveAction?.Invoke(objDict, obj);
 
-                var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entityMetadata.EntityType,
-                    entitySetting.PrimaryKey.PrimaryKeyName);
+                // store primary key (repository/data provider) mapping
+                if (!string.IsNullOrEmpty(entitySetting.PrimaryKey.PrimaryKeyName))
+                {
+                    var entityIdInRepo = ReflectionUtil.GetPropertyValue(obj, entitySetting.PrimaryKey.PrimaryKeyName);
+                    var entityIdInProvider = GetProviderIdOfObject(objDict, entitySetting.PrimaryKey.PrimaryKeyName);
 
-                var entityIdInProvider = GetProviderIdOfObject(objDict, entitySetting.PrimaryKey.PrimaryKeyName);
-                _idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInProvider, entityIdInRepo);
+                    _idMappingProvider.SetIdMapping(entityMetadata.EntityType, entityIdInProvider, entityIdInRepo);
+                }
             }
         }
 

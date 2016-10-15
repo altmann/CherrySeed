@@ -23,5 +23,20 @@ namespace CherrySeed.Test.Infrastructure
             var cherrySeeder = config.CreateSeeder();
             cherrySeeder.Seed();
         }
+
+        public void InitAndExecute(IDataProvider dataProvider, IRepository repository,
+            Action<ISeederConfigurationBuilder> entitySettings)
+        {
+            var config = new CherrySeedConfiguration(cfg =>
+            {
+                cfg.WithDataProvider(dataProvider);
+                cfg.WithRepository(repository);
+
+                entitySettings(cfg);
+            });
+
+            var cherrySeeder = config.CreateSeeder();
+            cherrySeeder.Seed();
+        }
     }
 }

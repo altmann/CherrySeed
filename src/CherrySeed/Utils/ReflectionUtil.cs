@@ -6,9 +6,9 @@ namespace CherrySeed.Utils
 {
     class ReflectionUtil
     {
-        public static object GetPropertyValue(object obj, Type type, string propertyName)
+        public static object GetPropertyValue(object obj, string propertyName)
         {
-            return type.GetProperty(propertyName).GetValue(obj, null);
+            return obj.GetType().GetProperty(propertyName).GetValue(obj, null);
         }
 
         public static bool ExistProperty(Type type, string propertyName)

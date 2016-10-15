@@ -22,7 +22,7 @@ namespace CherrySeed.TypeTransformations
 
             if (!_simpleTypeTransformations.ContainsKey(lookupType))
             {
-                throw new KeyNotFoundException($"Transformation of type '{type}' not found");
+                throw new NotSupportedException($"Transformation of type '{type}' is currently not supported");
             }
 
             return _simpleTypeTransformations[lookupType];

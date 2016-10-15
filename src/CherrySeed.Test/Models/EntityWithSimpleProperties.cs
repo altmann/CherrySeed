@@ -39,4 +39,9 @@ namespace CherrySeed.Test.Models
         public TestEnum? EnumProperty1 { get; set; }
         public TestEnum? EnumProperty2 { get; set; }
     }
+
+    public class EntityWithNotSupportedTypeProperty
+    {
+        public uint UintProperty { get; set; }
+    }
 }

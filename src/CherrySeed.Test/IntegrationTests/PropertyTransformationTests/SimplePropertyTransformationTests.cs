@@ -113,7 +113,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
         }
 
         [TestMethod]
-        public void IncorrectPropertyName_PropertyMappingException_MissingProperty()
+        public void IncorrectPropertyName_PropertyMappingExceptionWithMissingProperty()
         {
             AssertHelper.TryCatch(tryAction: () =>
             {
@@ -144,7 +144,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
         }
 
         [TestMethod]
-        public void IncorrectPropertyType_PropertyMappingException_MissingProperty()
+        public void IncorrectPropertyType_PropertyMappingExceptionWithFormatException()
         {
             AssertHelper.TryCatch(tryAction: () =>
             {
@@ -171,6 +171,37 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             {
                 AssertHelper.AssertExceptionWithMessage(ex, typeof(PropertyTransformationException), "Transformation of Property 'MyInteger' of type 'CherrySeed.Test.Models.EntityWithSimpleProperties' to value 'NotANumber' failed");
                 AssertHelper.AssertException(ex.InnerException, typeof(FormatException));
+            });
+        }
+
+        [TestMethod]
+        public void NotSupportedPropertyType_PropertyMappingExceptionWithNotSupportedException()
+        {
+            AssertHelper.TryCatch(tryAction: () =>
+            {
+                var entityData = new List<EntityData>
+                {
+                    new EntityData
+                    {
+                        EntityName = "CherrySeed.Test.Models.EntityWithNotSupportedTypeProperty",
+                        Objects = new List<Dictionary<string, string>>
+                        {
+                            new Dictionary<string, string>
+                            {
+                                {"UintProperty", "123"}
+                            }
+                        }
+                    }
+                };
+
+                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
+                {
+                    cfg.ForEntity<EntityWithNotSupportedTypeProperty>();
+                });
+            }, catchAction: ex =>
+            {
+                AssertHelper.AssertExceptionWithMessage(ex, typeof(PropertyTransformationException), "Transformation of Property 'UintProperty' of type 'CherrySeed.Test.Models.EntityWithNotSupportedTypeProperty' to value '123' failed");
+                AssertHelper.AssertExceptionWithMessage(ex.InnerException, typeof(NotSupportedException), "Transformation of type 'System.UInt32' is currently not supported");
             });
         }
     }

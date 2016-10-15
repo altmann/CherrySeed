@@ -34,7 +34,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>();
             });
@@ -62,7 +62,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>();
             });
@@ -90,7 +90,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>()
                     .HasEntityName("MyEntity");
@@ -119,7 +119,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>()
                     .HasEntityName("MyEntity");

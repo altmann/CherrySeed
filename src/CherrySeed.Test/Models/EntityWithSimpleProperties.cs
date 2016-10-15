@@ -44,4 +44,48 @@ namespace CherrySeed.Test.Models
     {
         public uint UintProperty { get; set; }
     }
+
+    /// <summary>
+    /// ///
+    /// </summary>
+
+    public class EntityWithConformIntPk
+    {
+        public int Id { get; set; }
+    }
+
+    public class EntityWithConformIntPk2
+    {
+        public int ID { get; set; }
+    }
+
+    public class EntityWithConformIntPk3
+    {
+        public int EntityWithConformIntPk3Id { get; set; }
+    }
+
+    public class EntityWithConformStringPk
+    {
+        public string Id { get; set; }
+    }
+
+    public class EntityWithConformGuidPk
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class EntityWithUnconformIntPk
+    {
+        public int CustomId { get; set; }
+    }
+
+    public class EntityWithTReference<T>
+    {
+        public T ReferenceId { get; set; }
+    }
+    
+    public class EntityWithTReferenceModel<T>
+    {
+        public T ReferenceModel { get; set; }
+    }
 }

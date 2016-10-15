@@ -39,7 +39,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>();
             });
@@ -72,7 +72,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>();
             });
@@ -100,7 +100,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>();
             });
@@ -128,7 +128,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.WithEmptyStringMarker("%%");
                 cfg.ForEntity<EntityWithSimpleProperties>();
@@ -159,7 +159,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
                 // Act
                 var repository = new InMemoryRepository();
-                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+                _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
                 {
                     cfg.AddTypeTransformation(typeof(string), new CustomTypeTransformation<string>("Other sample text"));
                     cfg.WithEmptyStringMarker("%%");
@@ -188,7 +188,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
                 // Act
                 var repository = new InMemoryRepository();
-                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+                _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
                 {
                     cfg.WithEmptyStringMarker("%%");
                     cfg.AddTypeTransformation(typeof(string), new CustomTypeTransformation<string>("Other sample text"));
@@ -215,7 +215,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.WithEmptyStringMarker("%%");
                 cfg.ForEntity<EntityWithSimpleProperties>();
@@ -252,7 +252,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                 };
 
                 // Act
-                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
+                _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithSimpleProperties>();
                 });
@@ -286,7 +286,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                 };
 
                 // Act
-                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
+                _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithSimpleProperties>();
                 });
@@ -320,7 +320,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                 };
 
                 // Act
-                _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
+                _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithNotSupportedTypeProperty>();
                 });

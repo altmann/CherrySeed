@@ -35,7 +35,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.AddTypeTransformation(typeof(string), new CustomTypeTransformation<string>("New sample text"));
                 cfg.ForEntity<EntityWithSimpleProperties>();
@@ -64,7 +64,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.AddTypeTransformation(typeof(uint), new CustomTypeTransformation<uint>(123));
                 cfg.ForEntity<EntityWithNotSupportedTypeProperty>();

@@ -105,7 +105,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             }, null);
 
-            _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKey(e => e.Id)
@@ -270,7 +270,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             }, null);
 
-            _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Address>()
                     .WithCustomPrimaryKeyIdGenerationInApplication(new SequentialGuidPrimaryKeyIdGenerator());
@@ -347,7 +347,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             }, null);
 
-            _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<AnotherEntityWithStringId>()
                     .WithPrimaryKeyIdGenerationInApplicationAsString("E2-", 100, 100);
@@ -444,7 +444,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             }, null);
 
-            _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();
@@ -530,7 +530,7 @@ namespace CherrySeed.Test.IntegrationTests
                 return entities[type].First(e => ((Sub)e).Id == (int)id);
             });
 
-            _cherrySeedDriver.InitAndExecute(entityData, assertRepository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData, assertRepository, cfg =>
             {
                 cfg.ForEntity<Sub>()
                     .WithPrimaryKeyIdGenerationInApplicationAsInteger();

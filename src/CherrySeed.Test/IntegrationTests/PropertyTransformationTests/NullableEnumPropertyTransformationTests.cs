@@ -34,7 +34,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithNullableEnumProperty>();
             });
@@ -63,7 +63,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithNullableEnumProperty>();
             });
@@ -92,7 +92,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithNullableEnumProperty>();
             });

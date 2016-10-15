@@ -34,7 +34,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>()
                     .WithFieldWithDefaultValue(e => e.MyBool, () => true)
@@ -72,7 +72,7 @@ namespace CherrySeed.Test.IntegrationTests
 
             // Act
             var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
                 cfg.ForEntity<EntityWithSimpleProperties>()
                     .WithFieldWithDefaultValue(e => e.MyBool, () => true)

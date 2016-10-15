@@ -9,7 +9,9 @@ namespace CherrySeed.Test.Infrastructure
 {
     public class CherrySeedDriver
     {
-        public void InitAndExecute(List<EntityData> data, IRepository repository,
+        private ICherrySeeder _cherrySeeder;
+
+        public void InitAndSeed(List<EntityData> data, IRepository repository,
            Action<ISeederConfigurationBuilder> entitySettings)
         {
             var config = new CherrySeedConfiguration(cfg =>
@@ -24,7 +26,7 @@ namespace CherrySeed.Test.Infrastructure
             cherrySeeder.Seed();
         }
 
-        public void InitAndExecute(IDataProvider dataProvider, IRepository repository,
+        public void InitAndSeed(IDataProvider dataProvider, IRepository repository,
             Action<ISeederConfigurationBuilder> entitySettings)
         {
             var config = new CherrySeedConfiguration(cfg =>
@@ -35,8 +37,13 @@ namespace CherrySeed.Test.Infrastructure
                 entitySettings(cfg);
             });
 
-            var cherrySeeder = config.CreateSeeder();
-            cherrySeeder.Seed();
+            _cherrySeeder = config.CreateSeeder();
+            _cherrySeeder.Seed();
+        }
+
+        public void Clear()
+        {
+            _cherrySeeder.Clear();
         }
     }
 }

@@ -1,18 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using CherrySeed.Repositories;
 
 namespace CherrySeed.Test.Base.Repositories
 {
+    public class EntityInfo
+    {
+        public DateTime SeedingDateTime { get; set; }
+        public DateTime ClearingDateTime { get; set; }
+        public List<object> Entities { get; set; }
+
+        public EntityInfo()
+        {
+            Entities = new List<object>();
+            SeedingDateTime = DateTime.Now;
+        }
+    }
+
     public class InMemoryRepository : IRepository
     {
-        private Dictionary<Type, List<object>> Entities;
+        private readonly Dictionary<Type, EntityInfo> _entities;
         private readonly Func<Dictionary<Type, List<object>>, Type, object, object> _loadEntityFunc;
 
         public InMemoryRepository()
         {
-            Entities = new Dictionary<Type, List<object>>();
+            _entities = new Dictionary<Type, EntityInfo>();
         }
 
         public InMemoryRepository(Func<Dictionary<Type, List<object>>, Type, object, object> loadEntityFunc)
@@ -23,7 +37,7 @@ namespace CherrySeed.Test.Base.Repositories
 
         public List<object> GetEntities()
         {
-            return Entities.Keys.SelectMany(GetEntities).ToList();
+            return _entities.Keys.SelectMany(GetEntities).ToList();
         }
 
         public List<T> GetEntities<T>()
@@ -34,43 +48,64 @@ namespace CherrySeed.Test.Base.Repositories
 
         private List<object> GetEntities(Type entityType)
         {
-            return Entities[entityType].ToList();
+            return _entities[entityType].Entities.ToList();
+        }
+
+        public DateTime GetSeedingDateTime<T>()
+        {
+            var entityType = typeof (T);
+            return _entities[entityType].SeedingDateTime;
+        }
+
+        public DateTime GetClearingDateTime<T>()
+        {
+            var entityType = typeof(T);
+            return _entities[entityType].ClearingDateTime;
         }
 
         public void SaveEntity(object obj)
         {
             var type = obj.GetType();
 
-            if (Entities.ContainsKey(type))
-                Entities[type].Add(obj);
+            if (_entities.ContainsKey(type))
+                _entities[type].Entities.Add(obj);
             else
-                Entities.Add(type, new List<object> { obj });
+            {
+                _entities.Add(type, new EntityInfo
+                {
+                    Entities = new List<object> {obj}
+                });
+            }
         }
 
         public void RemoveEntities(Type type)
         {
-            if (Entities.ContainsKey(type))
-                Entities[type].Clear();
+            if (_entities.ContainsKey(type))
+            {
+                _entities[type].ClearingDateTime = DateTime.Now;
+                _entities[type].Entities.Clear();
+                Thread.Sleep(100);
+            }
         }
 
         public object LoadEntity(Type type, object id)
         {
-            return _loadEntityFunc(Entities, type, id);
+            return null;  //todo _loadEntityFunc(_entities[type].Entities, type, id);
         }
 
         public int CountSeededObjects<T>()
         {
             var entityType = typeof (T);
 
-            if (Entities.ContainsKey(entityType))
-                return Entities[entityType].Count;
+            if (_entities.ContainsKey(entityType))
+                return _entities[entityType].Entities.Count;
 
             return 0;
         }
 
         public int CountSeededObjects()
         {
-            return Entities.Values.Select(e => e.Count).Sum();
+            return _entities.Values.Select(e => e.Entities.Count).Sum();
         }
     }
 

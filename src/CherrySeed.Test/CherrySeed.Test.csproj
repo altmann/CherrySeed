@@ -73,6 +73,7 @@
     <Compile Include="IntegrationTests\CustomTypeTransformationTests.cs" />
     <Compile Include="IntegrationTests\EntityNameMatchingTests.cs" />
     <Compile Include="IntegrationTests\DefaultValuePropertyTests.cs" />
+    <Compile Include="IntegrationTests\EntitySeedingOrderTests.cs" />
     <Compile Include="Mocks\CustomTypeTransformation.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />

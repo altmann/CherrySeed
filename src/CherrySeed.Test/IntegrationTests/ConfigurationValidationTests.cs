@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CherrySeed.Configuration;
 using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
@@ -11,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CherrySeed.Test.IntegrationTests
 {
     [TestClass]
-    public class ConfigurationTests
+    public class ConfigurationValidationTests
     {
         [TestMethod]
         public void DataProviderNotSet_MissingConfigurationException()

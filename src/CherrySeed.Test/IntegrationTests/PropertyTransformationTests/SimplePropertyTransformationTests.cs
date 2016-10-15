@@ -113,10 +113,69 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
         }
 
         [TestMethod]
+        public void TransformSimplePropertyTypesWithCustomEmptyString()
+        {
+            // Arrange 
+            var entityData = new List<EntityData>
+            {
+                new EntityDataBuilder("CherrySeed.Test.Models.EntityWithSimpleProperties",
+                    "MyString")
+                    .WithEntity("%%")
+                    .Build()
+            };
+
+            // Act
+            var repository = new InMemoryRepository();
+            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            {
+                cfg.WithEmptyStringMarker("%%");
+                cfg.ForEntity<EntityWithSimpleProperties>();
+            });
+
+            // Assert
+            Assert.AreEqual(repository.CountSeededObjects(), 1);
+            Assert.AreEqual(repository.CountSeededObjects<EntityWithSimpleProperties>(), 1);
+            EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
+            {
+                MyString = string.Empty
+            });
+        }
+
+        [TestMethod]
+        public void TransformSimplePropertyTypesWithCustomEmptyString_NotEmptyString()
+        {
+            // Arrange 
+            var entityData = new List<EntityData>
+            {
+                new EntityDataBuilder("CherrySeed.Test.Models.EntityWithSimpleProperties",
+                    "MyString")
+                    .WithEntity("Das ist kein empty %% string")
+                    .Build()
+            };
+
+            // Act
+            var repository = new InMemoryRepository();
+            _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            {
+                cfg.WithEmptyStringMarker("%%");
+                cfg.ForEntity<EntityWithSimpleProperties>();
+            });
+
+            // Assert
+            Assert.AreEqual(repository.CountSeededObjects(), 1);
+            Assert.AreEqual(repository.CountSeededObjects<EntityWithSimpleProperties>(), 1);
+            EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
+            {
+                MyString = "Das ist kein empty %% string"
+            });
+        }
+
+        [TestMethod]
         public void IncorrectPropertyName_PropertyMappingExceptionWithMissingProperty()
         {
             AssertHelper.TryCatch(tryAction: () =>
             {
+                // Arrange
                 var entityData = new List<EntityData>
                 {
                     new EntityData
@@ -132,12 +191,14 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                     }
                 };
 
+                // Act
                 _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithSimpleProperties>();
                 });
             }, catchAction: ex =>
             {
+                // Assert
                 AssertHelper.AssertExceptionWithMessage(ex, typeof(PropertyTransformationException), "Transformation of Property 'IncorrectFieldName' of type 'CherrySeed.Test.Models.EntityWithSimpleProperties' to value '1' failed");
                 AssertHelper.AssertExceptionWithMessage(ex.InnerException, typeof(NullReferenceException), "Property is missing");
             });
@@ -148,6 +209,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
         {
             AssertHelper.TryCatch(tryAction: () =>
             {
+                // Arrange
                 var entityData = new List<EntityData>
                 {
                     new EntityData
@@ -163,12 +225,14 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                     }
                 };
 
+                // Act
                 _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithSimpleProperties>();
                 });
             }, catchAction: ex =>
             {
+                // Assert
                 AssertHelper.AssertExceptionWithMessage(ex, typeof(PropertyTransformationException), "Transformation of Property 'MyInteger' of type 'CherrySeed.Test.Models.EntityWithSimpleProperties' to value 'NotANumber' failed");
                 AssertHelper.AssertException(ex.InnerException, typeof(FormatException));
             });
@@ -179,6 +243,7 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
         {
             AssertHelper.TryCatch(tryAction: () =>
             {
+                // Arrange
                 var entityData = new List<EntityData>
                 {
                     new EntityData
@@ -194,12 +259,14 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
                     }
                 };
 
+                // Act
                 _cherrySeedDriver.InitAndExecute(entityData.ToDictionaryDataProvider(), new EmptyRepository(), cfg =>
                 {
                     cfg.ForEntity<EntityWithNotSupportedTypeProperty>();
                 });
             }, catchAction: ex =>
             {
+                // Assert
                 AssertHelper.AssertExceptionWithMessage(ex, typeof(PropertyTransformationException), "Transformation of Property 'UintProperty' of type 'CherrySeed.Test.Models.EntityWithNotSupportedTypeProperty' to value '123' failed");
                 AssertHelper.AssertExceptionWithMessage(ex.InnerException, typeof(NotSupportedException), "Transformation of type 'System.UInt32' is currently not supported");
             });

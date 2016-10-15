@@ -65,12 +65,14 @@
     <Compile Include="Infrastructure\EntityDataBuilder.cs" />
     <Compile Include="Infrastructure\EntityDataExtensions.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
-    <Compile Include="IntegrationTests\NegativeTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\SimplePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\NullablePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\EnumPropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\NullableEnumPropertyTransformationTests.cs" />
-    <Compile Include="IntegrationTests\ConfigurationTests.cs" />
+    <Compile Include="IntegrationTests\ConfigurationValidationTests.cs" />
+    <Compile Include="IntegrationTests\CustomTypeTransformationTests.cs" />
+    <Compile Include="IntegrationTests\EntityNameMatchingTests.cs" />
+    <Compile Include="Mocks\CustomTypeTransformation.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
@@ -87,10 +89,7 @@
     <Compile Include="Models\Simple.cs" />
     <Compile Include="Models\Sub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntegrationTests\ObjectWithCustomStringTransformationTests.cs" />
     <Compile Include="IntegrationTests\ObjectWithInormalIntIdTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithCustomEmptyStringTests.cs" />
-    <Compile Include="IntegrationTests\ObjectWithEnitityNamesTests.cs" />
     <Compile Include="IntegrationTests\ObjectWithDefaultValuesTests.cs" />
     <Compile Include="IntegrationTests\BasicTests.cs" />
   </ItemGroup>

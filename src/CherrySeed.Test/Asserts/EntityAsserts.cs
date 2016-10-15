@@ -40,5 +40,11 @@ namespace CherrySeed.Test.Asserts
             Assert.AreEqual(expected.EnumProperty1, actual.EnumProperty1);
             Assert.AreEqual(expected.EnumProperty2, actual.EnumProperty2);
         }
+
+        public static void AssertEntityWithNotSupportedProperty(EntityWithNotSupportedTypeProperty actual, EntityWithNotSupportedTypeProperty expected)
+        {
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.UintProperty, actual.UintProperty);
+        }
     }
 }

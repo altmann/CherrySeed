@@ -18,6 +18,7 @@ namespace CherrySeed.Configuration
         void DisableClearBeforeSeeding();
         void BeforeSave(Action<Dictionary<string, string>, object> beforeSaveAction);
         void AfterSave(Action<Dictionary<string, string>, object> afterSaveAction);
+        void DisablePrimaryKeyIdGeneration();
         void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1);
         void WithPrimaryKeyIdGenerationInApplicationAsGuid();
         void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1);

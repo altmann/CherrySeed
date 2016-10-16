@@ -138,24 +138,30 @@ namespace CherrySeed.Configuration
             AfterSaveAction = afterSaveAction;
         }
 
+        public void DisablePrimaryKeyIdGeneration()
+        {
+            DefaultIdGeneration.IsGeneratorEnabled = false;
+            DefaultIdGeneration.Generator = null;
+        }
+
         public void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new IntegerPrimaryKeyIdGenerator(startId, steps));
+            DefaultIdGeneration.Generator = new IntegerPrimaryKeyIdGenerator(startId, steps);
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
-            DefaultIdGeneration = new IdGenerationSetting(new GuidPrimaryKeyIdGenerator());
+            DefaultIdGeneration.Generator = new GuidPrimaryKeyIdGenerator();
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
         {
-            DefaultIdGeneration = new IdGenerationSetting(new StringPrimaryKeyIdGenerator(prefix, startId, steps));
+            DefaultIdGeneration.Generator = new StringPrimaryKeyIdGenerator(prefix, startId, steps);
         }
 
         public void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator)
         {
-            DefaultIdGeneration = new IdGenerationSetting(generator);
+            DefaultIdGeneration.Generator = generator;
         }
 
         public void WithEmptyStringMarker(string marker)

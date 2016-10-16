@@ -51,7 +51,7 @@ namespace CherrySeed.ObjectTransformation
         {
             if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
             {
-                SetPrimaryKey(obj, propertyName, entitySetting);
+                SetPrimaryKey(obj, propertyName, propertyValue, entitySetting);
             }
             else if (IsForeignKey(propertyName, entitySetting.References))
             {
@@ -107,9 +107,15 @@ namespace CherrySeed.ObjectTransformation
             }
         }
 
-        private static void SetPrimaryKey(object obj, string propertyName, EntitySetting entitySetting)
+        private void SetPrimaryKey(object obj, string propertyName, string propertyValue, EntitySetting entitySetting)
         {
-            if (entitySetting.IdGeneration.Generator == null)
+            if (!entitySetting.IdGeneration.IsGeneratorEnabled)
+            {
+                SetNormalProperty(obj, propertyName, propertyValue);
+                return;
+            }
+
+            if (entitySetting.IdGeneration.IsDatabaseGenerationEnabled)
             {
                 return;
             }

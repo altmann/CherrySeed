@@ -1,16 +1,15 @@
 ﻿using CherrySeed.PrimaryKeyIdGeneration;
-using CherrySeed.Test.Convert;
 
 namespace CherrySeed.Test.Mocks
 {
-    public class SequentialGuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
+    public class SequentialStringPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {
         private int _id = 0;
 
         public object Generate()
         {
             _id++;
-            return _id.ToGuid();
+            return "CUSTOM" + _id.ToString();
         }
     }
 }

@@ -49,46 +49,81 @@ namespace CherrySeed.ObjectTransformation
 
         private void SetProperty(object obj, string propertyName, string propertyValue, EntitySetting entitySetting)
         {
+            if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
+            {
+                SetPrimaryKey(obj, propertyName, entitySetting);
+            }
+            else if (IsForeignKey(propertyName, entitySetting.References))
+            {
+                SetForeignKey(obj, propertyName, propertyValue, entitySetting);
+            }
+            else
+            {
+                SetNormalProperty(obj, propertyName, propertyValue);
+            }
+        }
+
+        private void SetNormalProperty(object obj, string propertyName, string propertyValue)
+        {
             try
             {
                 var propertyType = ReflectionUtil.GetPropertyType(obj.GetType(), propertyName);
+                var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
 
-                if (IsPrimaryKey(propertyName, entitySetting.PrimaryKey))
-                {
-                    if (entitySetting.IdGeneration.Generator != null)
-                    {
-                        ReflectionUtil.SetProperty(obj, propertyName, entitySetting.IdGeneration.Generator.Generate());
-                    }
-                }
-                else if (IsForeignKey(propertyName, entitySetting.References))
-                {
-                    var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
-                    var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
+                var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
+                    ? simpleTransformation.TransformNullable(propertyType, propertyValue)
+                    : simpleTransformation.Transform(propertyType, propertyValue);
 
-                    if (ReflectionUtil.IsReferenceType(propertyType))
-                    {
-                        var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
-                        ReflectionUtil.SetProperty(obj, propertyName, referenceModel);
-                    }
-                    else
-                    {
-                        ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
-                    }
-                }
-                else
-                {
-                    var simpleTransformation = _typeTransformationProvider.GetSimpleTransformation(propertyType);
-
-                    var typedPropertyValue = ReflectionUtil.IsNullableValueType(propertyType)
-                        ? simpleTransformation.TransformNullable(propertyType, propertyValue)
-                        : simpleTransformation.Transform(propertyType, propertyValue);
-
-                    ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
-                }
+                ReflectionUtil.SetProperty(obj, propertyName, typedPropertyValue);
             }
             catch (Exception ex)
             {
                 throw new PropertyTransformationException(obj.GetType(), propertyName, propertyValue, ex);
+            }
+        }
+
+        private void SetForeignKey(object obj, string propertyName, string propertyValue, EntitySetting entitySetting)
+        {
+            try
+            {
+                var propertyType = ReflectionUtil.GetPropertyType(obj.GetType(), propertyName);
+
+                var referenceSetting = entitySetting.References.First(rd => rd.ReferenceName == propertyName);
+                var foreignKeyId = _idMappingProvider.GetRepositoryId(referenceSetting.ReferenceType, propertyValue);
+
+                if (ReflectionUtil.IsReferenceType(propertyType))
+                {
+                    var referenceModel = entitySetting.Repository.LoadEntity(propertyType, foreignKeyId);
+                    ReflectionUtil.SetProperty(obj, propertyName, referenceModel);
+                }
+                else
+                {
+                    ReflectionUtil.SetProperty(obj, propertyName, foreignKeyId);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ForeignKeyException(obj.GetType(), propertyName, propertyValue, ex);
+            }
+        }
+
+        private static void SetPrimaryKey(object obj, string propertyName, EntitySetting entitySetting)
+        {
+            if (entitySetting.IdGeneration.Generator == null)
+            {
+                return;
+            }
+
+            object primaryKeyId = null;
+
+            try
+            {
+                primaryKeyId = entitySetting.IdGeneration.Generator.Generate();
+                ReflectionUtil.SetProperty(obj, propertyName, primaryKeyId);
+            }
+            catch (Exception ex)
+            {
+                throw new PrimaryKeyException(obj.GetType(), propertyName, primaryKeyId, ex);
             }
         }
 

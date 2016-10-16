@@ -65,6 +65,8 @@
     <Compile Include="Infrastructure\EntityDataBuilder.cs" />
     <Compile Include="Infrastructure\EntityDataExtensions.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
+    <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyDeclarationTests.cs" />
+    <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyIdGenerationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\SimplePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\NullablePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\EnumPropertyTransformationTests.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />
     <Compile Include="Mocks\SequentialGuidPrimaryKeyIdGenerator.cs" />
+    <Compile Include="Mocks\SequentialStringPrimaryKeyIdGenerator.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AnotherEntityWithStringId.cs" />
     <Compile Include="Models\Customer.cs" />

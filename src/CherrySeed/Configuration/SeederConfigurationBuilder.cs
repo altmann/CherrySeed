@@ -45,7 +45,7 @@ namespace CherrySeed.Configuration
             };
 
             // set defaults
-            DefaultPrimaryKeyNames = new List<string> { "Id", "{ClassName}Id" };
+            DefaultPrimaryKeyNames = new List<string> { "Id", "ID", "{ClassName}Id" };
             DefaultIdGeneration = new IdGenerationSetting();
             IsClearBeforeSeedingEnabled = true;
         }

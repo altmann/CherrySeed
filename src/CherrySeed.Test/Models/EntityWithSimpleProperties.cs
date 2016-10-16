@@ -64,6 +64,11 @@ namespace CherrySeed.Test.Models
         public int EntityWithConformIntPk3Id { get; set; }
     }
 
+    public class EntityWithConformIntPk4
+    {
+        public int EntityWithConformIntPk4ID { get; set; }
+    }
+
     public class EntityWithConformStringPk
     {
         public string Id { get; set; }
@@ -83,6 +88,9 @@ namespace CherrySeed.Test.Models
     {
         public T ReferenceId { get; set; }
     }
+
+    public class EntityWithIntReference : EntityWithTReference<int>
+    { }
     
     public class EntityWithTReferenceModel<T>
     {

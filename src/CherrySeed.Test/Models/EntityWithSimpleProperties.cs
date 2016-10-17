@@ -91,9 +91,24 @@ namespace CherrySeed.Test.Models
 
     public class EntityWithIntReference : EntityWithTReference<int>
     { }
-    
+
+    public class EntityWithGuidReference : EntityWithTReference<Guid>
+    { }
+
+    public class EntityWithStringReference : EntityWithTReference<string>
+    { }
+
     public class EntityWithTReferenceModel<T>
     {
         public T ReferenceModel { get; set; }
     }
+
+    public class EntityWithStringReferenceModel : EntityWithTReferenceModel<EntityWithConformStringPk>
+    { }
+
+    public class EntityWithGuidReferenceModel : EntityWithTReferenceModel<EntityWithConformGuidPk>
+    { }
+
+    public class EntityWithIntReferenceModel : EntityWithTReferenceModel<EntityWithConformIntPk>
+    { }
 }

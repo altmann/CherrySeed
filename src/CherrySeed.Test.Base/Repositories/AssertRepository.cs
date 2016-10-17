@@ -22,14 +22,14 @@ namespace CherrySeed.Test.Base.Repositories
     public class InMemoryRepository : IRepository
     {
         private readonly Dictionary<Type, EntityInfo> _entities;
-        private readonly Func<Dictionary<Type, List<object>>, Type, object, object> _loadEntityFunc;
+        private readonly Func<object, object, bool> _loadEntityFunc;
 
         public InMemoryRepository()
         {
             _entities = new Dictionary<Type, EntityInfo>();
         }
 
-        public InMemoryRepository(Func<Dictionary<Type, List<object>>, Type, object, object> loadEntityFunc)
+        public InMemoryRepository(Func<object, object, bool> loadEntityFunc)
             : this()
         {
             _loadEntityFunc = loadEntityFunc;
@@ -90,7 +90,7 @@ namespace CherrySeed.Test.Base.Repositories
 
         public object LoadEntity(Type type, object id)
         {
-            return null;  //todo _loadEntityFunc(_entities[type].Entities, type, id);
+            return _entities[type].Entities.First(o => _loadEntityFunc(o, id));
         }
 
         public int CountSeededObjects<T>()

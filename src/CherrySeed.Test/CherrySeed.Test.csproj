@@ -78,6 +78,7 @@
     <Compile Include="IntegrationTests\DefaultValuePropertyTests.cs" />
     <Compile Include="IntegrationTests\EntitySeedingOrderTests.cs" />
     <Compile Include="IntegrationTests\GlobalAndEntitySpecificConfigurationTests.cs" />
+    <Compile Include="IntegrationTests\EntityReferenceTests.cs" />
     <Compile Include="Mocks\CustomTypeTransformation.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />

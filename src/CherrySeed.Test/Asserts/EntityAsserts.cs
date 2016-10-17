@@ -84,10 +84,46 @@ namespace CherrySeed.Test.Asserts
             Assert.AreNotEqual(Guid.Empty, actual.Id);
         }
 
+        public static void AssertEntityWithConformGuidPk(EntityWithConformGuidPk actual, EntityWithConformGuidPk expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.Id, actual.Id);
+        }
+
         public static void AssertEntityWithConformStringPk(EntityWithConformStringPk actual, EntityWithConformStringPk expected)
         {
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.Id, actual.Id);
+        }
+
+        public static void AssertEntityWithGuidReference(EntityWithGuidReference actual, EntityWithGuidReference expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.ReferenceId, actual.ReferenceId);
+        }
+
+        public static void AssertEntityWithStringReference(EntityWithStringReference actual, EntityWithStringReference expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.ReferenceId, actual.ReferenceId);
+        }
+
+        public static void AssertEntityWithStringReferenceModel(EntityWithStringReferenceModel actual, EntityWithStringReferenceModel expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.ReferenceModel.Id, actual.ReferenceModel.Id);
+        }
+
+        public static void AssertEntityWithGuidReferenceModel(EntityWithGuidReferenceModel actual, EntityWithGuidReferenceModel expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.ReferenceModel.Id, actual.ReferenceModel.Id);
+        }
+
+        public static void AssertEntityWithIntReferenceModel(EntityWithIntReferenceModel actual, EntityWithIntReferenceModel expected)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.ReferenceModel.Id, actual.ReferenceModel.Id);
         }
     }
 }

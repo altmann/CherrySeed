@@ -379,7 +379,7 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             var repository = new InMemoryRepository();
             _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
             {
-                cfg.WithCustomPrimaryKeyIdGenerationInApplication(new SequentialStringPrimaryKeyIdGenerator());
+                cfg.WithCustomPrimaryKeyIdGenerationInApplication(new SequentialStringPrimaryKeyIdGenerator("CUSTOM"));
 
                 cfg.ForEntity<EntityWithConformStringPk>();
             });

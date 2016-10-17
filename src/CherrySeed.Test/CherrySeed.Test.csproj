@@ -96,7 +96,6 @@
     <Compile Include="Models\Simple.cs" />
     <Compile Include="Models\Sub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntegrationTests\ObjectWithInormalIntIdTests.cs" />
     <Compile Include="IntegrationTests\BasicTests.cs" />
   </ItemGroup>
   <ItemGroup>

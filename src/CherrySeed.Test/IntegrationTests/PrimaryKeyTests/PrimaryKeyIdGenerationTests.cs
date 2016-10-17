@@ -21,6 +21,39 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
         }
 
         [TestMethod]
+        public void PrimaryKeyIdGenerationInDatabase()
+        {
+            // Arrange 
+            var entityData = new List<EntityData>
+            {
+                new EntityDataBuilder("CherrySeed.Test.Models.EntityWithConformIntPk",
+                    "Id")
+                    .WithEntity("E1")
+                    .WithEntity("E2")
+                    .Build()
+            };
+
+            // Act
+            var repository = new InMemoryRepository();
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            {
+                cfg.ForEntity<EntityWithConformIntPk>();
+            });
+
+            // Assert
+            Assert.AreEqual(repository.CountSeededObjects(), 2);
+            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk>(), 2);
+            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[0], new EntityWithConformIntPk
+            {
+                Id = 0
+            });
+            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[1], new EntityWithConformIntPk
+            {
+                Id = 0
+            });
+        }
+
+        [TestMethod]
         public void PrimaryKeyIdGenerationInApplicationAsInteger()
         {
             // Arrange 
@@ -361,6 +394,41 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             EntityAsserts.AssertEntityWithConformStringPk(repository.GetEntities<EntityWithConformStringPk>()[1], new EntityWithConformStringPk
             {
                 Id = "CUSTOM2"
+            });
+        }
+
+        [TestMethod]
+        public void DisabledPrimaryKeyIdGeneration()
+        {
+            // Arrange 
+            var entityData = new List<EntityData>
+            {
+                new EntityDataBuilder("CherrySeed.Test.Models.EntityWithConformIntPk",
+                    "Id")
+                    .WithEntity("1")
+                    .WithEntity("2")
+                    .Build()
+            };
+
+            // Act
+            var repository = new InMemoryRepository();
+            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
+            {
+                cfg.DisablePrimaryKeyIdGeneration();
+
+                cfg.ForEntity<EntityWithConformIntPk>();
+            });
+
+            // Assert
+            Assert.AreEqual(repository.CountSeededObjects(), 2);
+            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk>(), 2);
+            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[0], new EntityWithConformIntPk
+            {
+                Id = 1
+            });
+            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[1], new EntityWithConformIntPk
+            {
+                Id = 2
             });
         }
     }

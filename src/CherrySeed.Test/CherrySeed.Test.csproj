@@ -64,6 +64,7 @@
     <Compile Include="Infrastructure\CultureUtil.cs" />
     <Compile Include="Infrastructure\EntityDataBuilder.cs" />
     <Compile Include="Infrastructure\EntityDataExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyDeclarationTests.cs" />
     <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyIdGenerationTests.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="IntegrationTests\EntityNameMatchingTests.cs" />
     <Compile Include="IntegrationTests\DefaultValuePropertyTests.cs" />
     <Compile Include="IntegrationTests\EntitySeedingOrderTests.cs" />
+    <Compile Include="IntegrationTests\GlobalAndEntitySpecificConfigurationTests.cs" />
     <Compile Include="Mocks\CustomTypeTransformation.cs" />
     <Compile Include="Mocks\DefaultValueProviderMock.cs" />
     <Compile Include="Mocks\DictionaryDataProvider.cs" />

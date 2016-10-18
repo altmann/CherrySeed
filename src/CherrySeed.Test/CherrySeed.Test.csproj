@@ -61,6 +61,7 @@
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyDeclarationTests.cs" />
     <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyIdGenerationTests.cs" />
+    <Compile Include="IntegrationTests\ProgressActionTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\SimplePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\NullablePropertyTransformationTests.cs" />
     <Compile Include="IntegrationTests\PropertyTransformationTests\EnumPropertyTransformationTests.cs" />

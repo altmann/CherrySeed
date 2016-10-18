@@ -117,7 +117,7 @@ namespace CherrySeed.Test.Base.Repositories
         private readonly Dictionary<Type, int> _countDictionary;
         public Dictionary<Type, List<object>> Entities { get; }
 
-        public AssertRepository(Action<object, int, AssertRepository> saveEntityAssertFunc, 
+        public AssertRepository(Action<object, int, AssertRepository> saveEntityAssertFunc,
             Action<Type, AssertRepository> removeEntitiesAssertFunc,
             Func<Dictionary<Type, List<object>>, Type, object, object> loadEntityFunc)
         {
@@ -151,7 +151,7 @@ namespace CherrySeed.Test.Base.Repositories
 
         public void RemoveEntities(Type type)
         {
-            if(Entities.ContainsKey(type))
+            if (Entities.ContainsKey(type))
                 Entities[type].Clear();
 
             _removeEntitiesAssertFunc(type, this);
@@ -164,7 +164,7 @@ namespace CherrySeed.Test.Base.Repositories
 
         public int CountSeededObjects(Type entityType)
         {
-            if(Entities.ContainsKey(entityType))
+            if (Entities.ContainsKey(entityType))
                 return Entities[entityType].Count;
 
             return 0;

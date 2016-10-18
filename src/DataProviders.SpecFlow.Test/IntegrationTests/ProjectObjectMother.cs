@@ -1,7 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow;
 
-namespace CherrySeed.DataProviders.SpecFlow.Test.IntegrationTests.ObjectMothers
+namespace CherrySeed.DataProviders.SpecFlow.Test.IntegrationTests
 {
     public class ObjectMother
     {

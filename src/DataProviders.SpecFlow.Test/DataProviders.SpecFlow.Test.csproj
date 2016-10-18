@@ -57,12 +57,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IntegrationTests\Asserts\AssertProject.cs" />
-    <Compile Include="IntegrationTests\Asserts\AssertCountry.cs" />
+    <Compile Include="IntegrationTests\EntityAsserts.cs" />
     <Compile Include="Common\CherrySeedConfigurationExtensions.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="IntegrationTests\ObjectMothers\ProjectObjectMother.cs" />
+    <Compile Include="IntegrationTests\ProjectObjectMother.cs" />
     <Compile Include="IntegrationTests\SpecFlowExtensionsTests.cs" />
     <Compile Include="RealisticEnvironment\Features\Project.feature.cs">
       <AutoGen>True</AutoGen>

@@ -1,5 +1,5 @@
 ﻿using CherrySeed.PrimaryKeyIdGeneration;
-using CherrySeed.Test.Convert;
+using CherrySeed.Test.Infrastructure;
 
 namespace CherrySeed.Test.Mocks
 {

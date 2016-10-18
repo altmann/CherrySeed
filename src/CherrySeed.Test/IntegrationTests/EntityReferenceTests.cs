@@ -4,7 +4,6 @@ using System.Linq;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.Test.Asserts;
 using CherrySeed.Test.Base.Repositories;
-using CherrySeed.Test.Convert;
 using CherrySeed.Test.Infrastructure;
 using CherrySeed.Test.Mocks;
 using CherrySeed.Test.Models;

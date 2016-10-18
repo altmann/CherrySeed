@@ -54,11 +54,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Asserts\EntityAsserts.cs" />
-    <Compile Include="Convert\Converter.cs" />
     <Compile Include="Infrastructure\CherrySeedDriver.cs" />
     <Compile Include="Infrastructure\CultureUtil.cs" />
     <Compile Include="Infrastructure\EntityDataBuilder.cs" />
-    <Compile Include="Infrastructure\EntityDataExtensions.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Infrastructure\SetupAssemblyInitializer.cs" />
     <Compile Include="IntegrationTests\PrimaryKeyTests\PrimaryKeyDeclarationTests.cs" />

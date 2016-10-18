@@ -46,8 +46,8 @@ namespace CherrySeed.Test.IntegrationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithSimpleProperties>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithSimpleProperties>());
             EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
             {
                 MyInteger = 9988,
@@ -84,8 +84,8 @@ namespace CherrySeed.Test.IntegrationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithSimpleProperties>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithSimpleProperties>());
             EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
             {
                 MyInteger = 9988,

@@ -42,8 +42,8 @@ namespace CherrySeed.Test.IntegrationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithSimpleProperties>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithSimpleProperties>());
             EntityAsserts.AssertEntityWithSimpleProperties(repository.GetEntities<EntityWithSimpleProperties>().First(), new EntityWithSimpleProperties
             {
                 MyString = "New sample text"
@@ -71,8 +71,8 @@ namespace CherrySeed.Test.IntegrationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNotSupportedTypeProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNotSupportedTypeProperty>());
             EntityAsserts.AssertEntityWithNotSupportedProperty(repository.GetEntities<EntityWithNotSupportedTypeProperty>().First(), new EntityWithNotSupportedTypeProperty
             {
                 UintProperty = 123

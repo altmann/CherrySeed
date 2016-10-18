@@ -201,7 +201,7 @@ namespace CherrySeed.Test.IntegrationTests
             {
                 var pk = o as EntityWithConformStringPk;
                 if (pk != null)
-                    return pk.Id == id;
+                    return pk.Id == (string)id;
 
                 throw new InvalidOperationException("Failed");
             });

@@ -42,8 +42,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithConformIntPk>());
             EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>().First(), new EntityWithConformIntPk
             {
                 Id = 1
@@ -72,8 +72,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk2>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithConformIntPk2>());
             EntityAsserts.AssertEntityWithConformIntPk2(repository.GetEntities<EntityWithConformIntPk2>().First(), new EntityWithConformIntPk2
             {
                 ID = 1
@@ -102,8 +102,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk3>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithConformIntPk3>());
             EntityAsserts.AssertEntityWithConformIntPk3(repository.GetEntities<EntityWithConformIntPk3>().First(), new EntityWithConformIntPk3
             {
                 EntityWithConformIntPk3Id = 1
@@ -132,8 +132,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithConformIntPk3>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithConformIntPk3>());
             EntityAsserts.AssertEntityWithConformIntPk3(repository.GetEntities<EntityWithConformIntPk3>().First(), new EntityWithConformIntPk3
             {
                 EntityWithConformIntPk3Id = 1
@@ -163,8 +163,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithUnconformIntPk>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithUnconformIntPk>());
             EntityAsserts.AssertEntityWithUnconformIntPk(repository.GetEntities<EntityWithUnconformIntPk>().First(), new EntityWithUnconformIntPk
             {
                 CustomId = 1
@@ -194,8 +194,8 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithUnconformIntPk>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithUnconformIntPk>());
             EntityAsserts.AssertEntityWithUnconformIntPk(repository.GetEntities<EntityWithUnconformIntPk>().First(), new EntityWithUnconformIntPk
             {
                 CustomId = 1

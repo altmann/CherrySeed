@@ -40,8 +40,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithEnumProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithEnumProperty>());
             EntityAsserts.AssertEntityWithEnumProperty(repository.GetEntities<EntityWithEnumProperty>().First(), new EntityWithEnumProperty
             {
                 EnumProperty1 = TestEnum.EnumValue1,
@@ -69,8 +69,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithEnumProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithEnumProperty>());
             EntityAsserts.AssertEntityWithEnumProperty(repository.GetEntities<EntityWithEnumProperty>().First(), new EntityWithEnumProperty
             {
                 EnumProperty1 = TestEnum.EnumValue2,

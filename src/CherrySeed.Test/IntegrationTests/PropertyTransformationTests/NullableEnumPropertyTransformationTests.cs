@@ -40,8 +40,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNullableEnumProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNullableEnumProperty>());
             EntityAsserts.AssertEntityWithNullableEnumProperty(repository.GetEntities<EntityWithNullableEnumProperty>().First(), new EntityWithNullableEnumProperty
             {
                 EnumProperty1 = TestEnum.EnumValue1,
@@ -69,8 +69,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNullableEnumProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNullableEnumProperty>());
             EntityAsserts.AssertEntityWithNullableEnumProperty(repository.GetEntities<EntityWithNullableEnumProperty>().First(), new EntityWithNullableEnumProperty
             {
                 EnumProperty1 = null,
@@ -98,8 +98,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNullableEnumProperty>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNullableEnumProperty>());
             EntityAsserts.AssertEntityWithNullableEnumProperty(repository.GetEntities<EntityWithNullableEnumProperty>().First(), new EntityWithNullableEnumProperty
             {
                 EnumProperty1 = TestEnum.EnumValue1,

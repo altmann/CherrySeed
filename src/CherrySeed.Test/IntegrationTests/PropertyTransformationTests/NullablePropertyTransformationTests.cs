@@ -41,8 +41,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNullableProperties>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNullableProperties>());
             EntityAsserts.AssertEntityWithNullableProperties(repository.GetEntities<EntityWithNullableProperties>().First(), new EntityWithNullableProperties
             {
                 MyInteger = 1,
@@ -74,8 +74,8 @@ namespace CherrySeed.Test.IntegrationTests.PropertyTransformationTests
             });
 
             // Assert
-            Assert.AreEqual(repository.CountSeededObjects(), 1);
-            Assert.AreEqual(repository.CountSeededObjects<EntityWithNullableProperties>(), 1);
+            Assert.AreEqual(1, repository.CountSeededObjects());
+            Assert.AreEqual(1, repository.CountSeededObjects<EntityWithNullableProperties>());
             EntityAsserts.AssertEntityWithNullableProperties(repository.GetEntities<EntityWithNullableProperties>().First(), new EntityWithNullableProperties
             {
                 MyInteger = null,

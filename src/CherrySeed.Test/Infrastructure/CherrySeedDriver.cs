@@ -10,22 +10,7 @@ namespace CherrySeed.Test.Infrastructure
     public class CherrySeedDriver
     {
         private ICherrySeeder _cherrySeeder;
-
-        public void InitAndSeed(List<EntityData> data, IRepository repository,
-           Action<ISeederConfigurationBuilder> entitySettings)
-        {
-            var config = new CherrySeedConfiguration(cfg =>
-            {
-                cfg.WithDataProvider(new DictionaryDataProvider(data));
-                cfg.WithRepository(repository);
-
-                entitySettings(cfg);
-            });
-
-            var cherrySeeder = config.CreateSeeder();
-            cherrySeeder.Seed();
-        }
-
+        
         public void InitAndSeed(IDataProvider dataProvider, IRepository repository,
             Action<ISeederConfigurationBuilder> entitySettings)
         {

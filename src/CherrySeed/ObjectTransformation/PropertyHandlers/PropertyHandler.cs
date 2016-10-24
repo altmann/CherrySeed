@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
 using CherrySeed.TypeTransformations;
@@ -33,14 +32,6 @@ namespace CherrySeed.ObjectTransformation.PropertyHandlers
                     return;
                 }
             }
-
-            //var strategyKeyValuePair = _strategyDictionary
-            //    .FirstOrDefault(s => s.Key(propertyName, entitySetting));
-
-            //if (strategyKeyValuePair != null)
-            //{
-            //    strategyKeyValuePair.Value.Handle(obj, propertyName, propertyValue, entitySetting);
-            //}
         }
     }
 }

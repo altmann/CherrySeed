@@ -1,6 +1,6 @@
 using System;
 
-namespace CherrySeed.PrimaryKeyIdGeneration
+namespace CherrySeed.PrimaryKeyIdGeneration.ApplicationGeneration
 {
     class GuidPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {

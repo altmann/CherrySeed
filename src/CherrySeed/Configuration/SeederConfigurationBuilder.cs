@@ -5,6 +5,7 @@ using CherrySeed.Configuration.Exceptions;
 using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.PrimaryKeyIdGeneration;
+using CherrySeed.PrimaryKeyIdGeneration.ApplicationGeneration;
 using CherrySeed.Repositories;
 using CherrySeed.TypeTransformations;
 using CherrySeed.Utils;
@@ -45,7 +46,10 @@ namespace CherrySeed.Configuration
 
             // set defaults
             _defaultPrimaryKeyNames = new List<string> { "Id", "ID", "{ClassName}Id" };
-            _defaultIdGeneration = new IdGenerationSetting();
+            _defaultIdGeneration = new IdGenerationSetting
+            {
+                Generator = new DatabasePrimaryKeyIdGeneration()
+            };
             _isClearBeforeSeedingEnabled = true;
         }
 
@@ -139,28 +143,39 @@ namespace CherrySeed.Configuration
 
         public void DisablePrimaryKeyIdGeneration()
         {
-            _defaultIdGeneration.IsGeneratorEnabled = false;
             _defaultIdGeneration.Generator = null;
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsInteger(int startId = 1, int steps = 1)
         {
-            _defaultIdGeneration.Generator = new IntegerPrimaryKeyIdGenerator(startId, steps);
+            _defaultIdGeneration.Generator = new ApplicationPrimaryKeyIdGeneration
+            {
+                Generator = new IntegerPrimaryKeyIdGenerator(startId, steps)
+            };
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsGuid()
         {
-            _defaultIdGeneration.Generator = new GuidPrimaryKeyIdGenerator();
+            _defaultIdGeneration.Generator = new ApplicationPrimaryKeyIdGeneration
+            {
+                Generator = new GuidPrimaryKeyIdGenerator()
+            };
         }
 
         public void WithPrimaryKeyIdGenerationInApplicationAsString(string prefix = "", int startId = 1, int steps = 1)
         {
-            _defaultIdGeneration.Generator = new StringPrimaryKeyIdGenerator(prefix, startId, steps);
+            _defaultIdGeneration.Generator = new ApplicationPrimaryKeyIdGeneration
+            {
+                Generator = new StringPrimaryKeyIdGenerator(prefix, startId, steps)
+            };
         }
 
         public void WithCustomPrimaryKeyIdGenerationInApplication(IPrimaryKeyIdGenerator generator)
         {
-            _defaultIdGeneration.Generator = generator;
+            _defaultIdGeneration.Generator = new ApplicationPrimaryKeyIdGeneration
+            {
+                Generator = generator
+            };
         }
 
         public void WithEmptyStringMarker(string marker)

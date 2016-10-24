@@ -1,4 +1,4 @@
-namespace CherrySeed.PrimaryKeyIdGeneration
+namespace CherrySeed.PrimaryKeyIdGeneration.ApplicationGeneration
 {
     class StringPrimaryKeyIdGenerator : IPrimaryKeyIdGenerator
     {

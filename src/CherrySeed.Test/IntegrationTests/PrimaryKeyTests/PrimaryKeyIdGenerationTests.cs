@@ -396,40 +396,5 @@ namespace CherrySeed.Test.IntegrationTests.PrimaryKeyTests
                 Id = "CUSTOM2"
             });
         }
-
-        [TestMethod]
-        public void DisabledPrimaryKeyIdGeneration()
-        {
-            // Arrange 
-            var entityData = new List<EntityData>
-            {
-                new EntityDataBuilder("CherrySeed.Test.Models.EntityWithConformIntPk",
-                    "Id")
-                    .WithEntity("1")
-                    .WithEntity("2")
-                    .Build()
-            };
-
-            // Act
-            var repository = new InMemoryRepository();
-            _cherrySeedDriver.InitAndSeed(entityData.ToDictionaryDataProvider(), repository, cfg =>
-            {
-                cfg.DisablePrimaryKeyIdGeneration();
-
-                cfg.ForEntity<EntityWithConformIntPk>();
-            });
-
-            // Assert
-            Assert.AreEqual(2, repository.CountSeededObjects());
-            Assert.AreEqual(2, repository.CountSeededObjects<EntityWithConformIntPk>());
-            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[0], new EntityWithConformIntPk
-            {
-                Id = 1
-            });
-            EntityAsserts.AssertEntityWithConformIntPk(repository.GetEntities<EntityWithConformIntPk>()[1], new EntityWithConformIntPk
-            {
-                Id = 2
-            });
-        }
     }
 }

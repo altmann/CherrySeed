@@ -4,13 +4,9 @@ namespace CherrySeed.EntitySettings
 {
     public class IdGenerationSetting
     {
-        public IdGenerationSetting()
-        {
-            IsGeneratorEnabled = true;
-        }
-
-        public bool IsGeneratorEnabled { get; set; }
-        public IPrimaryKeyIdGenerator Generator { get; set; }
-        public bool IsDatabaseGenerationEnabled => Generator == null;
+        public IMainPrimaryKeyIdGeneration Generator { get; set; }
+        public bool IsGeneratorEnabled => Generator != null;
+        public bool IsDatabaseGenerationEnabled => Generator is DatabasePrimaryKeyIdGeneration;
+        public bool IsApplicationGenerationEnabled => Generator is ApplicationPrimaryKeyIdGeneration;
     }
 }

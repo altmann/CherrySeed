@@ -6,6 +6,7 @@ using CherrySeed.EntityDataProvider;
 using CherrySeed.EntitySettings;
 using CherrySeed.IdMappings;
 using CherrySeed.ObjectTransformation;
+using CherrySeed.ObjectTransformation.PropertyHandlers;
 using CherrySeed.TypeTransformations;
 using CherrySeed.Utils;
 
@@ -35,8 +36,12 @@ namespace CherrySeed
 
             _objectListTransformation = new ObjectListTransformation(
                 new ObjectTransformation.ObjectTransformation(
-                    new TypeTransformationProvider(_configuration.TypeTransformations),
-                    _idMappingProvider));
+                    new PropertyHandler(
+                        _idMappingProvider, 
+                        new TypeTransformationProvider(_configuration.TypeTransformations)
+                    )
+                )
+            );
             
             foreach (var entitySetting in _configuration.EntitySettings)
             {
